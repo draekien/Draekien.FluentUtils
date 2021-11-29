@@ -4,7 +4,7 @@
 ///     An object that is immutable and has no identity. See this article for a more in depth explanation:
 ///     https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects
 /// </summary>
-public abstract class ValueObject : IEquatable<ValueObject>
+public abstract class ValueObject : IEquatable<object>
 {
     /// <summary>
     ///     Checks to see if the provided object is equal to the current instance of value object.
@@ -18,14 +18,6 @@ public abstract class ValueObject : IEquatable<ValueObject>
 
         return other is ValueObject valueObject && GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
     }
-
-    /// <summary>
-    ///     Checks to see if the provided value object is equal to the current instance of value object.
-    /// </summary>
-    /// <param name="other">The value object to compare with the current value object.</param>
-    /// <returns>True if the to be compared value object equals the current value object.</returns>
-    public bool Equals(ValueObject? other) =>
-        other is not null && GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
 
     /// <summary>
     ///     Gets the hashcode of the current value object.

@@ -2,19 +2,9 @@
 
 public class Street : ValueObject
 {
-    public string? Unit { get; }
-    public string Number { get; }
-    public string Name { get; }
-
-    public Street(
-        string? unit,
-        string number,
-        string name)
-    {
-        Unit = unit;
-        Number = number;
-        Name = name;
-    }
+    public string? Unit { get; set; }
+    public string? Number { get; set; }
+    public string? Name { get; set;  }
 
     protected override IEnumerable<object?> GetEqualityComponents()
     {
