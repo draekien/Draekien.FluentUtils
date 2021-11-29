@@ -16,7 +16,7 @@ public class Street : ValueObject
         Name = name;
     }
 
-    protected override IEnumerable<object> GetEqualityComponents()
+    protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Unit;
         yield return Number;

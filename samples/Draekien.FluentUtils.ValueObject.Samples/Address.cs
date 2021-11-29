@@ -15,7 +15,7 @@ public class Address : ValueObject
         string state,
         string postCode)
     {
-        Street = new(unit, streetNumber, streetName);
+        Street = new Street(unit, streetNumber, streetName);
         City = city;
         State = state;
         PostCode = postCode;
