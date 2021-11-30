@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7FAB5149
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draekien.FluentUtils.ValueObject.UnitTests", "tests\Draekien.FluentUtils.ValueObject.UnitTests\Draekien.FluentUtils.ValueObject.UnitTests.csproj", "{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draekien.FluentUtils.AutoMapper", "src\Draekien.FluentUtils.AutoMapper\Draekien.FluentUtils.AutoMapper.csproj", "{C91819CB-D0FA-4683-A599-A3287E05F659}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91819CB-D0FA-4683-A599-A3287E05F659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91819CB-D0FA-4683-A599-A3287E05F659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91819CB-D0FA-4683-A599-A3287E05F659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91819CB-D0FA-4683-A599-A3287E05F659}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +50,6 @@ Global
 		{593379CB-1118-421E-A429-11664BEB47FF} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{8EE6728D-9801-4B09-989A-10C383012AF5} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
+		{C91819CB-D0FA-4683-A599-A3287E05F659} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 	EndGlobalSection
 EndGlobal
