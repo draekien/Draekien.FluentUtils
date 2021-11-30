@@ -1,6 +1,6 @@
-﻿namespace Draekien.FluentUtils.ValueObject.Samples;
+﻿namespace FluentUtils.ValueObject.Samples;
 
-public class Address : ValueObject
+public class Address : FluentUtils.ValueObject.ValueObject
 {
     public Street? Street { get; set; }
     public string? City { get; set; }

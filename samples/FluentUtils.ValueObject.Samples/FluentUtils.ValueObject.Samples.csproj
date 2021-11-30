@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Draekien.FluentUtils.ValueObject\Draekien.FluentUtils.ValueObject.csproj" />
+    <ProjectReference Include="..\..\src\FluentUtils.ValueObject\FluentUtils.ValueObject.csproj" />
   </ItemGroup>
 
 </Project>

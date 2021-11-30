@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Draekien.FluentUtils.ValueObject", "src\Draekien.FluentUtils.ValueObject\Draekien.FluentUtils.ValueObject.csproj", "{593379CB-1118-421E-A429-11664BEB47FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentUtils.ValueObject", "src\FluentUtils.ValueObject\FluentUtils.ValueObject.csproj", "{593379CB-1118-421E-A429-11664BEB47FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draekien.FluentUtils.ValueObject.Samples", "samples\Draekien.FluentUtils.ValueObject.Samples\Draekien.FluentUtils.ValueObject.Samples.csproj", "{8EE6728D-9801-4B09-989A-10C383012AF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.ValueObject.Samples", "samples\FluentUtils.ValueObject.Samples\FluentUtils.ValueObject.Samples.csproj", "{8EE6728D-9801-4B09-989A-10C383012AF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9949BF8F-D969-45E2-956F-C7DC5D8D3544}"
 EndProject
@@ -13,9 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{1C83
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7FAB5149-A4E2-4437-801B-45FBC1122EC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draekien.FluentUtils.ValueObject.UnitTests", "tests\Draekien.FluentUtils.ValueObject.UnitTests\Draekien.FluentUtils.ValueObject.UnitTests.csproj", "{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.ValueObject.UnitTests", "tests\FluentUtils.ValueObject.UnitTests\FluentUtils.ValueObject.UnitTests.csproj", "{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Draekien.FluentUtils.AutoMapper", "src\Draekien.FluentUtils.AutoMapper\Draekien.FluentUtils.AutoMapper.csproj", "{C91819CB-D0FA-4683-A599-A3287E05F659}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper", "src\FluentUtils.AutoMapper\FluentUtils.AutoMapper.csproj", "{C91819CB-D0FA-4683-A599-A3287E05F659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

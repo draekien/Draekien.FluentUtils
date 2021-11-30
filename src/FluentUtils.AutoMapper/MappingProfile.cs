@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
 
-namespace Draekien.FluentUtils.AutoMapper;
+namespace FluentUtils.AutoMapper;
 
 /// <summary>
 ///     A helper class for registering all types implementing IMapFrom

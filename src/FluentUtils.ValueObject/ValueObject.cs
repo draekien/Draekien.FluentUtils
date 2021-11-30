@@ -1,4 +1,4 @@
-﻿namespace Draekien.FluentUtils.ValueObject;
+﻿namespace FluentUtils.ValueObject;
 
 /// <summary>
 ///     An object that is immutable and has no identity. See this article for a more in depth explanation:

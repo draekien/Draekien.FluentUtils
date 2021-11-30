@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace Draekien.FluentUtils.AutoMapper;
+namespace FluentUtils.AutoMapper;
 
 /// <summary>
 ///     Indicates a mapping relationship between the source type T and the current type

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Draekien.FluentUtils.AutoMapper;
+namespace FluentUtils.AutoMapper;
 
 /// <summary>
 ///

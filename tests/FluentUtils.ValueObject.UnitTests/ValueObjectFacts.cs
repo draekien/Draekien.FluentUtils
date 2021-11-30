@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
-using Draekien.FluentUtils.ValueObject.Samples;
+using FluentUtils.ValueObject.Samples;
 using FluentAssertions;
 using Xunit;
 
-namespace Draekien.FluentUtils.ValueObject.UnitTests;
+namespace FluentUtils.ValueObject.UnitTests;
 
 public class ValueObjectFacts
 {

@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\samples\Draekien.FluentUtils.ValueObject.Samples\Draekien.FluentUtils.ValueObject.Samples.csproj" />
+      <ProjectReference Include="..\..\samples\FluentUtils.ValueObject.Samples\FluentUtils.ValueObject.Samples.csproj" />
     </ItemGroup>
 
 </Project>
