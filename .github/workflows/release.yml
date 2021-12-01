@@ -12,6 +12,11 @@ jobs:
       semVer: ${{ steps.gitversion.outputs.semVer }}
       nuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
         with:
