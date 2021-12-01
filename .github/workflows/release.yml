@@ -40,8 +40,10 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
         run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
@@ -63,8 +65,10 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
         run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
@@ -86,8 +90,10 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
         run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
