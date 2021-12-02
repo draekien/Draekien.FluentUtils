@@ -164,10 +164,9 @@ public class ValueObjectFacts
         var leftStreet = _fixture.Create<Street>();
 
         // ACT
-        int result = leftStreet.GetHashCode();
+        int? result = leftStreet.GetHashCode();
 
         // ASSERT
-        result.Should()
-              .BePositive();
+        result.Should().NotBeNull();
     }
 }
