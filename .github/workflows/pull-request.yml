@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
-      
+
       - name: Setup .NET Core latest
         uses: actions/setup-dotnet@v1
         with:
@@ -21,16 +21,16 @@ jobs:
           include-prerelease: true
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Install dependencies
         run: dotnet restore
-      
+
       - name: Build solution
         run: dotnet build --configuration Release --no-restore
-        
+
       - name: Run all tests
-        run: dotnet test --no-restore --verbosity normal --logger xunit --results-directory TestResults
-        
+        run: dotnet test --no-restore --verbosity normal --results-directory TestResults
+
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
