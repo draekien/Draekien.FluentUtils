@@ -49,6 +49,9 @@ jobs:
       - name: Build and pack
         run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
+      - name: Authenticate to github nuget
+        run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
+
       - name: Publish
         run: dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate
 
@@ -74,6 +77,9 @@ jobs:
       - name: Build and pack
         run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
+      - name: Authenticate to github nuget
+        run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
+
       - name: Publish
         run: dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate
 
@@ -98,6 +104,9 @@ jobs:
 
       - name: Build and pack
         run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+
+      - name: Authenticate to github nuget
+        run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
 
       - name: Publish
         run: dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate
