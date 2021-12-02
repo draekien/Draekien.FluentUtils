@@ -9,6 +9,8 @@
         <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
         <Title>FluentUtils.AutoMapper</Title>
         <Authors>draekien</Authors>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
