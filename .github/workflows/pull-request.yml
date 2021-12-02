@@ -1,0 +1,39 @@
+name: Pull Request Build
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Build solution and run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      
+      - name: Setup .NET Core latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Install dependencies
+        run: dotnet restore
+      
+      - name: Build solution
+        run: dotnet build --configuration Release --no-restore
+        
+      - name: Run all tests
+        run: dotnet test --no-restore --verbosity normal --logger xunit --results-directory TestResults
+        
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test results
+          path: TestResults
+        if: ${{ always() }}
