@@ -53,7 +53,7 @@ jobs:
         run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate
+        run: dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
 
   publish-autoMapper:
     runs-on: ubuntu-latest
@@ -81,7 +81,7 @@ jobs:
         run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate
+        run: dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
 
   publish-autoMapper-Extensions:
     runs-on: ubuntu-latest
@@ -109,4 +109,4 @@ jobs:
         run: dotnet nuget add source --username william.h.pei@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/draekien/index.json"
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate
+        run: dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
