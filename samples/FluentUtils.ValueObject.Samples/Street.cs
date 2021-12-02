@@ -1,6 +1,6 @@
 ﻿namespace FluentUtils.ValueObject.Samples;
 
-public class Street : FluentUtils.ValueObject.ValueObject
+public class Street : ValueObject
 {
     public string? Unit { get; set; }
     public string? Number { get; set; }
