@@ -5,6 +5,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
+        <Title>FluentUtils.AutoMapper</Title>
+        <Authors>draekien</Authors>
     </PropertyGroup>
 
     <ItemGroup>

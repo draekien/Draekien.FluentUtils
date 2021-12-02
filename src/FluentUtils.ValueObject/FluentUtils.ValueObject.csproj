@@ -4,7 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>    
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
+    <Title>FluentUtils.ValueObject</Title>
+    <Authors>draekien</Authors>
   </PropertyGroup>
 
 </Project>
