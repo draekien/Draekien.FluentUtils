@@ -1,6 +1,7 @@
 # FluentUtils
 
 [![CI for FluentUtils](https://github.com/draekien/Draekien.FluentUtils/actions/workflows/release.yml/badge.svg)](https://github.com/draekien/Draekien.FluentUtils/actions/workflows/release.yml)
+[![codecov](https://codecov.io/gh/draekien/Draekien.FluentUtils/branch/main/graph/badge.svg?token=E4697LYNOT)](https://codecov.io/gh/draekien/Draekien.FluentUtils)
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
