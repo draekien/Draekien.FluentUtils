@@ -274,3 +274,5 @@ src/InfoTrack.Products/InfoTrack.Products.xml
 src/InfoTrack.Services/InfoTrack.Services.xml
 
 .ionide
+
+**/*.opencover.xml
