@@ -50,7 +50,7 @@ jobs:
         run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+        run: dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
 
   publish-autoMapper:
     runs-on: ubuntu-latest
@@ -75,7 +75,7 @@ jobs:
         run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+        run: dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
 
   publish-autoMapper-Extensions:
     runs-on: ubuntu-latest
@@ -100,7 +100,7 @@ jobs:
         run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
       - name: Publish
-        run: dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
+        run: dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
 
   create-release:
     name: Create GitHub Release
