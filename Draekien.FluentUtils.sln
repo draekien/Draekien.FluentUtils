@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.Exte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.Samples", "samples\FluentUtils.AutoMapper.Samples\FluentUtils.AutoMapper.Samples.csproj", "{A3C800C7-302B-4040-922D-013F83C84752}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.UnitTests", "tests\FluentUtils.AutoMapper.UnitTests\FluentUtils.AutoMapper.UnitTests.csproj", "{153B2272-8C20-4FB2-AEF3-283F5850FD13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{A3C800C7-302B-4040-922D-013F83C84752}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3C800C7-302B-4040-922D-013F83C84752}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3C800C7-302B-4040-922D-013F83C84752}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{C91819CB-D0FA-4683-A599-A3287E05F659} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{2D9C5337-3E19-4AC1-8D32-6F4717CA092B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{A3C800C7-302B-4040-922D-013F83C84752} = {1C830121-6036-4217-A15B-56D24D828F5F}
+		{153B2272-8C20-4FB2-AEF3-283F5850FD13} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 	EndGlobalSection
 EndGlobal
