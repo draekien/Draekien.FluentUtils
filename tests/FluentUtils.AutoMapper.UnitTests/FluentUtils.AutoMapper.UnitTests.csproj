@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\samples\FluentUtils.ValueObject.Samples\FluentUtils.ValueObject.Samples.csproj" />
+      <ProjectReference Include="..\..\samples\FluentUtils.AutoMapper.Samples\FluentUtils.AutoMapper.Samples.csproj" />
     </ItemGroup>
 
 </Project>
