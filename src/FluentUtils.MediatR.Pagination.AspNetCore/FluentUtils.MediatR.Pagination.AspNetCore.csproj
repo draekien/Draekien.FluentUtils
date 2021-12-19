@@ -5,6 +5,17 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>FluentUtils.MediatR.Pagination</RootNamespace>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
+        <Title>FluentUtils.MediatR.Pagination.AspNetCore</Title>
+        <Authors>draekien</Authors>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Description>A set of utils for returning pagination results when using MediatR in AspNetCore Web APIs.</Description>
+        <Copyright>William Pei</Copyright>
+        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
