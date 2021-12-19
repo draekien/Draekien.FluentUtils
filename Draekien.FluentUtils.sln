@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.Samples", "samples\FluentUtils.AutoMapper.Samples\FluentUtils.AutoMapper.Samples.csproj", "{A3C800C7-302B-4040-922D-013F83C84752}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.UnitTests", "tests\FluentUtils.AutoMapper.UnitTests\FluentUtils.AutoMapper.UnitTests.csproj", "{153B2272-8C20-4FB2-AEF3-283F5850FD13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Pagination", "src\FluentUtils.MediatR.Pagination\FluentUtils.MediatR.Pagination.csproj", "{EC515462-8C05-4709-96D7-121BF39CA2E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +78,6 @@ Global
 		{2D9C5337-3E19-4AC1-8D32-6F4717CA092B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{A3C800C7-302B-4040-922D-013F83C84752} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
+		{EC515462-8C05-4709-96D7-121BF39CA2E8} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 	EndGlobalSection
 EndGlobal
