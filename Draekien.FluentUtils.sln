@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Pagination", "src\FluentUtils.MediatR.Pagination\FluentUtils.MediatR.Pagination.csproj", "{EC515462-8C05-4709-96D7-121BF39CA2E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Pagination.AspNetCore", "src\FluentUtils.MediatR.Pagination.AspNetCore\FluentUtils.MediatR.Pagination.AspNetCore.csproj", "{86A10090-4292-4186-9F17-26D501F1BA3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,5 +85,6 @@ Global
 		{A3C800C7-302B-4040-922D-013F83C84752} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 		{EC515462-8C05-4709-96D7-121BF39CA2E8} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{86A10090-4292-4186-9F17-26D501F1BA3E} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 	EndGlobalSection
 EndGlobal
