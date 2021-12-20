@@ -58,6 +58,25 @@ public class MediatorApiControllerFacts : IClassFixture<WebApplicationFactory<Pr
     }
 
     [Fact]
+    public async Task GivenOffsetGreaterThanTotal_WhenGettingWeatherForecasts_ThenReturnCorrectLinks()
+    {
+        // Arrange
+        HttpClient client = _factory.CreateClient();
+        Links expected = new()
+        {
+            Self = new Uri("/WeatherForecast?Limit=10&Offset=40", UriKind.Relative),
+            Previous = new Uri("/WeatherForecast?Limit=10&Offset=20", UriKind.Relative)
+        };
+
+        // Act
+        var response = await client.GetFromJsonAsync<PaginatedResponse<WeatherForecast>>("WeatherForecast?offset=40&limit=10");
+
+        // Assert
+        response.Should().NotBeNull();
+        response!.Links.Should().BeEquivalentTo(expected);
+    }
+
+    [Fact]
     public async Task GivenLimitLessThanZero_WhenGettingWeatherForecasts_ThenLimitShouldBeMinValue()
     {
         // Arrange
