@@ -23,6 +23,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.AutoMapper.UnitTests", "tests\FluentUtils.AutoMapper.UnitTests\FluentUtils.AutoMapper.UnitTests.csproj", "{153B2272-8C20-4FB2-AEF3-283F5850FD13}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Pagination", "src\FluentUtils.MediatR.Pagination\FluentUtils.MediatR.Pagination.csproj", "{EC515462-8C05-4709-96D7-121BF39CA2E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Pagination.AspNetCore", "src\FluentUtils.MediatR.Pagination.AspNetCore\FluentUtils.MediatR.Pagination.AspNetCore.csproj", "{86A10090-4292-4186-9F17-26D501F1BA3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.Samples", "samples\FluentUtils.MediatR.Samples\FluentUtils.MediatR.Samples.csproj", "{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.UnitTests", "tests\FluentUtils.MediatR.UnitTests\FluentUtils.MediatR.UnitTests.csproj", "{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +65,22 @@ Global
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC515462-8C05-4709-96D7-121BF39CA2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A10090-4292-4186-9F17-26D501F1BA3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,5 +96,9 @@ Global
 		{2D9C5337-3E19-4AC1-8D32-6F4717CA092B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{A3C800C7-302B-4040-922D-013F83C84752} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{153B2272-8C20-4FB2-AEF3-283F5850FD13} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
+		{EC515462-8C05-4709-96D7-121BF39CA2E8} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{86A10090-4292-4186-9F17-26D501F1BA3E} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{662AD4D6-0A9C-4F5B-A7E7-F875F142BFA7} = {1C830121-6036-4217-A15B-56D24D828F5F}
+		{ED2FA5EC-FF94-4E3F-B2A1-A08A23C56E8C} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 	EndGlobalSection
 EndGlobal
