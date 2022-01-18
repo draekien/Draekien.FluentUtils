@@ -71,6 +71,7 @@ jobs:
       mediatr: ${{ steps.filter.outputs.mediatr }}
       mediatrAspNetCore: ${{ steps.filter.outputs.mediatrAspNetCore }}
       valueObject: ${{ steps.filter.outputs.valueObject }}
+      enumExtensions: ${{ steps.filter.outputs.enumExtensions }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
@@ -90,6 +91,8 @@ jobs:
               - 'src/FluentUtils.MediatR.Pagination.AspNetCore/**'
             valueObject:
               - 'src/FluentUtils.ValueObject/**'
+            enumExtensions:
+              - 'src/FluentUtils.EnumExtensions/**'
 
   publish-valueObject:
     runs-on: ubuntu-latest
@@ -241,6 +244,36 @@ jobs:
           dotnet nuget push ./src/FluentUtils.MediatR.Pagination.AspNetCore/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
           dotnet nuget push ./src/FluentUtils.MediatR.Pagination.AspNetCore/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
+  publish-enum-extensions:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish enum extensions NuGet package
+    if: ${{ needs.changes.outputs.enumExtensions }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.EnumExtensions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.EnumExtensions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.EnumExtensions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
   create-release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
@@ -253,6 +286,7 @@ jobs:
       - publish-autoMapper-Extensions
       - publish-mediatr-pagination
       - publish-mediatr-pagination-aspnetcore
+      - publish-enum-extensions
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1

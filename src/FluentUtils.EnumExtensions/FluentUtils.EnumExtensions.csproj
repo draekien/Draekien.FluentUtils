@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
+        <Title>FluentUtils.EnumExtensions</Title>
+        <Authors>draekien</Authors>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <Description>A set of utils for working with enums.</Description>
+        <Copyright>William Pei</Copyright>
+        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+</Project>
