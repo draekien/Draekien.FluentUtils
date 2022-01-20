@@ -1,7 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using AutoMapper;
 
-namespace FluentUtils.AutoMapper;
+namespace FluentUtils.AutoMapper
+{
 
 /// <summary>
 ///     A helper class for registering all types implementing IMapFrom
@@ -68,4 +72,6 @@ public class MappingProfile : Profile
             methodInfo?.Invoke(instance, new object?[] { this });
         }
     }
+}
+
 }
