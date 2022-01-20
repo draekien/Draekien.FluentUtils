@@ -250,7 +250,7 @@ jobs:
       - calculate-version
       - changes
     name: Publish enum extensions NuGet package
-    if: ${{ needs.changes.outputs.enumExtensions }}
+    if: ${{ needs.changes.outputs.enumExtensions == 'true' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
