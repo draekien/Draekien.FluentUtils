@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace FluentUtils.FromCompositeAttribute
@@ -11,9 +12,15 @@ namespace FluentUtils.FromCompositeAttribute
     /// </remarks>
     public sealed class FromCompositeAttribute : Attribute, IBindingSourceMetadata
     {
+        private static readonly List<BindingSource> BindingSources = new()
+        {
+            BindingSource.Path,
+            BindingSource.Query
+        };
+
         /// <inheritdoc />
         public BindingSource BindingSource { get; } = CompositeBindingSource.Create(
-            new[] { BindingSource.Path, BindingSource.Query },
+            BindingSources,
             nameof(FromCompositeAttribute)
         );
     }
