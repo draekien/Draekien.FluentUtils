@@ -102,7 +102,7 @@ jobs:
     needs:
       - calculate-version
       - changes
-    name: Publish ValueObject NuGet Package
+    name: Publish FromCompositeAttribute NuGet Package
     if: ${{ needs.changes.outputs.fromCompositeAttribute == 'true' }}
     steps:
       - name: Checkout repository
