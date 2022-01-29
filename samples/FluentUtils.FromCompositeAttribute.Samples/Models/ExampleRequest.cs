@@ -6,12 +6,14 @@ public class ExampleRequest
 {
     [FromRoute(Name = "id")]
     public int Id { get; init; }
+    [FromQuery(Name = "replace")]
+    public bool Replace { get; init; }
     [FromBody]
-    public UserDto User { get; set; } = null!;
+    public UserDto User { get; init; } = null!;
 }
 
 public class UserDto
 {
-    public string FirstName { get; set; } = string.Empty;
-    public string LastName { get; set; } = string.Empty;
+    public string FirstName { get; init; } = string.Empty;
+    public string LastName { get; init; } = string.Empty;
 }

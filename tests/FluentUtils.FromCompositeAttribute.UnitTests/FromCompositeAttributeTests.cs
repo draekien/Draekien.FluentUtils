@@ -26,11 +26,12 @@ public class FromCompositeAttributeTests : IClassFixture<WebApplicationFactory<P
         ExampleRequest expected = new()
         {
             Id = 1,
+            Replace = true,
             User = user
         };
 
         // Act
-        HttpResponseMessage response = await client.PostAsJsonAsync("example/1", user, default);
+        HttpResponseMessage response = await client.PostAsJsonAsync("example/1?replace=true", user, default);
 
         // Assert
         response.EnsureSuccessStatusCode();
