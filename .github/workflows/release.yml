@@ -97,7 +97,7 @@ jobs:
             fromCompositeAttribute:
               - 'src/FluentUtils.FromCompositeAttribute/**'
 
-  public-from-composite-attribute:
+  publish-from-composite-attribute:
     runs-on: ubuntu-latest
     needs:
       - calculate-version
