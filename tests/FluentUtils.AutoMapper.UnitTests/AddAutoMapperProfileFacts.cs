@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using FluentUtils.AutoMapper.Samples.Core.WeatherForecasts.Models;
@@ -29,5 +30,41 @@ public class AddAutoMapperProfileFacts : IClassFixture<WebApplicationFactory<Pro
 
         // ASSERT
         response.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async Task GivenIReverseMapFrom_WhenGettingUsers_ThenReturnUsers()
+    {
+        // ARRANGE
+        HttpClient client = _factory.CreateClient();
+
+        var expected = new List<UserDto>
+        {
+            new() { Id = 1, FullName = "Matthew Mercer" },
+            new() { Id = 2, FullName = "Laura Bailey" },
+        };
+
+        // ACT
+        var response = await client.GetFromJsonAsync<List<UserDto>>("Users");
+
+        // ASSERT
+        response.Should().NotBeNull();
+        response.Should().BeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public async Task GivenIReverseMapFrom_WhenAddingUsers_ThenSucceed()
+    {
+        // ARRANGE
+        HttpClient client = _factory.CreateClient();
+        UserDto expected = new() { Id = 1, FullName = "Matthew Mercer" };
+
+
+        // ACT
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("Users", expected, default);
+        var response = await responseMessage.Content.ReadFromJsonAsync<UserDto>();
+
+        // ASSERT
+        response.Should().BeEquivalentTo(expected);
     }
 }

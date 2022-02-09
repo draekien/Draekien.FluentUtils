@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapperProfiles(typeof(Program).Assembly);
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 var app = builder.Build();
