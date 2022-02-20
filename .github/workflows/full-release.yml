@@ -313,7 +313,6 @@ jobs:
     if: ${{ always() }}
     needs:
       - calculate-version
-      - changes
       - publish-valueObject
       - publish-autoMapper
       - publish-autoMapper-Extensions
