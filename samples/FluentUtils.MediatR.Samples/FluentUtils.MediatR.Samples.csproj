@@ -16,9 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\FluentUtils.MediatR.PipelineBehaviours\FluentUtils.MediatR.PipelineBehaviours.csproj" />
-      <ProjectReference Include="..\..\src\FluentUtils.MediatR.FluentValidation\FluentUtils.MediatR.FluentValidation.csproj" />
       <ProjectReference Include="..\..\src\FluentUtils.MediatR.Pagination.AspNetCore\FluentUtils.MediatR.Pagination.AspNetCore.csproj" />
-      <ProjectReference Include="..\..\src\FluentUtils.MediatR.RequestLogging\FluentUtils.MediatR.RequestLogging.csproj" />
     </ItemGroup>
 
 </Project>
