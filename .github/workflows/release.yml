@@ -108,30 +108,30 @@ jobs:
     needs:
       - calculate-version
       - changes
-      name: Publish PipelineBehaviours NuGet Package
-      if: ${{ needs.changes.outputs.pipelineBehaviours == 'true' }}
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v1
-          with:
-            fetch-depth: 0
+    name: Publish PipelineBehaviours NuGet Package
+    if: ${{ needs.changes.outputs.pipelineBehaviours == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
 
-        - name: Setup .NET Core Latest
-          uses: actions/setup-dotnet@v1
-          with:
-            source-url: https://nuget.pkg.github.com/draekien/index.json
-            dotnet-version: '6.0.x'
-            include-prerelease: true
-          env:
-            NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: '6.0.x'
+          include-prerelease: true
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Build and pack
-          run: cd src/FluentUtils.MediatR.PipelineBehaviours && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+      - name: Build and pack
+        run: cd src/FluentUtils.MediatR.PipelineBehaviours && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
 
-        - name: Publish
-          run: |
-            dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
-            dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   publish-endpoint-definitions:
     runs-on: ubuntu-latest
@@ -388,6 +388,7 @@ jobs:
       - publish-enum-extensions
       - publish-from-composite-attribute
       - publish-endpoint-definitions
+      - publish-pipeline-behaviours
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
