@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MinimalApis.End
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MinimalApis.EndpointDefinitions.UnitTests", "tests\FluentUtils.MinimalApis.EndpointDefinitions.UnitTests\FluentUtils.MinimalApis.EndpointDefinitions.UnitTests.csproj", "{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.PipelineBehaviours", "src\FluentUtils.MediatR.PipelineBehaviours\FluentUtils.MediatR.PipelineBehaviours.csproj", "{8DDBF329-3169-4524-A9D9-C6331B36A8FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -156,5 +162,6 @@ Global
 		{1D84E44C-590B-44CF-8271-328C27A0946A} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{09C5458E-C1E6-4DD9-B477-22841C0979B4} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
+		{8DDBF329-3169-4524-A9D9-C6331B36A8FD} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 	EndGlobalSection
 EndGlobal
