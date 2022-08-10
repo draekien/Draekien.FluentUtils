@@ -9,7 +9,7 @@ namespace FluentUtils.MediatR.Pagination
     /// <typeparam name="TResult">The return data type for the results IEnumerable.</typeparam>
     public abstract class PaginatedRequest<TResult> : IRequest<PaginatedResponse<TResult>>
     {
-        private readonly int? _limit;
+        private int? _limit;
 
         /// <summary>
         /// Gets or initializes the maximum number of records to return.
@@ -18,13 +18,13 @@ namespace FluentUtils.MediatR.Pagination
         public int Limit
         {
             get => _limit ?? 10;
-            init
+            set
             {
                 _limit = value switch
                 {
                     < 1 => 10,
                     > 100 => 100,
-                    _ => value
+                    var _ => value,
                 };
             }
         }
