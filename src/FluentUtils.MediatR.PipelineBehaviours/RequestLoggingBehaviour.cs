@@ -16,14 +16,14 @@ namespace FluentUtils.MediatR.PipelineBehaviours
         where TRequest : IRequest<TResponse>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ILogger<TRequest> _logger;
+        private readonly ILogger<RequestLoggingBehaviour<TRequest, TResponse>> _logger;
 
         /// <summary>
         ///     Creates a new request logging behaviour.
         /// </summary>
         /// <param name="httpContextAccessor">The http context accessor.</param>
         /// <param name="logger">The logger.</param>
-        public RequestLoggingBehaviour(IHttpContextAccessor httpContextAccessor, ILogger<TRequest> logger)
+        public RequestLoggingBehaviour(IHttpContextAccessor httpContextAccessor, ILogger<RequestLoggingBehaviour<TRequest, TResponse>> logger)
         {
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
