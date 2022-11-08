@@ -32,8 +32,8 @@ namespace FluentUtils.MediatR.PipelineBehaviours
         /// <inheritdoc />
         public async Task<TResponse> Handle(
             TRequest request,
-            CancellationToken cancellationToken,
-            RequestHandlerDelegate<TResponse> next)
+            RequestHandlerDelegate<TResponse> next,
+            CancellationToken cancellationToken)
         {
             HttpContext? httpContext = _httpContextAccessor.HttpContext;
             HttpRequest? httpRequest = httpContext?.Request;
