@@ -15,14 +15,13 @@ namespace FluentUtils.MediatR.PipelineBehaviours
     public sealed class UnhandledExceptionHandlingBehaviour<TRequest, TResponse>
         : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
-        private readonly ILogger<TRequest> _logger;
+        private readonly ILogger<UnhandledExceptionHandlingBehaviour<TRequest, TResponse>> _logger;
 
         /// <summary>
         ///     Creates a new unhandled exception handling behaviour.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        public UnhandledExceptionHandlingBehaviour(ILogger<TRequest> logger)
-            #pragma warning restore CS1591
+        public UnhandledExceptionHandlingBehaviour(ILogger<UnhandledExceptionHandlingBehaviour<TRequest, TResponse>> logger)
         {
             _logger = logger;
         }
@@ -30,8 +29,8 @@ namespace FluentUtils.MediatR.PipelineBehaviours
         /// <inheritdoc />
         public async Task<TResponse> Handle(
             TRequest request,
-            CancellationToken cancellationToken,
-            RequestHandlerDelegate<TResponse> next)
+            RequestHandlerDelegate<TResponse> next,
+            CancellationToken cancellationToken)
         {
             try
             {

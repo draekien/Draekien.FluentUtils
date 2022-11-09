@@ -18,7 +18,8 @@ try
     builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
     builder.Services.AddMediatR(typeof(Program).Assembly);
-    builder.Services.AddFluentValidation();
+    builder.Services.AddFluentValidationAutoValidation();
+    builder.Services.AddFluentValidationClientsideAdapters();
 
     builder.Services.AddPipelineBehaviourBuilder()
            .WithExceptionHandlingBehaviour()
