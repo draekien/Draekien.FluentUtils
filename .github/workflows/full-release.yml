@@ -350,6 +350,7 @@ jobs:
       - publish-from-composite-attribute
       - publish-endpoint-definitions
       - publish-pipeline-behaviours
+      - publish-domain-driven-enums
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
