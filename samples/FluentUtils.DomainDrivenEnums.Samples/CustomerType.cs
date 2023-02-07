@@ -1,6 +1,6 @@
 ﻿namespace FluentUtils.DomainDrivenEnums.Samples;
 
-public record CustomerType : DomainDrivenEnum
+public sealed class CustomerType : DomainDrivenEnum
 {
     public static readonly CustomerType Standard = new(0, "Standard", 0.0, 4);
     public static readonly CustomerType Premium = new(1, "Premium", 0.1, 2);
@@ -19,7 +19,7 @@ public record CustomerType : DomainDrivenEnum
     public double Discount { get; }
 }
 
-public class Customer
+public sealed class Customer
 {
     public Customer(Guid id, CustomerType? customerType)
     {
@@ -32,7 +32,7 @@ public class Customer
     public CustomerType CustomerType { get; }
 }
 
-public class UsageExample
+public sealed class UsageExample
 {
     public IEnumerable<Customer> GetBySlaGreaterThan2Days(IEnumerable<Customer> customers)
     {
