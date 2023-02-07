@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnums.Samples", "samples\FluentUtils.DomainDrivenEnums.Samples\FluentUtils.DomainDrivenEnums.Samples.csproj", "{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnums.Tests", "tests\FluentUtils.DomainDrivenEnums.Tests\FluentUtils.DomainDrivenEnums.Tests.csproj", "{E8119118-129F-4388-A36F-86BE1FC7F7B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8119118-129F-4388-A36F-86BE1FC7F7B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8119118-129F-4388-A36F-86BE1FC7F7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8119118-129F-4388-A36F-86BE1FC7F7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8119118-129F-4388-A36F-86BE1FC7F7B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,5 +189,6 @@ Global
 		{8DDBF329-3169-4524-A9D9-C6331B36A8FD} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{7684AF36-667B-4BFA-8BFC-CAC595DACA50} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8} = {1C830121-6036-4217-A15B-56D24D828F5F}
+		{E8119118-129F-4388-A36F-86BE1FC7F7B3} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 	EndGlobalSection
 EndGlobal
