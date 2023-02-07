@@ -111,4 +111,51 @@ public class DomainDrivenEnumFacts
         // Assert
         result.Should().BeFalse();
     }
+
+    [Fact]
+    public void WhenFilteringByProperties_ThenReturnExpected()
+    {
+        // Arrange
+        var customers = new List<Customer>
+        {
+            new(Guid.NewGuid(), CustomerType.Premium),
+            new(Guid.NewGuid(), CustomerType.Premium),
+            new(Guid.NewGuid(), CustomerType.Standard),
+            new(Guid.NewGuid(), CustomerType.Vip),
+            new(Guid.NewGuid(), CustomerType.Vip),
+        };
+
+        var sut = new UsageExample();
+
+        // Act
+        IEnumerable<Customer> result = sut.GetBySlaGreaterThan2Days(customers).ToList();
+
+        // Assert
+        result.Count().Should().Be(3);
+        result.Should().NotContain(r => r.CustomerType == CustomerType.Vip);
+    }
+
+    [Fact]
+    public void WhenFilteringByEnumMember_ThenReturnExpected()
+    {
+        // Arrange
+        var customers = new List<Customer>
+        {
+            new(Guid.NewGuid(), CustomerType.Premium),
+            new(Guid.NewGuid(), CustomerType.Premium),
+            new(Guid.NewGuid(), CustomerType.Standard),
+            new(Guid.NewGuid(), CustomerType.Vip),
+            new(Guid.NewGuid(), CustomerType.Vip),
+        };
+
+        var sut = new UsageExample();
+
+        // Act
+        IEnumerable<Customer> result = sut.GetPremiumCustomers(customers).ToList();
+
+        // Assert
+        result.Count().Should().Be(2);
+        result.Should().NotContain(r => r.CustomerType == CustomerType.Vip);
+        result.Should().NotContain(r => r.CustomerType == CustomerType.Standard);
+    }
 }
