@@ -3,22 +3,14 @@
     <PropertyGroup>
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
         <Title>FluentUtils.MediatR.Pagination</Title>
-        <Authors>draekien</Authors>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Description>A set of utils for returning pagination results when using MediatR.</Description>
-        <Copyright>William Pei</Copyright>
-        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR" Version="11.0.0" />
+        <PackageReference Include="MediatR" Version="11.0.0" />
     </ItemGroup>
 
 </Project>

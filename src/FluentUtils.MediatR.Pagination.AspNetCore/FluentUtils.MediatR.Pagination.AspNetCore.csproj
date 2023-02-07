@@ -4,28 +4,20 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>FluentUtils.MediatR.Pagination</RootNamespace>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
         <Title>FluentUtils.MediatR.Pagination.AspNetCore</Title>
-        <Authors>draekien</Authors>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Description>A set of utils for returning pagination results when using MediatR in AspNetCore Web APIs.</Description>
-        <Copyright>William Pei</Copyright>
-        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FluentUtils.MediatR.Pagination\FluentUtils.MediatR.Pagination.csproj" />
+        <ProjectReference Include="..\FluentUtils.MediatR.Pagination\FluentUtils.MediatR.Pagination.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     </ItemGroup>
 
 </Project>

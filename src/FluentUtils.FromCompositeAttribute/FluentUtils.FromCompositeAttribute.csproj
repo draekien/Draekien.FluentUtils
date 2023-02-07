@@ -4,21 +4,14 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
         <Title>FluentUtils.FromCompositeAttribute</Title>
-        <Authors>draekien</Authors>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Description>A model binding attribute that allows for binding of request properties from multiple sources.</Description>
-        <Copyright>William Pei</Copyright>
-        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     </ItemGroup>
 
 </Project>
