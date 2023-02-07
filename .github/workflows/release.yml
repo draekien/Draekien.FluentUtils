@@ -381,7 +381,7 @@ jobs:
     needs:
       - calculate-version
       - changes
-    name: Publish enum extensions NuGet package
+    name: Publish domain driven enums NuGet package
     if: ${{ needs.changes.outputs.domainDrivenEnums == 'true' }}
     steps:
       - name: Checkout repository
