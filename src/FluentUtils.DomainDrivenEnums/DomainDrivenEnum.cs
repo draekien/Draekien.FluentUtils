@@ -38,20 +38,14 @@ public abstract record DomainDrivenEnum(int Value, string DisplayName) : ICompar
     /// </summary>
     /// <typeparam name="TEnum">The domain driven enum type</typeparam>
     /// <returns>All declared instances of the domain driven enum type</returns>
-    public static IEnumerable<TEnum> GetAll<TEnum>() where TEnum : DomainDrivenEnum, new()
+    public static IEnumerable<TEnum> GetAll<TEnum>() where TEnum : DomainDrivenEnum
     {
         Type type = typeof(TEnum);
         FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
 
-        foreach (FieldInfo field in fields)
-        {
-            var instance = new TEnum();
+        IEnumerable<object> values = fields.Select(field => field.GetValue(null));
 
-            if (field.GetValue(instance) is TEnum locatedValue)
-            {
-                yield return locatedValue;
-            }
-        }
+        return values.Cast<TEnum>();
     }
 
     /// <summary>
@@ -60,7 +54,7 @@ public abstract record DomainDrivenEnum(int Value, string DisplayName) : ICompar
     /// <param name="value">The index value to parse</param>
     /// <typeparam name="TEnum">The domain driven enum type</typeparam>
     /// <returns>The parsed instance of TEnum</returns>
-    public static TEnum FromValue<TEnum>(int value) where TEnum : DomainDrivenEnum, new()
+    public static TEnum FromValue<TEnum>(int value) where TEnum : DomainDrivenEnum
     {
         TEnum matching = Parse<TEnum, int>(value, "value", item => item.Value == value);
 
@@ -93,7 +87,7 @@ public abstract record DomainDrivenEnum(int Value, string DisplayName) : ICompar
         TValue value,
         string description,
         Func<TDomainDrivenEnum, bool> predicate)
-        where TDomainDrivenEnum : DomainDrivenEnum, new()
+        where TDomainDrivenEnum : DomainDrivenEnum
     {
         TDomainDrivenEnum? matching = GetAll<TDomainDrivenEnum>().FirstOrDefault(predicate);
 
