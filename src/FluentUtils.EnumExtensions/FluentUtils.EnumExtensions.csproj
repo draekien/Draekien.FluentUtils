@@ -6,6 +6,7 @@
         <Title>FluentUtils.EnumExtensions</Title>
         <Description>A set of utils for working with enums.</Description>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
 </Project>

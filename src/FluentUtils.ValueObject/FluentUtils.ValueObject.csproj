@@ -1,11 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <Title>FluentUtils.ValueObject</Title>
-    <Description>An implementation of ValueObject.</Description>
-    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-  </PropertyGroup>
+    <PropertyGroup>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Title>FluentUtils.ValueObject</Title>
+        <Description>An implementation of ValueObject.</Description>
+        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
 
 </Project>

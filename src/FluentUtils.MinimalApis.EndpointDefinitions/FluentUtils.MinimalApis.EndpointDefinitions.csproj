@@ -7,6 +7,7 @@
         <Title>FluentUtils.MinimalApis.EndpointDefinitions</Title>
         <Description>A more structured approach to minimal apis.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

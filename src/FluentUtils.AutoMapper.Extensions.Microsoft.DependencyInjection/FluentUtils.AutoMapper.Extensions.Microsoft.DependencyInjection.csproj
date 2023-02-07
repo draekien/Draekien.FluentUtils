@@ -8,6 +8,7 @@
         <Authors>draekien</Authors>
         <Description>Dependency injection extensions for the FluentUtils.AutoMapper library.</Description>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

@@ -6,6 +6,7 @@
         <Title>FluentUtils.MediatR.PipelineBehaviours</Title>
         <Description>A set of pipeline behaviours for use with MediatR.</Description>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

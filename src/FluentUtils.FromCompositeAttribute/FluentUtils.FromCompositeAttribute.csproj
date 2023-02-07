@@ -7,6 +7,7 @@
         <Title>FluentUtils.FromCompositeAttribute</Title>
         <Description>A model binding attribute that allows for binding of request properties from multiple sources.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>

@@ -6,6 +6,7 @@
         <Title>FluentUtils.MediatR.Pagination</Title>
         <Description>A set of utils for returning pagination results when using MediatR.</Description>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
