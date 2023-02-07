@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.ValueObject.Samples", "samples\FluentUtils.ValueObject.Samples\FluentUtils.ValueObject.Samples.csproj", "{8EE6728D-9801-4B09-989A-10C383012AF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9949BF8F-D969-45E2-956F-C7DC5D8D3544}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{1C830121-6036-4217-A15B-56D24D828F5F}"
 EndProject
@@ -48,6 +51,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MinimalApis.EndpointDefinitions.UnitTests", "tests\FluentUtils.MinimalApis.EndpointDefinitions.UnitTests\FluentUtils.MinimalApis.EndpointDefinitions.UnitTests.csproj", "{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.MediatR.PipelineBehaviours", "src\FluentUtils.MediatR.PipelineBehaviours\FluentUtils.MediatR.PipelineBehaviours.csproj", "{8DDBF329-3169-4524-A9D9-C6331B36A8FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnums", "src\FluentUtils.DomainDrivenEnums\FluentUtils.DomainDrivenEnums.csproj", "{7684AF36-667B-4BFA-8BFC-CAC595DACA50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnums.Samples", "samples\FluentUtils.DomainDrivenEnums.Samples\FluentUtils.DomainDrivenEnums.Samples.csproj", "{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +142,14 @@ Global
 		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DDBF329-3169-4524-A9D9-C6331B36A8FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7684AF36-667B-4BFA-8BFC-CAC595DACA50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7684AF36-667B-4BFA-8BFC-CAC595DACA50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7684AF36-667B-4BFA-8BFC-CAC595DACA50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7684AF36-667B-4BFA-8BFC-CAC595DACA50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -163,5 +178,7 @@ Global
 		{09C5458E-C1E6-4DD9-B477-22841C0979B4} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{E3C7F64D-A79E-4D6A-BB98-02A3DF0F0A6F} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 		{8DDBF329-3169-4524-A9D9-C6331B36A8FD} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{7684AF36-667B-4BFA-8BFC-CAC595DACA50} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8} = {1C830121-6036-4217-A15B-56D24D828F5F}
 	EndGlobalSection
 EndGlobal
