@@ -4,22 +4,14 @@
         <ImplicitUsings>disable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>Microsoft.Extensions.DependencyInjection</RootNamespace>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/draekien/Draekien.FluentUtils</RepositoryUrl>
         <Title>FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection</Title>
         <Authors>draekien</Authors>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <Description>Dependency injection extensions for the FluentUtils.AutoMapper library.</Description>
-        <Copyright>William Pei</Copyright>
-        <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FluentUtils.AutoMapper\FluentUtils.AutoMapper.csproj" />
+        <ProjectReference Include="..\FluentUtils.AutoMapper\FluentUtils.AutoMapper.csproj" />
     </ItemGroup>
 
 </Project>
