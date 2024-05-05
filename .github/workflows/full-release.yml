@@ -58,9 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - calculate-version
-      - changes
-    name: Publish PipelineBehaviours NuGet Package
-    if: ${{ needs.changes.outputs.monad == 'true' }}
+    name: Publish Monad NuGet Package
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
