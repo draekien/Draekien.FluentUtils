@@ -10,7 +10,6 @@ public static class ResultExtensions
 {
     private const string UnexpectedResultType = "Unexpected result type encountered.";
 
-
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
