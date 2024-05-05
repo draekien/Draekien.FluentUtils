@@ -8,14 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup .NET Core latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -42,7 +41,7 @@ jobs:
       nuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -54,6 +53,35 @@ jobs:
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.7
+        
+  publish-monad:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish PipelineBehaviours NuGet Package
+    if: ${{ needs.changes.outputs.monad == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.Monad && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.Monad/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.Monad/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
   publish-pipeline-behaviours:
     runs-on: ubuntu-latest
@@ -62,16 +90,15 @@ jobs:
     name: Publish PipelineBehaviours NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -90,16 +117,15 @@ jobs:
     name: Publish EndpointDefinitions NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -118,16 +144,15 @@ jobs:
     name: Publish FromCompositeAttribute NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -146,16 +171,15 @@ jobs:
     name: Publish ValueObject NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -174,16 +198,15 @@ jobs:
     name: Publish AutoMapper NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -202,16 +225,15 @@ jobs:
     name: Publish AutoMapper Extensions NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -230,16 +252,15 @@ jobs:
     name: Publish MediatR Pagination NuGet Packagex
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -258,16 +279,15 @@ jobs:
     name: Publish MediatR Pagination AspNetCore NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -286,16 +306,15 @@ jobs:
     name: Publish enum extensions NuGet package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -314,16 +333,15 @@ jobs:
     name: Publish domain driven enums NuGet package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Setup .NET Core Latest
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           source-url: https://nuget.pkg.github.com/draekien/index.json
-          dotnet-version: "6.0.x"
-          include-prerelease: true
+          dotnet-version: "8.0.x"
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -353,7 +371,7 @@ jobs:
       - publish-domain-driven-enums
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Bump version and push tag
