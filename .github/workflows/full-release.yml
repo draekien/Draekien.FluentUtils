@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: Setup .NET Core latest
         uses: actions/setup-dotnet@v4
@@ -41,7 +41,7 @@ jobs:
       nuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -63,7 +63,7 @@ jobs:
     if: ${{ needs.changes.outputs.monad == 'true' }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -90,7 +90,7 @@ jobs:
     name: Publish PipelineBehaviours NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -117,7 +117,7 @@ jobs:
     name: Publish EndpointDefinitions NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -144,7 +144,7 @@ jobs:
     name: Publish FromCompositeAttribute NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -171,7 +171,7 @@ jobs:
     name: Publish ValueObject NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -198,7 +198,7 @@ jobs:
     name: Publish AutoMapper NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -225,7 +225,7 @@ jobs:
     name: Publish AutoMapper Extensions NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -252,7 +252,7 @@ jobs:
     name: Publish MediatR Pagination NuGet Packagex
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -279,7 +279,7 @@ jobs:
     name: Publish MediatR Pagination AspNetCore NuGet Package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -306,7 +306,7 @@ jobs:
     name: Publish enum extensions NuGet package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -333,7 +333,7 @@ jobs:
     name: Publish domain driven enums NuGet package
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -371,7 +371,7 @@ jobs:
       - publish-domain-driven-enums
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Bump version and push tag
