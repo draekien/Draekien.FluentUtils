@@ -113,7 +113,7 @@ jobs:
     needs:
       - calculate-version
       - changes
-    name: Publish PipelineBehaviours NuGet Package
+    name: Publish Monad NuGet Package
     if: ${{ needs.changes.outputs.monad == 'true' }}
     steps:
       - name: Checkout repository
