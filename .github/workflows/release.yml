@@ -444,6 +444,7 @@ jobs:
       - publish-endpoint-definitions
       - publish-pipeline-behaviours
       - publish-domain-driven-enums
+      - publish-monad
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

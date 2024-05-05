@@ -10,9 +10,9 @@
 public sealed record OkResult<T> : IResult<T> where T : notnull
 {
     /// <summary>
-    /// Do not use directly
+    ///     Do not use directly
     /// </summary>
-    /// <param name="value"></param>
+    /// <param name="value">The value of the result</param>
     internal OkResult(T value)
     {
         Value = value;
