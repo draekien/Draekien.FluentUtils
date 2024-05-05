@@ -9,6 +9,10 @@
 /// <typeparam name="T">The value type</typeparam>
 public sealed record OkResult<T> : IResult<T> where T : notnull
 {
+    /// <summary>
+    /// Do not use directly
+    /// </summary>
+    /// <param name="value"></param>
     internal OkResult(T value)
     {
         Value = value;
