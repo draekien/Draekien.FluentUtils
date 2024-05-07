@@ -65,6 +65,7 @@ jobs:
     needs: build-and-test
     runs-on: ubuntu-latest
     outputs:
+      monad: ${{ steps.filter.outputs.monad }}
       autoMapper: ${{ steps.filter.outputs.autoMapper }}
       autoMapperExtensions: ${{ steps.filter.outputs.autoMapperExtensions }}
       mediatr: ${{ steps.filter.outputs.mediatr }}
@@ -75,7 +76,6 @@ jobs:
       endpointDefinitions: ${{ steps.filter.outputs.endpointDefinitions }}
       pipelineBehaviours: ${{ steps.filter.outputs.pipelineBehaviours }}
       domainDrivenEnums: ${{ steps.filters.outputs.domainDrivenEnums }}
-      monad: ${{ steps.filters.outputs.monad }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
