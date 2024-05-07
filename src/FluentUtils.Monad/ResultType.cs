@@ -28,4 +28,21 @@ public abstract record ResultType<T> where T : notnull
     {
         return new ErrorResultType<T>(error);
     }
+
+    /// <summary>
+    ///     Creates a new <see cref="ErrorResultType{T}" /> from an exception, automatically generating an error code and
+    ///     extracting the error message from the exception
+    /// </summary>
+    /// <param name="exception">The exception</param>
+    /// <returns>The error result</returns>
+    public static implicit operator ResultType<T>(Exception exception)
+    {
+        var upperCaseLetters = exception.GetType().Name.Where(char.IsUpper).ToArray();
+
+        ErrorCode code = new($"DYN_{string.Concat(upperCaseLetters)}");
+        ErrorMessage message = new(exception.Message);
+        Error error = new(code, message, exception);
+
+        return new ErrorResultType<T>(error);
+    }
 }
