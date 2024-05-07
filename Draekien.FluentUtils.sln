@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.DomainDrivenEnu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad", "src\FluentUtils.Monad\FluentUtils.Monad.csproj", "{E05C05D5-56F3-462B-8862-2659CD370B8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad.Samples", "samples\FluentUtils.Monad.Samples\FluentUtils.Monad.Samples.csproj", "{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,10 @@ Global
 		{E05C05D5-56F3-462B-8862-2659CD370B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E05C05D5-56F3-462B-8862-2659CD370B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E05C05D5-56F3-462B-8862-2659CD370B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +203,6 @@ Global
 		{BEC34862-B01B-44B6-BE6F-8C07C6F2F5A8} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{E8119118-129F-4388-A36F-86BE1FC7F7B3} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 		{E05C05D5-56F3-462B-8862-2659CD370B8B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
+		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B} = {1C830121-6036-4217-A15B-56D24D828F5F}
 	EndGlobalSection
 EndGlobal

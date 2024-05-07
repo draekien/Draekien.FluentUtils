@@ -17,4 +17,14 @@ public readonly record struct ErrorMessage(string Value)
     {
         return Value;
     }
+
+    /// <summary>
+    ///     Implicitly creates a new instance of <see cref="ErrorMessage" /> from a string value
+    /// </summary>
+    /// <param name="value">The error message string</param>
+    /// <returns>The <see cref="ErrorMessage" /> instance</returns>
+    public static implicit operator ErrorMessage(string value)
+    {
+        return new ErrorMessage(value);
+    }
 }

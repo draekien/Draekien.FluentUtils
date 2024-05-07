@@ -4,7 +4,8 @@ namespace FluentUtils.Monad;
 
 /// <summary>
 ///     A result is the type used for returning and propagating errors. It is a monad with the variants
-///     <see cref="OkResult{T}" />, representing success and containing some value, and <see cref="ErrorResult{T}" />,
+///     <see cref="OkResultType{T}" />, representing success and containing some value, and
+///     <see cref="ErrorResultType{T}" />,
 ///     representing error and containing an error value.
 /// </summary>
 [PublicAPI]
@@ -16,16 +17,16 @@ public static class Result
     /// <param name="value">The success value</param>
     /// <typeparam name="T">The value type</typeparam>
     /// <returns>The created result</returns>
-    public static IResult<T> Ok<T>(T value) where T : notnull
+    public static ResultType<T> Ok<T>(T value) where T : notnull
     {
-        return new OkResult<T>(value);
+        return new OkResultType<T>(value);
     }
 
     /// <summary>
     ///     Creates a successful result variant which holds no value
     /// </summary>
     /// <returns>The created result</returns>
-    public static IResult<Empty> Ok()
+    public static ResultType<Empty> Ok()
     {
         return Ok<Empty>(default);
     }
@@ -36,9 +37,9 @@ public static class Result
     /// <param name="error">The error value</param>
     /// <typeparam name="T">The value type associated with its success result counterpart</typeparam>
     /// <returns>The created result</returns>
-    public static IResult<T> Error<T>(Error error) where T : notnull
+    public static ResultType<T> Error<T>(Error error) where T : notnull
     {
-        return new ErrorResult<T>(error);
+        return new ErrorResultType<T>(error);
     }
 
     /// <summary>
@@ -46,7 +47,7 @@ public static class Result
     /// </summary>
     /// <param name="error">The error value</param>
     /// <returns>The created result</returns>
-    public static IResult<Empty> Error(Error error)
+    public static ResultType<Empty> Error(Error error)
     {
         return Error<Empty>(error);
     }
