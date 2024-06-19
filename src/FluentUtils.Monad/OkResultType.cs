@@ -1,12 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace FluentUtils.Monad;
-
-/// <summary>
-///     An <see cref="OkResultType{T}" /> that contains an <see cref="Empty" /> value
-/// </summary>
-[PublicAPI]
-public record OkResultType() : OkResultType<Empty>(new Empty());
+﻿namespace FluentUtils.Monad;
 
 /// <summary>
 ///     The <see cref="ResultType{T}" /> variant that represents a success and contains a value
@@ -15,8 +7,7 @@ public record OkResultType() : OkResultType<Empty>(new Empty());
 ///     Do not access this record directly - invoke the <c>Unwrap</c> or <c>Match</c> extension methods instead
 /// </remarks>
 /// <typeparam name="T">The value type</typeparam>
-[PublicAPI]
-public record OkResultType<T> : ResultType<T> where T : notnull
+public sealed record OkResultType<T> : ResultType<T> where T : notnull
 {
     /// <summary>
     ///     Do not use directly
