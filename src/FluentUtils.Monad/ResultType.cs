@@ -3,6 +3,12 @@
 namespace FluentUtils.Monad;
 
 /// <summary>
+///     A <see cref="ResultType{T}" /> that contains an <see cref="Empty" /> value.
+/// </summary>
+[PublicAPI]
+public abstract record ResultType : ResultType<Empty>;
+
+/// <summary>
 ///     The result monad
 /// </summary>
 /// <typeparam name="T">The type of the value associated with the result</typeparam>
