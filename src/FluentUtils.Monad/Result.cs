@@ -109,15 +109,21 @@ public static class Result
 
     private static ErrorCode CreateCode(string caller, int lineNumber)
     {
+        if (caller.Length == 0)
+        {
+            return new ErrorCode($"ERR_{lineNumber:D4}");
+        }
+
         IEnumerable<char> upperCaseChars = caller.Where(char.IsUpper);
         string upperCaseCharsString = string.Join("", upperCaseChars);
-        char firstLetter = caller[0];
 
-        return char.IsUpper(firstLetter)
-            ? new ErrorCode($"{upperCaseCharsString}_{lineNumber:D4}")
-            : new ErrorCode(
-                $"{firstLetter}{upperCaseCharsString}_{lineNumber:D4}"
-                   .ToUpperInvariant()
+        if (upperCaseCharsString.Length < 3)
+        {
+            return new ErrorCode(
+                $"{caller[..3]}_{lineNumber:D4}".ToUpperInvariant()
             );
+        }
+
+        return new ErrorCode($"{upperCaseCharsString}_{lineNumber:D4}");
     }
 }
