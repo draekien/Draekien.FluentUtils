@@ -117,13 +117,16 @@ public static class Result
         IEnumerable<char> upperCaseChars = caller.Where(char.IsUpper);
         string upperCaseCharsString = string.Join("", upperCaseChars);
 
-        if (upperCaseCharsString.Length < 3)
+        return upperCaseCharsString.Length switch
         {
-            return new ErrorCode(
+            > 3 => new ErrorCode(
+                $"{upperCaseCharsString[..3]}_{lineNumber:D4}"
+                   .ToUpperInvariant()
+            ),
+            < 3 => new ErrorCode(
                 $"{caller[..3]}_{lineNumber:D4}".ToUpperInvariant()
-            );
-        }
-
-        return new ErrorCode($"{upperCaseCharsString}_{lineNumber:D4}");
+            ),
+            var _ => new ErrorCode($"{upperCaseCharsString}_{lineNumber:D4}"),
+        };
     }
 }

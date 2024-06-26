@@ -9,12 +9,10 @@ namespace FluentUtils.AutoMapper.Samples.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
     private readonly IMediator _mediator;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator)
+    public WeatherForecastController(IMediator mediator)
     {
-        _logger = logger;
         _mediator = mediator;
     }
 

@@ -1,6 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿namespace FluentUtils.Monad;
 
-namespace FluentUtils.Monad;
+using JetBrains.Annotations;
 
 /// <summary>
 ///     Extension methods for working with <see cref="ResultType{T}" />
@@ -8,7 +8,8 @@ namespace FluentUtils.Monad;
 [PublicAPI]
 public static class ResultExtensions
 {
-    private const string UnexpectedResultType = "Unexpected result type encountered.";
+    private const string UnexpectedResultType =
+        "Unexpected result type encountered.";
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
@@ -17,21 +18,72 @@ public static class ResultExtensions
     ///     Use this overload when your result contains a value
     /// </remarks>
     /// <param name="resultType">The <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
-    /// <typeparam name="TIn">The value type contained in the <see cref="OkResultType{T}" /></typeparam>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
+    /// <typeparam name="TIn">
+    ///     The value type contained in the
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static TOut Match<TIn, TOut>(this ResultType<TIn> resultType, Func<TIn, TOut> okHandler,
-        Func<Error, TOut> errorHandler) where TIn : notnull
+    public static TOut Match<TIn, TOut>(
+        this ResultType<TIn> resultType,
+        Func<TIn, TOut> okHandler,
+        Func<Error, TOut> errorHandler
+    ) where TIn : notnull
     {
         return resultType switch
         {
             OkResultType<TIn> ok => okHandler(ok.Value),
             ErrorResultType<TIn> err => errorHandler(err.Error),
-            _ => throw new InvalidOperationException(UnexpectedResultType)
+            _ => throw new InvalidOperationException(UnexpectedResultType),
         };
+    }
+
+    /// <summary>
+    ///     Checks the result variant and invokes the matching result handler
+    /// </summary>
+    /// <remarks>
+    ///     Use this overload when your handlers return void
+    /// </remarks>
+    /// <param name="resultType">The <see cref="ResultType{T}" /></param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
+    /// <typeparam name="T">
+    ///     The value type contained in the
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
+    public static void Match<T>(
+        this ResultType<T> resultType,
+        Action<T> okHandler,
+        Action<Error> errorHandler
+    ) where T : notnull
+    {
+        resultType.Match<T, Empty>(
+            value =>
+            {
+                okHandler(value);
+                return default;
+            },
+            error =>
+            {
+                errorHandler(error);
+                return default;
+            }
+        );
     }
 
     /// <summary>
@@ -41,13 +93,22 @@ public static class ResultExtensions
     ///     Use this overload when your result contains an empty value (e.g. void)
     /// </remarks>
     /// <param name="resultType">The <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static TOut Match<TOut>(this ResultType<Empty> resultType, Func<TOut> okHandler,
-        Func<Error, TOut> errorHandler)
+    public static TOut Match<TOut>(
+        this ResultType<Empty> resultType,
+        Func<TOut> okHandler,
+        Func<Error, TOut> errorHandler
+    )
     {
         return resultType.Match(_ => okHandler(), errorHandler);
     }
@@ -56,13 +117,24 @@ public static class ResultExtensions
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your ersult contains an empty value (e.g. void) and your handlers return void
+    ///     Use this overload when your ersult contains an empty value (e.g. void) and
+    ///     your handlers return void
     /// </remarks>
     /// <param name="resultType">The <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static void Match(this ResultType<Empty> resultType, Action okHandler, Action<Error> errorHandler)
+    public static void Match(
+        this ResultType<Empty> resultType,
+        Action okHandler,
+        Action<Error> errorHandler
+    )
     {
         switch (resultType)
         {
@@ -81,36 +153,62 @@ public static class ResultExtensions
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains some value but your handlers are synchronous
+    ///     Use this overload when your result is a task that contains some value but
+    ///     your handlers are synchronous
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
-    /// <typeparam name="TIn">The value type contained in the <see cref="OkResultType{T}" /></typeparam>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
+    /// <typeparam name="TIn">
+    ///     The value type contained in the
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static async Task<TOut> MatchAsync<TIn, TOut>(this Task<ResultType<TIn>> resultTask,
+    public static async Task<TOut> MatchAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> resultTask,
         Func<TIn, TOut> okHandler,
-        Func<Error, TOut> errorHandler) where TIn : notnull
-    {
-        return (await resultTask).Match(okHandler, errorHandler);
-    }
+        Func<Error, TOut> errorHandler
+    ) where TIn : notnull =>
+        (await resultTask).Match(okHandler, errorHandler);
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains an empty value but your handlers are synchronous
+    ///     Use this overload when your result is a task that contains an empty value
+    ///     but your handlers are synchronous
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static Task<TOut> MatchAsync<TOut>(this Task<ResultType<Empty>> resultTask, Func<TOut> okHandler,
-        Func<Error, TOut> errorHandler)
+    public static Task<TOut> MatchAsync<TOut>(
+        this Task<ResultType<Empty>> resultTask,
+        Func<TOut> okHandler,
+        Func<Error, TOut> errorHandler
+    )
     {
         return resultTask.MatchAsync(_ => okHandler(), errorHandler);
     }
@@ -119,43 +217,76 @@ public static class ResultExtensions
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains an empty value but your handlers are synchronous and
+    ///     Use this overload when your result is a task that contains an empty value
+    ///     but your handlers are synchronous and
     ///     return no value
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static async Task MatchAsync(this Task<ResultType<Empty>> resultTask, Action okHandler,
-        Action<Error> errorHandler)
-    {
+    public static async Task MatchAsync(
+        this Task<ResultType<Empty>> resultTask,
+        Action okHandler,
+        Action<Error> errorHandler
+    ) =>
         (await resultTask).Match(okHandler, errorHandler);
-    }
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains some value, your handlers are asynchronous, and your
+    ///     Use this overload when your result is a task that contains some value, your
+    ///     handlers are asynchronous, and your
     ///     handlers support cancellation tokens
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
-    /// <typeparam name="TIn">The value type contained in the <see cref="OkResultType{T}" /></typeparam>
+    /// <typeparam name="TIn">
+    ///     The value type contained in the
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static async Task<TOut> MatchAsync<TIn, TOut>(this Task<ResultType<TIn>> resultTask,
-        Func<TIn, CancellationToken, Task<TOut>> okHandler, Func<Error, CancellationToken, Task<TOut>> errorHandler,
-        CancellationToken cancellationToken) where TIn : notnull
+    public static async Task<TOut> MatchAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> resultTask,
+        Func<TIn, CancellationToken, Task<TOut>> okHandler,
+        Func<Error, CancellationToken, Task<TOut>> errorHandler,
+        CancellationToken cancellationToken
+    ) where TIn : notnull
     {
         return await resultTask switch
         {
-            OkResultType<TIn> ok => await okHandler(ok.Value, cancellationToken),
-            ErrorResultType<TIn> err => await errorHandler(err.Error, cancellationToken),
-            _ => throw new InvalidOperationException(UnexpectedResultType)
+            OkResultType<TIn> ok => await okHandler(
+                ok.Value,
+                cancellationToken
+            ),
+            ErrorResultType<TIn> err => await errorHandler(
+                err.Error,
+                cancellationToken
+            ),
+            _ => throw new InvalidOperationException(UnexpectedResultType),
         };
     }
 
@@ -163,80 +294,144 @@ public static class ResultExtensions
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains some value, your handlers are asynchronous, and your
+    ///     Use this overload when your result is a task that contains some value, your
+    ///     handlers are asynchronous, and your
     ///     handlers do not support cancellation tokens
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
-    /// <typeparam name="TIn">The value type contained in the <see cref="OkResultType{T}" /></typeparam>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
+    /// <typeparam name="TIn">
+    ///     The value type contained in the
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static Task<TOut> MatchAsync<TIn, TOut>(this Task<ResultType<TIn>> resultTask,
-        Func<TIn, Task<TOut>> okHandler, Func<Error, Task<TOut>> errorHandler) where TIn : notnull
+    public static Task<TOut> MatchAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> resultTask,
+        Func<TIn, Task<TOut>> okHandler,
+        Func<Error, Task<TOut>> errorHandler
+    ) where TIn : notnull
     {
-        return resultTask.MatchAsync((value, _) => okHandler(value), (err, _) => errorHandler(err),
-            CancellationToken.None);
+        return resultTask.MatchAsync(
+            (value, _) => okHandler(value),
+            (err, _) => errorHandler(err),
+            CancellationToken.None
+        );
     }
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains no value, your handlers are asynchronous, and your
+    ///     Use this overload when your result is a task that contains no value, your
+    ///     handlers are asynchronous, and your
     ///     handlers support cancellation tokens
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static Task<TOut> MatchAsync<TOut>(this Task<ResultType<Empty>> resultTask,
-        Func<CancellationToken, Task<TOut>> okHandler, Func<Error, CancellationToken, Task<TOut>> errorHandler,
-        CancellationToken cancellationToken)
+    public static Task<TOut> MatchAsync<TOut>(
+        this Task<ResultType<Empty>> resultTask,
+        Func<CancellationToken, Task<TOut>> okHandler,
+        Func<Error, CancellationToken, Task<TOut>> errorHandler,
+        CancellationToken cancellationToken
+    )
     {
-        return resultTask.MatchAsync((_, ct) => okHandler(ct), errorHandler,
-            cancellationToken);
+        return resultTask.MatchAsync(
+            (_, ct) => okHandler(ct),
+            errorHandler,
+            cancellationToken
+        );
     }
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains no value, your handlers are asynchronous, and your
+    ///     Use this overload when your result is a task that contains no value, your
+    ///     handlers are asynchronous, and your
     ///     handlers do not support cancellation tokens
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <typeparam name="TOut">The output value type</typeparam>
     /// <returns>The output value</returns>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static Task<TOut> MatchAsync<TOut>(this Task<ResultType<Empty>> resultTask,
-        Func<Task<TOut>> okHandler, Func<Error, Task<TOut>> errorHandler)
+    public static Task<TOut> MatchAsync<TOut>(
+        this Task<ResultType<Empty>> resultTask,
+        Func<Task<TOut>> okHandler,
+        Func<Error, Task<TOut>> errorHandler
+    )
     {
-        return resultTask.MatchAsync((_, _) => okHandler(), (err, _) => errorHandler(err),
-            CancellationToken.None);
+        return resultTask.MatchAsync(
+            (_, _) => okHandler(),
+            (err, _) => errorHandler(err),
+            CancellationToken.None
+        );
     }
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
     /// </summary>
     /// <remarks>
-    ///     Use this overload when your result is a task that contains no value, your handlers are asynchronous, your handlers
+    ///     Use this overload when your result is a task that contains no value, your
+    ///     handlers are asynchronous, your handlers
     ///     support cancellation tokens, and your handlers return no value
     /// </remarks>
-    /// <param name="resultTask">A task which when resolved returns a <see cref="ResultType{T}" /></param>
-    /// <param name="okHandler">The handler to execute for an <see cref="OkResultType{T}" /></param>
-    /// <param name="errorHandler">The handler to execute for an <see cref="ErrorResultType{T}" /></param>
+    /// <param name="resultTask">
+    ///     A task which when resolved returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="okHandler">
+    ///     The handler to execute for an
+    ///     <see cref="OkResultType{T}" />
+    /// </param>
+    /// <param name="errorHandler">
+    ///     The handler to execute for an
+    ///     <see cref="ErrorResultType{T}" />
+    /// </param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static async Task MatchAsync(this Task<ResultType<Empty>> resultTask,
+    public static async Task MatchAsync(
+        this Task<ResultType<Empty>> resultTask,
         Func<CancellationToken, Task> okHandler,
-        Func<Error, CancellationToken, Task> errorHandler, CancellationToken cancellationToken)
+        Func<Error, CancellationToken, Task> errorHandler,
+        CancellationToken cancellationToken
+    )
     {
         switch (await resultTask)
         {
@@ -258,7 +453,10 @@ public static class ResultExtensions
     ///     It is preferable to use <c>Match</c> to handle the error case explicitly
     /// </remarks>
     /// <param name="resultType">The <see cref="ResultType{T}" /></param>
-    /// <typeparam name="T">The value type associated with an <see cref="OkResultType{T}" /></typeparam>
+    /// <typeparam name="T">
+    ///     The value type associated with an
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <returns>The value type</returns>
     /// <exception cref="UnwrapPanicException">The result is an error variant</exception>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
@@ -268,20 +466,26 @@ public static class ResultExtensions
         {
             OkResultType<T> ok => ok.Value,
             ErrorResultType<T> err => throw new UnwrapPanicException(err.Error),
-            _ => throw new InvalidOperationException(UnexpectedResultType)
+            _ => throw new InvalidOperationException(UnexpectedResultType),
         };
     }
 
     /// <summary>
-    ///     Waits for the task to complete, then returns the <see cref="ResultType{T}" />'s contained OK value
+    ///     Waits for the task to complete, then returns the
+    ///     <see cref="ResultType{T}" />'s contained OK value
     /// </summary>
-    /// <param name="resultTask">A task which when completed will return a <see cref="ResultType{T}" /></param>
-    /// <typeparam name="T">The value type associated with an <see cref="OkResultType{T}" /></typeparam>
+    /// <param name="resultTask">
+    ///     A task which when completed will return a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <typeparam name="T">
+    ///     The value type associated with an
+    ///     <see cref="OkResultType{T}" />
+    /// </typeparam>
     /// <returns>The value type</returns>
     /// <exception cref="UnwrapPanicException">The result is an error variant</exception>
     /// <exception cref="InvalidOperationException">The result is an unexpected variant</exception>
-    public static async Task<T> UnwrapAsync<T>(this Task<ResultType<T>> resultTask) where T : notnull
-    {
-        return (await resultTask).Unwrap();
-    }
+    public static async Task<T> UnwrapAsync<T>(
+        this Task<ResultType<T>> resultTask
+    ) where T : notnull => (await resultTask).Unwrap();
 }
