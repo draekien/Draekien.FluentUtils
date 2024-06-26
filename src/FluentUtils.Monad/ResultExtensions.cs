@@ -208,10 +208,7 @@ public static class ResultExtensions
         this Task<ResultType<Empty>> resultTask,
         Func<TOut> okHandler,
         Func<Error, TOut> errorHandler
-    )
-    {
-        return resultTask.MatchAsync(_ => okHandler(), errorHandler);
-    }
+    ) => resultTask.MatchAsync(_ => okHandler(), errorHandler);
 
     /// <summary>
     ///     Checks the result variant and invokes the matching result handler
