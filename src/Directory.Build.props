@@ -10,9 +10,4 @@
         <PackageProjectUrl>https://github.com/draekien/Draekien.FluentUtils</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations">
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-    </ItemGroup>
 </Project>

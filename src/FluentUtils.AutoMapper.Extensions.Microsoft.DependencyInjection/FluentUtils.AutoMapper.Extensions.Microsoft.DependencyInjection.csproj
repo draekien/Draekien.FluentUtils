@@ -13,6 +13,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\FluentUtils.AutoMapper\FluentUtils.AutoMapper.csproj"/>
+        <PackageReference Include="JetBrains.Annotations">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
