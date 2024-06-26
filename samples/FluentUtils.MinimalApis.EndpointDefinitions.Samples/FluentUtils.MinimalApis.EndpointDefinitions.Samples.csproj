@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\FluentUtils.MinimalApis.EndpointDefinitions\FluentUtils.MinimalApis.EndpointDefinitions.csproj" />
+        <ProjectReference Include="..\..\src\FluentUtils.MinimalApis.EndpointDefinitions\FluentUtils.MinimalApis.EndpointDefinitions.csproj"/>
     </ItemGroup>
 
 </Project>
