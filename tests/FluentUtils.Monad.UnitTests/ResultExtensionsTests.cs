@@ -129,6 +129,63 @@ public class ResultExtensionsTests
         errorHandler.ReceivedCalls().Should().ContainSingle();
     }
 
+
+    [Fact]
+    public void
+        GivenEmptyOkResult_AndFuncHandler_WhenPerformingMatch_ThenExecuteOkHandler()
+    {
+        var okHandler = Substitute.For<Func<Empty>>();
+        var errorHandler = Substitute.For<Func<Error, Empty>>();
+        ResultType<Empty> result = Result.Ok();
+
+        result.Match(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().ContainSingle();
+        errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public void
+        GivenEmptyErrorResult_AndSingleParamFuncHandler_WhenPerformingMatch_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Func<Empty>>();
+        var errorHandler = Substitute.For<Func<Error, Empty>>();
+        ResultType<Empty> result = Result.Error("test");
+
+        result.Match(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
+    [Fact]
+    public void
+        GivenEmptyOkResult_AndActionHandlerWithNoParam_WhenPerformingMatch_ThenExecuteOkHandler()
+    {
+        var okHandler = Substitute.For<Action>();
+        var errorHandler = Substitute.For<Action<Error>>();
+        ResultType<Empty> result = Result.Ok();
+
+        result.Match(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().ContainSingle();
+        errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public void
+        GivenEmptyErrorResult_AndActionHandlerWithNoParam_WhenPerformingMatch_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Action>();
+        var errorHandler = Substitute.For<Action<Error>>();
+        ResultType<Empty> result = Result.Error("test");
+
+        result.Match(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
     [Fact]
     public async Task
         GivenOkResult_AndActionHandler_WhenPerformingMatchAsync_ThenExecuteOkHandler()
@@ -147,6 +204,21 @@ public class ResultExtensionsTests
 
     [Fact]
     public async Task
+        GivenErrorResult_AndActionHandler_WhenPerformingMatchAsync_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Func<ITestType, ITestType>>();
+        var errorHandler = Substitute.For<Func<Error, ITestType>>();
+        Task<ResultType<ITestType>> resultTask =
+            Task.FromResult(Result.Error<ITestType>("Test"));
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
+    [Fact]
+    public async Task
         GivenEmptyOkResult_AndActionHandler_WhenPerformingMatchAsync_ThenExecuteOkHandler()
     {
         var okHandler = Substitute.For<Func<Empty, Empty>>();
@@ -158,5 +230,123 @@ public class ResultExtensionsTests
 
         okHandler.ReceivedCalls().Should().ContainSingle();
         errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task
+        GivenEmptyErrorResult_AndActionHandler_WhenPerformingMatchAsync_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Func<Empty, Empty>>();
+        var errorHandler = Substitute.For<Func<Error, Empty>>();
+        Task<ResultType<Empty>> resultTask =
+            Task.FromResult(Result.Error("test"));
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
+    [Fact]
+    public async Task
+        GivenEmptyOkResult_AndFuncHandlerWithNoParams_WhenPerformingMatchAsync_ThenExecuteOkHandler()
+    {
+        var okHandler = Substitute.For<Func<Empty>>();
+        var errorHandler = Substitute.For<Func<Error, Empty>>();
+        Task<ResultType<Empty>> resultTask =
+            Task.FromResult(Result.Ok());
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().ContainSingle();
+        errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task
+        GivenEmptyErrorResult_AndFuncHandlerWithNoParams_WhenPerformingMatchAsync_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Func<Empty>>();
+        var errorHandler = Substitute.For<Func<Error, Empty>>();
+        Task<ResultType<Empty>> resultTask =
+            Task.FromResult(Result.Error("test"));
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
+    [Fact]
+    public async Task
+        GivenEmptyOkResult_AndActionHandlerWithNoParams_WhenPerformingMatchAsync_ThenExecuteOkHandler()
+    {
+        var okHandler = Substitute.For<Action>();
+        var errorHandler = Substitute.For<Action<Error>>();
+        Task<ResultType<Empty>> resultTask =
+            Task.FromResult(Result.Ok());
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().ContainSingle();
+        errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task
+        GivenEmptyErrorResult_AndActionHandlerWithNoParams_WhenPerformingMatchAsync_ThenExecuteErrorHandler()
+    {
+        var okHandler = Substitute.For<Action>();
+        var errorHandler = Substitute.For<Action<Error>>();
+        Task<ResultType<Empty>> resultTask =
+            Task.FromResult(Result.Error("test"));
+
+        await resultTask.MatchAsync(okHandler, errorHandler);
+
+        okHandler.ReceivedCalls().Should().BeEmpty();
+        errorHandler.ReceivedCalls().Should().ContainSingle();
+    }
+
+    [Fact]
+    public async Task
+        GivenOkResult_AndFuncHandlerWithCancellation_WhenPerformingMatchAsync_ThenExecuteOkHandler()
+    {
+        var okHandler = Substitute
+           .For<Func<ITestType, CancellationToken, Task<ITestType>>>();
+        var errorHandler = Substitute
+           .For<Func<Error, CancellationToken, Task<ITestType>>>();
+        var value = Substitute.For<ITestType>();
+        Task<ResultType<ITestType>> resultTask =
+            Task.FromResult(Result.Ok(value));
+
+        await resultTask.MatchAsync(
+            okHandler,
+            errorHandler,
+            CancellationToken.None
+        );
+
+        okHandler.ReceivedCalls().Should().ContainSingle();
+        errorHandler.ReceivedCalls().Should().BeEmpty();
+    }
+
+    [Fact]
+    public void GivenOkResult_WhenPerformingMap_ThenReturnMappedValue()
+    {
+        ResultType<Empty> result = Result.Ok();
+
+        List<string> output =
+            result.Map(_ => Result.Ok(new List<string>())).Unwrap();
+        output.Should().BeEquivalentTo(new List<string>());
+    }
+
+    [Fact]
+    public void GivenErrorResult_WhenPerformingMap_ThenReturnErrorResult()
+    {
+        ResultType<Empty> result = Result.Error("test");
+
+        ResultType<List<string>> output =
+            result.Map(_ => Result.Ok(new List<string>()));
+
+        output.Should().BeOfType<ErrorResultType<List<string>>>();
     }
 }

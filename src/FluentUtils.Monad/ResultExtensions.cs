@@ -485,4 +485,44 @@ public static class ResultExtensions
     public static async Task<T> UnwrapAsync<T>(
         this Task<ResultType<T>> resultTask
     ) where T : notnull => (await resultTask).Unwrap();
+
+    /// <summary>
+    ///     Maps a result's value to a different type
+    /// </summary>
+    /// <remarks>
+    ///     The mapper is only executed if the <see cref="result" /> is ok
+    /// </remarks>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="map">The <see cref="map" /> to execute</param>
+    /// <typeparam name="TIn">The type of the original result</typeparam>
+    /// <typeparam name="TOut">The output value's type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /> containing the mapped value</returns>
+    public static ResultType<TOut> Map<TIn, TOut>(
+        this ResultType<TIn> result,
+        Func<TIn, ResultType<TOut>> map
+    ) where TIn : notnull where TOut : notnull =>
+        result.Match(
+            map,
+            Result.Error<TOut>
+        );
+
+    /// <summary>
+    ///     Maps an asynchronous result's value to a different type
+    /// </summary>
+    /// <param name="resultTask">
+    ///     A task which when awaited returns a
+    ///     <see cref="ResultType{T}" />
+    /// </param>
+    /// <param name="mapAsync">The async mapper</param>
+    /// <typeparam name="TIn">The type of the original result</typeparam>
+    /// <typeparam name="TOut">The output value's type</typeparam>
+    /// <returns>A task which when awaited returns a result containing the mapped value</returns>
+    public static Task<ResultType<TOut>> MapAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> resultTask,
+        Func<TIn, Task<ResultType<TOut>>> mapAsync
+    ) where TIn : notnull where TOut : notnull =>
+        resultTask.MatchAsync(
+            mapAsync,
+            error => Task.FromResult(Result.Error<TOut>(error))
+        );
 }

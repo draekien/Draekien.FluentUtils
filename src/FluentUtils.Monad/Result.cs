@@ -47,7 +47,8 @@ public static class Result
     /// </summary>
     /// <param name="error">The error value</param>
     /// <returns>The created result</returns>
-    public static ResultType<Empty> Error(Error error) => Error<Empty>(error);
+    public static ResultType<Empty> Error(Error error) =>
+        Error<Empty>(error);
 
     /// <summary>
     ///     Creates an error result variant from a message and an optional exception.
