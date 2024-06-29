@@ -19,7 +19,10 @@ public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
         Error = error;
     }
 
-    internal Error Error { get; init; }
+    /// <summary>
+    ///     The <see cref="Error" />
+    /// </summary>
+    public Error Error { get; init; }
 
     internal void Deconstruct(out Error error)
     {
