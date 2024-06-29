@@ -20,10 +20,5 @@ public sealed record OkResultType<T> : ResultType<T> where T : notnull
         Value = value;
     }
 
-    internal T Value { get; init; }
-
-    internal void Deconstruct(out T value)
-    {
-        value = Value;
-    }
+    internal T Value { get; }
 }

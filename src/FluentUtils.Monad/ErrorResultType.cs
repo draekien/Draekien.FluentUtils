@@ -22,12 +22,7 @@ public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
     /// <summary>
     ///     The <see cref="Error" />
     /// </summary>
-    public Error Error { get; init; }
-
-    internal void Deconstruct(out Error error)
-    {
-        error = Error;
-    }
+    public Error Error { get; }
 
     /// <summary>
     ///     Converts a <see cref="ErrorResultType{T}" /> of type <see cref="TIn" /> to
