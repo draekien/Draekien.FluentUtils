@@ -5,21 +5,21 @@ using FluentAssertions;
 using Monad.Extensions;
 using NSubstitute;
 
-public class MapExtensionsTests
+public class PipeAsyncExtensionsTests
 {
     private readonly Fixture _fixture = new();
 
     [Fact]
-    public void
-        GivenOkResult_WhenInvokingMap_ThenMapValueToNewType()
+    public async Task
+        GivenAsyncOkResult_WhenInvokingPipeAsync_ThenMapValueToNewType()
     {
         // Arrange
-        ResultType<Empty> ok = Result.Ok();
+        Task<ResultType<Empty>> ok = Result.OkAsync();
         var expected = Substitute.For<ITestType>();
 
         // Act
         ResultType<ITestType> result =
-            ok.Map(_ => Result.Ok(expected));
+            await ok.PipeAsync((_, token) => Result.OkAsync(expected, token));
 
         // Assert
         result.Should().BeOfType<OkResultType<ITestType>>();
@@ -27,18 +27,18 @@ public class MapExtensionsTests
     }
 
     [Fact]
-    public void
-        GivenErrorResult_WhenInvokingMap_ThenMapErrorToNewType()
+    public async Task
+        GivenAsyncErrorResult_WhenInvokingPipeAsync_ThenMapErrorToNewType()
     {
         // Arrange
         var error = _fixture.Create<Error>();
-        ResultType<Empty> errorResult = Result.Error(error);
+        Task<ResultType<Empty>> errorResult = Result.ErrorAsync(error);
         ResultType<ITestType> expected =
-            Result.Error<ITestType>(error);
+            await Result.ErrorAsync<ITestType>(error);
 
         // Act
-        ResultType<ITestType> result = errorResult.Map(
-            _ => Result.Ok(Substitute.For<ITestType>())
+        ResultType<ITestType> result = await errorResult.PipeAsync(
+            (_, token) => Result.OkAsync(Substitute.For<ITestType>(), token)
         );
 
         // Assert
