@@ -8,7 +8,26 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\samples\FluentUtils.DomainDrivenEnums.Samples\FluentUtils.DomainDrivenEnums.Samples.csproj" />
+        <ProjectReference Include="..\..\samples\FluentUtils.DomainDrivenEnums.Samples\FluentUtils.DomainDrivenEnums.Samples.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoFixture"/>
+        <PackageReference Include="coverlet.collector">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.msbuild">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="FluentAssertions"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit"/>
+        <PackageReference Include="xunit.runner.visualstudio">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>

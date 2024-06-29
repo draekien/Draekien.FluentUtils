@@ -7,16 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-        <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-        <PackageReference Include="Serilog.Sinks.Seq" Version="5.2.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="FluentValidation.AspNetCore"/>
+        <PackageReference Include="Serilog.AspNetCore"/>
+        <PackageReference Include="Serilog.Sinks.Console"/>
+        <PackageReference Include="Serilog.Sinks.Seq"/>
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\FluentUtils.MediatR.PipelineBehaviours\FluentUtils.MediatR.PipelineBehaviours.csproj" />
-      <ProjectReference Include="..\..\src\FluentUtils.MediatR.Pagination.AspNetCore\FluentUtils.MediatR.Pagination.AspNetCore.csproj" />
+        <ProjectReference Include="..\..\src\FluentUtils.MediatR.PipelineBehaviours\FluentUtils.MediatR.PipelineBehaviours.csproj"/>
+        <ProjectReference Include="..\..\src\FluentUtils.MediatR.Pagination.AspNetCore\FluentUtils.MediatR.Pagination.AspNetCore.csproj"/>
     </ItemGroup>
 
 </Project>

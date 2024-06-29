@@ -7,7 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\FluentUtils.DomainDrivenEnums\FluentUtils.DomainDrivenEnums.csproj" />
+        <ProjectReference Include="..\..\src\FluentUtils.DomainDrivenEnums\FluentUtils.DomainDrivenEnums.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations"/>
     </ItemGroup>
 
 </Project>

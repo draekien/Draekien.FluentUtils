@@ -1,6 +1,7 @@
 ﻿# FluentUtils.Monad
 
-This library contains an implementation of the Result monad as made popular by Rust.
+This library contains an implementation of the Result monad as made popular by
+Rust.
 
 ## Basic Usage
 
@@ -24,24 +25,9 @@ errResult.Match(
 ## Async Usage
 
 ```csharp
-// synchronous callbacks
-string result = await MaybeBob().MatchAsync(
-    bob => "bob",
-    err => "not bob"
-);
-
-// async callbacks
 Order result = await CreateOrderAsync().MatchAsync(
-    async order => await UpdateOrderAsync(order),
-    async err => await ErrorOrderAsync(err)
-);
-
-// cancellation support
-CancellationTokenSource cts = new CancellationTokenSource();
-
-Order result = await CreateOrderAsync().MatchAsync(
-    async (order, ct) => await UpdateOrderAsync(order, ct),
-    async (err, ct) => await ErrorOrderAsync(err, ct),
-    cts.Token
+    async (order, token) => await UpdateOrderAsync(order, token),
+    async (err, token) => await ErrorOrderAsync(err, token),
+    cancellationToken
 );
 ```

@@ -7,17 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="FluentUtils.AutoMapper.UnitTests" />
+        <InternalsVisibleTo Include="FluentUtils.AutoMapper.UnitTests"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="11.0.0" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+        <PackageReference Include="MediatR"/>
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection"/>
+        <PackageReference Include="Swashbuckle.AspNetCore"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection\FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection.csproj" />
+        <ProjectReference Include="..\..\src\FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection\FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection.csproj"/>
     </ItemGroup>
 
 </Project>

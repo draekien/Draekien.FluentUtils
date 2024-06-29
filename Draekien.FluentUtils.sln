@@ -15,9 +15,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{1C830121-6036-4217-A15B-56D24D828F5F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7FAB5149-A4E2-4437-801B-45FBC1122EC6}"
-	ProjectSection(SolutionItems) = preProject
-		tests\Directory.Build.props = tests\Directory.Build.props
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.ValueObject.UnitTests", "tests\FluentUtils.ValueObject.UnitTests\FluentUtils.ValueObject.UnitTests.csproj", "{8D2F87C9-DCB5-4631-93AB-E734D2F22E5B}"
 EndProject
@@ -64,6 +61,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad", "src\FluentUtils.Monad\FluentUtils.Monad.csproj", "{E05C05D5-56F3-462B-8862-2659CD370B8B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad.Samples", "samples\FluentUtils.Monad.Samples\FluentUtils.Monad.Samples.csproj", "{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad.UnitTests", "tests\FluentUtils.Monad.UnitTests\FluentUtils.Monad.UnitTests.csproj", "{1C96330F-BAFB-4839-BB66-3702B63FD8CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,6 +170,10 @@ Global
 		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -204,5 +207,6 @@ Global
 		{E8119118-129F-4388-A36F-86BE1FC7F7B3} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 		{E05C05D5-56F3-462B-8862-2659CD370B8B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B} = {1C830121-6036-4217-A15B-56D24D828F5F}
+		{1C96330F-BAFB-4839-BB66-3702B63FD8CA} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
 	EndGlobalSection
 EndGlobal

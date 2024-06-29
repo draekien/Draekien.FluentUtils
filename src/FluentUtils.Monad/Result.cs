@@ -1,10 +1,12 @@
-﻿using JetBrains.Annotations;
+﻿namespace FluentUtils.Monad;
 
-namespace FluentUtils.Monad;
+using System.Runtime.CompilerServices;
 
 /// <summary>
-///     A result is the type used for returning and propagating errors. It is a monad with the variants
-///     <see cref="OkResultType{T}" />, representing success and containing some value, and
+///     A result is the type used for returning and propagating errors. It is a
+///     monad with the variants
+///     <see cref="OkResultType{T}" />, representing success and containing some
+///     value, and
 ///     <see cref="ErrorResultType{T}" />,
 ///     representing error and containing an error value.
 /// </summary>
@@ -12,43 +14,170 @@ namespace FluentUtils.Monad;
 public static class Result
 {
     /// <summary>
+    ///     Creates a <see cref="Task" /> that contains a success result variant
+    /// </summary>
+    /// <param name="value">The success value</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <typeparam name="T">The value type</typeparam>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<T>> OkAsync<T>(
+        T value,
+        CancellationToken cancellationToken = default
+    ) where T : notnull =>
+        Task.FromResult<ResultType<T>>(new OkResultType<T>(value));
+
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains a success result variant which
+    ///     holds no value
+    /// </summary>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<Empty>> OkAsync(
+        CancellationToken cancellationToken = default
+    ) => OkAsync<Empty>(default, cancellationToken);
+
+    /// <summary>
     ///     Creates a success result variant
     /// </summary>
     /// <param name="value">The success value</param>
     /// <typeparam name="T">The value type</typeparam>
     /// <returns>The created result</returns>
-    public static ResultType<T> Ok<T>(T value) where T : notnull
-    {
-        return new OkResultType<T>(value);
-    }
+    public static ResultType<T> Ok<T>(T value) where T : notnull =>
+        new OkResultType<T>(value);
 
     /// <summary>
     ///     Creates a successful result variant which holds no value
     /// </summary>
     /// <returns>The created result</returns>
-    public static ResultType<Empty> Ok()
-    {
-        return Ok<Empty>(default);
-    }
+    public static ResultType<Empty> Ok() => Ok<Empty>(default);
+
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains an error result variant
+    /// </summary>
+    /// <param name="error">The <see cref="Error(FluentUtils.Monad.Error)" /></param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <typeparam name="T">
+    ///     The value type associated with its success result
+    ///     counterpart
+    /// </typeparam>
+    /// <returns>The <see cref="ResultType{T}" /> <see cref="Task" /></returns>
+    public static Task<ResultType<T>> ErrorAsync<T>(
+        Error error,
+        CancellationToken cancellationToken = default
+    )
+        where T : notnull =>
+        Task.FromResult<ResultType<T>>(new ErrorResultType<T>(error));
+
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains an error result variant
+    /// </summary>
+    /// <param name="error">The <see cref="Error(FluentUtils.Monad.Error)" /></param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<Empty>> ErrorAsync(
+        Error error,
+        CancellationToken cancellationToken = default
+    ) => ErrorAsync<Empty>(error, cancellationToken);
 
     /// <summary>
     ///     Creates an error result variant
     /// </summary>
     /// <param name="error">The error value</param>
-    /// <typeparam name="T">The value type associated with its success result counterpart</typeparam>
+    /// <typeparam name="T">
+    ///     The value type associated with its success result
+    ///     counterpart
+    /// </typeparam>
     /// <returns>The created result</returns>
-    public static ResultType<T> Error<T>(Error error) where T : notnull
-    {
-        return new ErrorResultType<T>(error);
-    }
+    public static ResultType<T> Error<T>(Error error) where T : notnull =>
+        new ErrorResultType<T>(error);
 
     /// <summary>
-    ///     Creates an error result variant which is the counterpart to a success result that holds no value
+    ///     Creates an error result variant which is the counterpart to a success
+    ///     result that holds no value
     /// </summary>
     /// <param name="error">The error value</param>
     /// <returns>The created result</returns>
-    public static ResultType<Empty> Error(Error error)
+    public static ResultType<Empty> Error(Error error) =>
+        Error<Empty>(error);
+
+    /// <summary>
+    ///     Creates an error result variant from a message and an optional exception.
+    /// </summary>
+    /// <remarks>
+    ///     This overload dynamically generates the error code using the name of the
+    ///     calling method / property
+    ///     and the line number where this overload is invoked.
+    /// </remarks>
+    /// <param name="message">The error message to capture inside the result</param>
+    /// <param name="exception">Optional. The exception to capture inside the result</param>
+    /// <param name="caller">The caller member name</param>
+    /// <param name="lineNumber">The caller line number</param>
+    /// <typeparam name="T">
+    ///     The value type associated with its success result
+    ///     counterpart
+    /// </typeparam>
+    /// <returns>The created result</returns>
+    public static ResultType<T> Error<T>(
+        string message,
+        Exception? exception = default,
+        [CallerMemberName] string caller = "",
+        [CallerLineNumber] int lineNumber = 0
+    ) where T : notnull => CreateError(
+        CreateCode(caller, lineNumber),
+        message,
+        exception
+    );
+
+    /// <summary>
+    ///     Creates an error result variant from a message and an optional exception.
+    /// </summary>
+    /// <remarks>
+    ///     This overload dynamically generates the error code using the name of the
+    ///     calling method / property
+    ///     and the line number where this overload is invoked.
+    /// </remarks>
+    /// <param name="message">The error message to capture inside the result</param>
+    /// <param name="exception">Optional. The exception to capture inside the result</param>
+    /// <param name="caller">The caller member name</param>
+    /// <param name="lineNumber">The caller line number</param>
+    /// <returns>The created result</returns>
+    public static ResultType<Empty> Error(
+        string message,
+        Exception? exception = default,
+        [CallerMemberName] string caller = "",
+        [CallerLineNumber] int lineNumber = 0
+    ) => CreateError(
+        CreateCode(caller, lineNumber),
+        message,
+        exception
+    );
+
+    private static Error CreateError(
+        ErrorCode errorCode,
+        string message,
+        Exception? exception
+    ) => new(errorCode, message, exception);
+
+    private static ErrorCode CreateCode(string caller, int lineNumber)
     {
-        return Error<Empty>(error);
+        if (caller.Length == 0)
+        {
+            return new ErrorCode($"ERR_{lineNumber:D4}");
+        }
+
+        IEnumerable<char> upperCaseChars = caller.Where(char.IsUpper);
+        string upperCaseCharsString = string.Join("", upperCaseChars);
+
+        return upperCaseCharsString.Length switch
+        {
+            > 3 => new ErrorCode(
+                $"{upperCaseCharsString[..3]}_{lineNumber:D4}"
+                   .ToUpperInvariant()
+            ),
+            < 3 => new ErrorCode(
+                $"{caller[..3]}_{lineNumber:D4}".ToUpperInvariant()
+            ),
+            var _ => new ErrorCode($"{upperCaseCharsString}_{lineNumber:D4}"),
+        };
     }
 }
