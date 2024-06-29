@@ -1,8 +1,8 @@
 namespace FluentUtils.Monad.UnitTests;
 
 using AutoFixture;
-using Extensions;
 using FluentAssertions;
+using Monad.Extensions;
 using NSubstitute;
 
 public class ResultTests
@@ -57,7 +57,7 @@ public class ResultTests
         ResultType<Empty> result =
             Result.Error("Testing automatic error code creation");
 
-        Error error = result.Match(_ => default, error => error);
+        Error error = result.Match(_ => default!, error => error);
 
         string[] errorCodeParts = error.Code.Value.Split('_');
         errorCodeParts.Length.Should().Be(2);

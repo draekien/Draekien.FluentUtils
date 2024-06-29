@@ -1,7 +1,6 @@
 ﻿namespace FluentUtils.Monad;
 
 using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 
 /// <summary>
 ///     A result is the type used for returning and propagating errors. It is a
@@ -14,6 +13,29 @@ using JetBrains.Annotations;
 [PublicAPI]
 public static class Result
 {
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains a success result variant
+    /// </summary>
+    /// <param name="value">The success value</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <typeparam name="T">The value type</typeparam>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<T>> OkAsync<T>(
+        T value,
+        CancellationToken cancellationToken = default
+    ) where T : notnull =>
+        Task.FromResult<ResultType<T>>(new OkResultType<T>(value));
+
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains a success result variant which
+    ///     holds no value
+    /// </summary>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<Empty>> OkAsync(
+        CancellationToken cancellationToken = default
+    ) => OkAsync<Empty>(default, cancellationToken);
+
     /// <summary>
     ///     Creates a success result variant
     /// </summary>
@@ -45,6 +67,17 @@ public static class Result
     )
         where T : notnull =>
         Task.FromResult<ResultType<T>>(new ErrorResultType<T>(error));
+
+    /// <summary>
+    ///     Creates a <see cref="Task" /> that contains an error result variant
+    /// </summary>
+    /// <param name="error">The <see cref="Error(FluentUtils.Monad.Error)" /></param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <returns>The created result</returns>
+    public static Task<ResultType<Empty>> ErrorAsync(
+        Error error,
+        CancellationToken cancellationToken = default
+    ) => ErrorAsync<Empty>(error, cancellationToken);
 
     /// <summary>
     ///     Creates an error result variant
