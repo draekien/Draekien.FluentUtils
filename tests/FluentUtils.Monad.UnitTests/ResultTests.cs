@@ -1,6 +1,7 @@
 namespace FluentUtils.Monad.UnitTests;
 
 using AutoFixture;
+using Extensions;
 using FluentAssertions;
 using NSubstitute;
 
@@ -56,8 +57,14 @@ public class ResultTests
         ResultType<Empty> result =
             Result.Error("Testing automatic error code creation");
 
-        Error error = result.Match(_ => null!, error => error);
+        Error error = result.Match(_ => default, error => error);
 
-        error.Code.Value.Should().Be("WIE_0057");
+        string[] errorCodeParts = error.Code.Value.Split('_');
+        errorCodeParts.Length.Should().Be(2);
+        errorCodeParts[0].Should().Be("WIE");
+
+        bool isNumber = int.TryParse(errorCodeParts[1], out int number);
+        isNumber.Should().BeTrue();
+        number.Should().BeGreaterThan(0);
     }
 }

@@ -1,6 +1,7 @@
 ﻿# FluentUtils.Monad
 
-This library contains an implementation of the Result monad as made popular by Rust.
+This library contains an implementation of the Result monad as made popular by
+Rust.
 
 ## Basic Usage
 

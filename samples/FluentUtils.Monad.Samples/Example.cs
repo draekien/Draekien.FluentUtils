@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Samples;
 
+using Extensions;
+
 public record Person(string Name)
 {
     public static readonly Person Empty = new(string.Empty);

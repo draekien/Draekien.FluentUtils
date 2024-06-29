@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace FluentUtils.Monad;
+﻿namespace FluentUtils.Monad;
 
 /// <summary>
 ///     A message that is associated with a runtime <see cref="Error" />
@@ -13,18 +11,13 @@ public readonly record struct ErrorMessage(string Value)
     ///     Returns the value of the <see cref="ErrorMessage" />
     /// </summary>
     /// <returns>The value of the <see cref="ErrorMessage" /></returns>
-    public override string ToString()
-    {
-        return Value;
-    }
+    public override string ToString() => Value;
 
     /// <summary>
-    ///     Implicitly creates a new instance of <see cref="ErrorMessage" /> from a string value
+    ///     Implicitly creates a new instance of <see cref="ErrorMessage" /> from a
+    ///     string value
     /// </summary>
     /// <param name="value">The error message string</param>
     /// <returns>The <see cref="ErrorMessage" /> instance</returns>
-    public static implicit operator ErrorMessage(string value)
-    {
-        return new ErrorMessage(value);
-    }
+    public static implicit operator ErrorMessage(string value) => new(value);
 }

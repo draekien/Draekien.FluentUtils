@@ -30,6 +30,23 @@ public static class Result
     public static ResultType<Empty> Ok() => Ok<Empty>(default);
 
     /// <summary>
+    ///     Creates a <see cref="Task" /> that contains an error result variant
+    /// </summary>
+    /// <param name="error">The <see cref="Error(FluentUtils.Monad.Error)" /></param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <typeparam name="T">
+    ///     The value type associated with its success result
+    ///     counterpart
+    /// </typeparam>
+    /// <returns>The <see cref="ResultType{T}" /> <see cref="Task" /></returns>
+    public static Task<ResultType<T>> ErrorAsync<T>(
+        Error error,
+        CancellationToken cancellationToken = default
+    )
+        where T : notnull =>
+        Task.FromResult<ResultType<T>>(new ErrorResultType<T>(error));
+
+    /// <summary>
     ///     Creates an error result variant
     /// </summary>
     /// <param name="error">The error value</param>
