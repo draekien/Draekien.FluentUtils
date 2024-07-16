@@ -20,7 +20,7 @@ public static class Result
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <typeparam name="T">The value type</typeparam>
     /// <returns>The created result</returns>
-    public static Task<ResultType<T>> OkAsync<T>(
+    internal static Task<ResultType<T>> OkAsync<T>(
         T value,
         CancellationToken cancellationToken = default
     ) where T : notnull =>
@@ -32,7 +32,7 @@ public static class Result
     /// </summary>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <returns>The created result</returns>
-    public static Task<ResultType<Empty>> OkAsync(
+    internal static Task<ResultType<Empty>> OkAsync(
         CancellationToken cancellationToken = default
     ) => OkAsync<Empty>(default, cancellationToken);
 
@@ -61,7 +61,7 @@ public static class Result
     ///     counterpart
     /// </typeparam>
     /// <returns>The <see cref="ResultType{T}" /> <see cref="Task" /></returns>
-    public static Task<ResultType<T>> ErrorAsync<T>(
+    internal static Task<ResultType<T>> ErrorAsync<T>(
         Error error,
         CancellationToken cancellationToken = default
     )
@@ -74,7 +74,7 @@ public static class Result
     /// <param name="error">The <see cref="Error(FluentUtils.Monad.Error)" /></param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <returns>The created result</returns>
-    public static Task<ResultType<Empty>> ErrorAsync(
+    internal static Task<ResultType<Empty>> ErrorAsync(
         Error error,
         CancellationToken cancellationToken = default
     ) => ErrorAsync<Empty>(error, cancellationToken);
