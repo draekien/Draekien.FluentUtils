@@ -32,9 +32,9 @@ public static class PersonFactory
     }
 }
 
-public class PersonGenerator
+public static class PersonGenerator
 {
-    public IEnumerable<Person> Generate(int number)
+    public static IEnumerable<Person> Generate(int number)
     {
         for (var i = 0; i < number; i++)
         {

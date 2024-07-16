@@ -19,7 +19,7 @@ public class PipeExtensionsTests
 
         // Act
         ResultType<ITestType> result =
-            ok.Pipe(_ => Result.Ok(expected));
+            ok.Pipe(_ => expected);
 
         // Assert
         result.Should().BeOfType<OkResultType<ITestType>>();
@@ -38,7 +38,7 @@ public class PipeExtensionsTests
 
         // Act
         ResultType<ITestType> result = errorResult.Pipe(
-            _ => Result.Ok(Substitute.For<ITestType>())
+            _ => Substitute.For<ITestType>()
         );
 
         // Assert
