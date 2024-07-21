@@ -22,13 +22,24 @@ public static class PipeAsyncExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the
     ///     forwarded <see cref="ErrorResultType{T}" />
     /// </returns>
-    public static async Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
+    public static Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
-        Func<TIn, CancellationToken, Task<ResultType<TOut>>> pipeAsync,
+        Func<TIn, CancellationToken, Task<TOut>> pipeAsync,
         CancellationToken cancellationToken = default
     )
-        where TIn : notnull where TOut : notnull => await result.MatchAsync(
-        pipeAsync,
+        where TIn : notnull where TOut : notnull => result.MatchAsync(
+        async (value, ct) =>
+        {
+            try
+            {
+                TOut transformed = await pipeAsync(value, ct);
+                return await Result.OkAsync(transformed, ct);
+            }
+            catch (Exception ex)
+            {
+                return Result.Error<TOut>("Failed to pipe value", ex);
+            }
+        },
         Result.ErrorAsync<TOut>,
         cancellationToken
     );

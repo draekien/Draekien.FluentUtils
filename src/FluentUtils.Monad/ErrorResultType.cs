@@ -25,7 +25,7 @@ public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
     public Error Error { get; }
 
     /// <summary>
-    ///     Converts a <see cref="ErrorResultType{T}" /> of type <see cref="TIn" /> to
+    ///     Converts a <see cref="ErrorResultType{T}" /> of type <see cref="T" /> to
     ///     a type of <see cref="TOut" />, preserving the error inside the result
     /// </summary>
     /// <typeparam name="TOut">The output type</typeparam>

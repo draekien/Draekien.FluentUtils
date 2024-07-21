@@ -23,7 +23,20 @@ public static class PipeExtensions
     /// </returns>
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
-        Func<TIn, ResultType<TOut>> pipe
+        Func<TIn, TOut> pipe
     ) where TIn : notnull where TOut : notnull =>
-        result.Match(pipe, Result.Error<TOut>);
+        result.Match(
+            value =>
+            {
+                try
+                {
+                    TOut transformed = pipe(value);
+                    return Result.Ok(transformed);
+                }
+                catch (Exception ex)
+                {
+                    return Result.Error<TOut>("Failed to pipe value", ex);
+                }
+            },
+            Result.Error<TOut>);
 }
