@@ -28,6 +28,7 @@ public static class EnsureAsyncExtensions
         Error? error = default) where T : notnull => resultTask.MatchAsync(
         async (value, ct) => await predicate(value, ct)
             ? await resultTask
-            : await Result.ErrorAsync<T>(MonadErrors.FailedPredicate, ct),
+            : error
+              ?? await Result.ErrorAsync<T>(MonadErrors.FailedPredicate, ct),
         Result.ErrorAsync<T>);
 }
