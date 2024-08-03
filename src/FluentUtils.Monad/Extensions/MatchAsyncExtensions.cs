@@ -35,7 +35,7 @@ public static class MatchAsyncExtensions
         Func<TIn, CancellationToken, Task<TOut>> okHandler,
         Func<Error, CancellationToken, Task<TOut>> errorHandler,
         CancellationToken cancellationToken = default
-    ) where TIn : notnull
+    )
     {
         return await resultTask switch
         {
@@ -113,7 +113,7 @@ public static class MatchAsyncExtensions
         Func<TIn, CancellationToken, Task> okHandler,
         Func<Error, CancellationToken, Task> errorHandler,
         CancellationToken cancellationToken = default
-    ) where TIn : notnull
+    )
     {
         await resultTask.MatchAsync<TIn, Empty>(
             async (value, token) =>

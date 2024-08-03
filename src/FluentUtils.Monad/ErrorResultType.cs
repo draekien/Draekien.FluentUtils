@@ -30,6 +30,6 @@ public sealed record ErrorResultType<T> : ResultType<T>
     /// </summary>
     /// <typeparam name="TOut">The output type</typeparam>
     /// <returns>A <see cref="ErrorResultType{T}" /> where T is the output type</returns>
-    public ResultType<TOut> To<TOut>() where TOut : notnull =>
+    public ResultType<TOut> To<TOut>() =>
         new ErrorResultType<TOut>(Error);
 }

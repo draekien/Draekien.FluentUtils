@@ -27,20 +27,20 @@ public static class PipeAsyncExtensions
         Func<TIn, CancellationToken, Task<TOut>> pipeAsync,
         CancellationToken cancellationToken = default
     )
-        where TIn : notnull where TOut : notnull => result.MatchAsync(
-        async (value, ct) =>
-        {
-            try
+        => result.MatchAsync(
+            async (value, ct) =>
             {
-                TOut transformed = await pipeAsync(value, ct);
-                return await Result.OkAsync(transformed, ct);
-            }
-            catch (Exception ex)
-            {
-                return Result.Error<TOut>("Failed to pipe value", ex);
-            }
-        },
-        Result.ErrorAsync<TOut>,
-        cancellationToken
-    );
+                try
+                {
+                    TOut transformed = await pipeAsync(value, ct);
+                    return await Result.OkAsync(transformed, ct);
+                }
+                catch (Exception ex)
+                {
+                    return Result.Error<TOut>("Failed to pipe value", ex);
+                }
+            },
+            Result.ErrorAsync<TOut>,
+            cancellationToken
+        );
 }

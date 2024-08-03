@@ -33,7 +33,7 @@ public static class MatchExtensions
         this ResultType<TIn> result,
         Func<TIn, TOut> okHandler,
         Func<Error, TOut> errorHandler
-    ) where TIn : notnull
+    )
     {
         return result switch
         {
@@ -96,7 +96,7 @@ public static class MatchExtensions
         this ResultType<TIn> result,
         Action<TIn> okHandler,
         Action<Error> errorHandler
-    ) where TIn : notnull
+    )
     {
         result.Match<TIn, Empty>(
             value =>

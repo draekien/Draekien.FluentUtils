@@ -8,7 +8,7 @@
 public static class PipeExtensions
 {
     /// <summary>
-    ///     Pipes the value of an asynchronous <see cref="ResultType{T}" /> to another
+    ///     Pipes the value of an synchronous <see cref="ResultType{T}" /> to another
     ///     type if the <see cref="ResultType{T}" />
     ///     is an <see cref="OkResultType{T}" />, otherwise pipes the
     ///     <see cref="ErrorResultType{T}" /> to the target type
@@ -24,7 +24,7 @@ public static class PipeExtensions
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, TOut> pipe
-    ) where TIn : notnull where TOut : notnull =>
+    ) =>
         result.Match(
             value =>
             {
