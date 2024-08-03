@@ -9,4 +9,4 @@
 public sealed class UnsupportedResultTypeException<T>(ResultType<T> result)
     : NotSupportedException(
         $"The result type '{result.GetType().Name}' is not supported."
-    ) where T : notnull;
+    );

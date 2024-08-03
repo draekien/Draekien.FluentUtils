@@ -25,7 +25,7 @@ public static class EnsureExtensions
     public static ResultType<T> Ensure<T>(
         this ResultType<T> result,
         Func<T, bool> predicate,
-        Error? error = default) where T : notnull =>
+        Error? error = default) =>
         result.Match(
             value => predicate(value)
                 ? result

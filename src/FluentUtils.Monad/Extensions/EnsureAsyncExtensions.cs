@@ -25,7 +25,7 @@ public static class EnsureAsyncExtensions
     public static Task<ResultType<T>> EnsureAsync<T>(
         this Task<ResultType<T>> resultTask,
         Func<T, CancellationToken, Task<bool>> predicate,
-        Error? error = default) where T : notnull => resultTask.MatchAsync(
+        Error? error = default) => resultTask.MatchAsync(
         async (value, ct) => await predicate(value, ct)
             ? await resultTask
             : error

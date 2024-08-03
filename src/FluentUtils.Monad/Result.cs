@@ -23,7 +23,7 @@ public static class Result
     internal static Task<ResultType<T>> OkAsync<T>(
         T value,
         CancellationToken cancellationToken = default
-    ) where T : notnull =>
+    ) =>
         Task.FromResult<ResultType<T>>(new OkResultType<T>(value));
 
     /// <summary>
@@ -42,7 +42,7 @@ public static class Result
     /// <param name="value">The success value</param>
     /// <typeparam name="T">The value type</typeparam>
     /// <returns>The created result</returns>
-    public static ResultType<T> Ok<T>(T value) where T : notnull =>
+    public static ResultType<T> Ok<T>(T value) =>
         new OkResultType<T>(value);
 
     /// <summary>
@@ -50,6 +50,48 @@ public static class Result
     /// </summary>
     /// <returns>The created result</returns>
     public static ResultType<Empty> Ok() => Ok<Empty>(default);
+
+    /// <summary>
+    ///     Binds the result of a factory method to a <see cref="ResultType{T}" />
+    /// </summary>
+    /// <param name="factory">The factory method</param>
+    /// <typeparam name="T">The factory output type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /></returns>
+    public static ResultType<T> Bind<T>(Func<T> factory)
+    {
+        try
+        {
+            return factory();
+        }
+        catch (Exception ex)
+        {
+            return MonadErrors.FailedToBindFactory(ex);
+        }
+    }
+
+    /// <summary>
+    ///     Binds the results of an asynchronous factory method to a
+    ///     <see cref="ResultType{T}" />
+    /// </summary>
+    /// <param name="factory">The async factory</param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <typeparam name="T">The factory output type</typeparam>
+    /// <returns>
+    ///     A task which when awaited will return a <see cref="ResultType{T}" />
+    /// </returns>
+    public static async Task<ResultType<T>> BindAsync<T>(
+        Func<CancellationToken, Task<T>> factory,
+        CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await factory(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            return MonadErrors.FailedToBindFactory(ex);
+        }
+    }
 
     /// <summary>
     ///     Creates a <see cref="Task" /> that contains an error result variant
@@ -65,8 +107,8 @@ public static class Result
         Error error,
         CancellationToken cancellationToken = default
     )
-        where T : notnull =>
-        Task.FromResult<ResultType<T>>(new ErrorResultType<T>(error));
+        =>
+            Task.FromResult<ResultType<T>>(new ErrorResultType<T>(error));
 
     /// <summary>
     ///     Creates a <see cref="Task" /> that contains an error result variant
@@ -88,7 +130,7 @@ public static class Result
     ///     counterpart
     /// </typeparam>
     /// <returns>The created result</returns>
-    public static ResultType<T> Error<T>(Error error) where T : notnull =>
+    public static ResultType<T> Error<T>(Error error) =>
         new ErrorResultType<T>(error);
 
     /// <summary>
@@ -122,7 +164,7 @@ public static class Result
         Exception? exception = default,
         [CallerMemberName] string caller = "",
         [CallerLineNumber] int lineNumber = 0
-    ) where T : notnull => CreateError(
+    ) => CreateError(
         CreateCode(caller, lineNumber),
         message,
         exception

@@ -12,7 +12,7 @@
 ///     The value type associated with it's
 ///     <see cref="OkResultType{T}" /> counterpart
 /// </typeparam>
-public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
+public sealed record ErrorResultType<T> : ResultType<T>
 {
     internal ErrorResultType(Error error)
     {

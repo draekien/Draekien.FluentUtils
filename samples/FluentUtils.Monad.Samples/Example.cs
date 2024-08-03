@@ -1,58 +1,30 @@
 ﻿namespace FluentUtils.Monad.Samples;
 
 using Extensions;
+using Models;
 
-public record Person(string Name)
+internal class Example
 {
-    public static readonly Person Empty = new(string.Empty);
-}
-
-public static class PersonErrors
-{
-    public static readonly Error EmptyName = new(
-        "P01",
-        "A person must have a name."
-    );
-}
-
-public static class PersonFactory
-{
-    public static ResultType<Person> Create(string name)
+    public void Execute()
     {
-        if (string.IsNullOrEmpty(name)) return PersonErrors.EmptyName;
-        if (name.Length > 255)
-        {
-            // dynamically generated error code
-            return Result.Error<Person>(
-                "A name cannot be more than 255 characters long"
-            );
-        }
+        ResultType<Person> createPersonResult =
+            Result.Bind(() => new Person("Bob Smith"));
 
-        return new Person(name);
-    }
-}
+        ResultType<string> getPersonNameResult =
+            createPersonResult.Pipe(person => person.Name);
 
-public static class PersonGenerator
-{
-    public static IEnumerable<Person> Generate(int number)
-    {
-        for (var i = 0; i < number; i++)
-        {
-            ResultType<Person> createPersonResult =
-                PersonFactory.Create($"Person {i}");
+        ResultType<string> ensureNameIsNotWhitespaceResult =
+            getPersonNameResult.Ensure(
+                x => !string.IsNullOrWhiteSpace(x));
 
-            yield return createPersonResult.Match(
-                person =>
-                {
-                    Console.WriteLine("Person created");
-                    return person;
-                },
-                e =>
-                {
-                    Console.WriteLine(e.ToString());
-                    return Person.Empty;
-                }
-            );
-        }
+        string output = ensureNameIsNotWhitespaceResult.Match(
+            x => $"Hello {x}",
+            error =>
+            {
+                Console.WriteLine(error.Message);
+                return "Who are you?";
+            });
+
+        Console.WriteLine(output);
     }
 }
