@@ -16,10 +16,12 @@ public static class MonadErrors
     /// <summary>
     ///     Failed to bind the result of a factory method to a result
     /// </summary>
-    public static Error FailedToBindFactory(Exception exception) =>
+    public static Error FailedToBindFactory(
+        Exception exception,
+        string factoryExpression) =>
         new(
             "FUME_02",
-            "Error when binding the result of the provided factory method.",
+            $"Error when binding result for factory '{factoryExpression}'.",
             exception);
 
     /// <summary>

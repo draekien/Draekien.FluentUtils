@@ -55,9 +55,14 @@ public static class Result
     ///     Binds the result of a factory method to a <see cref="ResultType{T}" />
     /// </summary>
     /// <param name="factory">The factory method</param>
+    /// <param name="factoryExpression">The factory expression</param>
     /// <typeparam name="T">The factory output type</typeparam>
     /// <returns>A <see cref="ResultType{T}" /></returns>
-    public static ResultType<T> Bind<T>(Func<T> factory)
+    public static ResultType<T> Bind<T>(
+        Func<T> factory,
+        [CallerArgumentExpression(nameof(factory))]
+        string factoryExpression =
+            "not provided")
     {
         try
         {
@@ -65,7 +70,7 @@ public static class Result
         }
         catch (Exception ex)
         {
-            return MonadErrors.FailedToBindFactory(ex);
+            return MonadErrors.FailedToBindFactory(ex, factoryExpression);
         }
     }
 
@@ -75,13 +80,16 @@ public static class Result
     /// </summary>
     /// <param name="factory">The async factory</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <param name="factoryExpression">The async factory expression</param>
     /// <typeparam name="T">The factory output type</typeparam>
     /// <returns>
     ///     A task which when awaited will return a <see cref="ResultType{T}" />
     /// </returns>
     public static async Task<ResultType<T>> BindAsync<T>(
         Func<CancellationToken, Task<T>> factory,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        [CallerArgumentExpression(nameof(factory))]
+        string factoryExpression = "not provided")
     {
         try
         {
@@ -89,7 +97,7 @@ public static class Result
         }
         catch (Exception ex)
         {
-            return MonadErrors.FailedToBindFactory(ex);
+            return MonadErrors.FailedToBindFactory(ex, factoryExpression);
         }
     }
 
