@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Runtime.CompilerServices;
+
 /// <summary>
 ///     Extensions for mapping the value of an asynchronous
 ///     <see cref="ResultType{T}" /> to another type
@@ -16,6 +18,7 @@ public static class PipeAsyncExtensions
     /// <param name="result">The asynchronous <see cref="ResultType{T}" /></param>
     /// <param name="pipeAsync">The pipe operation</param>
     /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <param name="pipeExpression">The pipe async expression</param>
     /// <typeparam name="TIn">The input result value's type</typeparam>
     /// <typeparam name="TOut">The output result value's type</typeparam>
     /// <returns>
@@ -25,22 +28,24 @@ public static class PipeAsyncExtensions
     public static Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
         Func<TIn, CancellationToken, Task<TOut>> pipeAsync,
-        CancellationToken cancellationToken = default
+        CancellationToken cancellationToken = default,
+        [CallerArgumentExpression(nameof(pipeAsync))]
+        string pipeExpression = ""
     )
-        where TIn : notnull where TOut : notnull => result.MatchAsync(
-        async (value, ct) =>
-        {
-            try
+        => result.MatchAsync(
+            async (value, ct) =>
             {
-                TOut transformed = await pipeAsync(value, ct);
-                return await Result.OkAsync(transformed, ct);
-            }
-            catch (Exception ex)
-            {
-                return Result.Error<TOut>("Failed to pipe value", ex);
-            }
-        },
-        Result.ErrorAsync<TOut>,
-        cancellationToken
-    );
+                try
+                {
+                    TOut transformed = await pipeAsync(value, ct);
+                    return await Result.OkAsync(transformed, ct);
+                }
+                catch (Exception ex)
+                {
+                    return MonadErrors.FailedToPipeValue(ex, pipeExpression);
+                }
+            },
+            Result.ErrorAsync<TOut>,
+            cancellationToken
+        );
 }

@@ -1,13 +1,11 @@
 ﻿namespace FluentUtils.Monad;
 
-using JetBrains.Annotations;
-
 /// <summary>
 ///     The result monad
 /// </summary>
 /// <typeparam name="T">The type of the value associated with the result</typeparam>
 [PublicAPI]
-public abstract record ResultType<T> where T : notnull
+public abstract record ResultType<T>
 {
     /// <summary>
     ///     Implicitly creates an instance of <see cref="OkResultType{T}" /> from some

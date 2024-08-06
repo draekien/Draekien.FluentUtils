@@ -9,7 +9,7 @@
 ///     <c>Match</c> extension methods instead
 /// </remarks>
 /// <typeparam name="T">The value type</typeparam>
-public sealed record OkResultType<T> : ResultType<T> where T : notnull
+public sealed record OkResultType<T> : ResultType<T>
 {
     /// <summary>
     ///     Do not use directly

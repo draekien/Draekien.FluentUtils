@@ -23,7 +23,7 @@ public static class UnwrapExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
-    public static T Unwrap<T>(this ResultType<T> result) where T : notnull =>
+    public static T Unwrap<T>(this ResultType<T> result) =>
         result switch
         {
             OkResultType<T> ok => ok.Value,

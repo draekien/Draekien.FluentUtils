@@ -45,7 +45,7 @@ public class EnsureExtensionsTests
         output.Should().BeOfType<ErrorResultType<ITestType>>();
         output.As<ErrorResultType<ITestType>>()
            .Error.Should()
-           .Be(MonadErrors.FailedPredicate);
+           .Be(MonadErrors.FailedPredicate("_ => false"));
     }
 
     [Fact]

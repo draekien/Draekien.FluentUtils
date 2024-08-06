@@ -26,5 +26,5 @@ public static class UnwrapAsyncExtensions
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
     public static async Task<T> UnwrapAsync<T>(this Task<ResultType<T>> result)
-        where T : notnull => (await result).Unwrap();
+        => (await result).Unwrap();
 }

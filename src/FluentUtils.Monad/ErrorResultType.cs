@@ -12,7 +12,7 @@
 ///     The value type associated with it's
 ///     <see cref="OkResultType{T}" /> counterpart
 /// </typeparam>
-public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
+public sealed record ErrorResultType<T> : ResultType<T>
 {
     internal ErrorResultType(Error error)
     {
@@ -30,6 +30,6 @@ public sealed record ErrorResultType<T> : ResultType<T> where T : notnull
     /// </summary>
     /// <typeparam name="TOut">The output type</typeparam>
     /// <returns>A <see cref="ErrorResultType{T}" /> where T is the output type</returns>
-    public ResultType<TOut> To<TOut>() where TOut : notnull =>
+    public ResultType<TOut> To<TOut>() =>
         new ErrorResultType<TOut>(Error);
 }

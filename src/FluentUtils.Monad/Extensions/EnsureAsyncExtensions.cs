@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Runtime.CompilerServices;
+
 /// <summary>
 ///     Extensions for ensuring the value of an asynchronous
 ///     <see cref="ResultType{T}" />
@@ -20,15 +22,25 @@ public static class EnsureAsyncExtensions
     ///     Optional. The <see cref="Error" /> that will be assigned to
     ///     the result if it does not pass the predicate
     /// </param>
+    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
+    /// <param name="predicateExpression">The predicate expression</param>
     /// <typeparam name="T">The result value type</typeparam>
     /// <returns>The original result on success, otherwise an error result</returns>
     public static Task<ResultType<T>> EnsureAsync<T>(
         this Task<ResultType<T>> resultTask,
         Func<T, CancellationToken, Task<bool>> predicate,
-        Error? error = default) where T : notnull => resultTask.MatchAsync(
-        async (value, ct) => await predicate(value, ct)
-            ? await resultTask
-            : error
-              ?? await Result.ErrorAsync<T>(MonadErrors.FailedPredicate, ct),
-        Result.ErrorAsync<T>);
+        Error? error = default,
+        CancellationToken cancellationToken = default,
+        [CallerArgumentExpression(nameof(predicate))]
+        string predicateExpression = "not provided") => resultTask.MatchAsync(
+        async (value, ct) =>
+        {
+            bool passed = await predicate(value, ct);
+
+            if (passed) return await resultTask;
+
+            return error ?? MonadErrors.FailedPredicate(predicateExpression);
+        },
+        Result.ErrorAsync<T>,
+        cancellationToken);
 }

@@ -67,4 +67,53 @@ public class ResultTests
         isNumber.Should().BeTrue();
         number.Should().BeGreaterThan(0);
     }
+
+    [Fact]
+    public void GivenException_WhenInvokingBind_ThenReturnErrorResult()
+    {
+        ResultType<bool> result = Result.Bind(
+            () =>
+            {
+                throw new InvalidOperationException();
+
+#pragma warning disable CS0162 // Unreachable code detected - required for test
+                return true;
+#pragma warning restore CS0162 // Unreachable code detected
+            });
+
+        result.Should().BeOfType<ErrorResultType<bool>>();
+        result.As<ErrorResultType<bool>>()
+           .Error.Message.Value.Should()
+           .Contain("InvalidOperationException");
+    }
+
+    [Fact]
+    public async Task WhenInvokingBindAsync_ThenReturnOkResult()
+    {
+        ResultType<bool> result =
+            await Result.BindAsync(_ => Task.FromResult(true));
+
+        result.Should().BeOfType<OkResultType<bool>>();
+        result.Unwrap().Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task
+        GivenException_WhenInvokingBindAsync_ThenReturnErrorResult()
+    {
+        ResultType<bool> result = await Result.BindAsync(
+            _ =>
+            {
+                throw new InvalidOperationException();
+
+#pragma warning disable CS0162 // Unreachable code detected - required for test
+                return Task.FromResult(true);
+#pragma warning restore CS0162 // Unreachable code detected
+            });
+
+        result.Should().BeOfType<ErrorResultType<bool>>();
+        result.As<ErrorResultType<bool>>()
+           .Error.Message.Value.Should()
+           .Contain("InvalidOperationException");
+    }
 }
