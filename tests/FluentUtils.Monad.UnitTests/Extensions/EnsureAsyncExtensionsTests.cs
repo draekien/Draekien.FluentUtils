@@ -47,7 +47,7 @@ public class EnsureAsyncExtensionsTests
         output.Should().BeOfType<ErrorResultType<ITestType>>();
         output.As<ErrorResultType<ITestType>>()
            .Error.Should()
-           .Be(MonadErrors.FailedPredicate);
+           .Be(MonadErrors.FailedPredicate("(_, _) => Task.FromResult(false)"));
     }
 
     [Fact]

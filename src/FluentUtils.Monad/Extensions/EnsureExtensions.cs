@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Runtime.CompilerServices;
+
 /// <summary>
 ///     Extensions for ensuring a <see cref="ResultType{T}" /> satisfies a
 ///     predicate
@@ -20,15 +22,19 @@ public static class EnsureExtensions
     ///     Optional. The <see cref="Error" /> that will be assigned to
     ///     the result if it does not pass the predicate
     /// </param>
+    /// <param name="predicateExpression">The predicate expression</param>
     /// <typeparam name="T">The result value type</typeparam>
     /// <returns>The original result on success, otherwise an error result</returns>
     public static ResultType<T> Ensure<T>(
         this ResultType<T> result,
         Func<T, bool> predicate,
-        Error? error = default) =>
+        Error? error = default,
+        [CallerArgumentExpression(nameof(predicate))]
+        string predicateExpression = "not provided") =>
         result.Match(
             value => predicate(value)
                 ? result
-                : Result.Error<T>(error ?? MonadErrors.FailedPredicate),
+                : Result.Error<T>(
+                    error ?? MonadErrors.FailedPredicate(predicateExpression)),
             Result.Error<T>);
 }
