@@ -47,4 +47,29 @@ public class PipeExtensionsTests
            .Should()
            .Be(expected);
     }
+
+    [Fact]
+    public void
+        GivenExceptionFromPipeExpression_WhenInvokingPipe_ThenReturnErrorWithPipeExpression()
+    {
+        // Arrange
+        ResultType<string> sut = Result.Bind(() => "bob");
+
+        // Act
+        ResultType<bool> result = sut.Pipe(
+            _ =>
+            {
+                throw new InvalidOperationException();
+
+#pragma warning disable CS0162 // Unreachable code detected - required for test
+                return false;
+#pragma warning restore CS0162 // Unreachable code detected
+            });
+
+        // Assert
+        result.Should().BeOfType<ErrorResultType<bool>>();
+        result.As<ErrorResultType<bool>>()
+           .Error.Message.Value.Should()
+           .Contain("throw new InvalidOperationException()");
+    }
 }
