@@ -10,7 +10,7 @@ public static class MonadErrors
     ///     The value of a result does not match a predicate
     /// </summary>
     public static readonly Error FailedPredicate = new(
-        "FM_01",
+        "FUME_01",
         "Result value does not match predicate.");
 
     /// <summary>
@@ -18,7 +18,20 @@ public static class MonadErrors
     /// </summary>
     public static Error FailedToBindFactory(Exception exception) =>
         new(
-            "FM_02",
+            "FUME_02",
             "Error when binding the result of the provided factory method.",
             exception);
+
+    /// <summary>
+    ///     Failed to pipe the value of a result via a pipe expression
+    /// </summary>
+    /// <param name="exception">The <see cref="Exception" /></param>
+    /// <param name="pipeExpression">The pipe expression</param>
+    /// <returns>The <see cref="Error" /></returns>
+    public static Error FailedToPipeValue(
+        Exception exception,
+        string pipeExpression) => new(
+        "FUME_03",
+        $"Error piping value via expression '{pipeExpression}'",
+        exception);
 }

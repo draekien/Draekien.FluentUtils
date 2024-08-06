@@ -1,7 +1,5 @@
 ﻿namespace FluentUtils.Monad.Samples;
 
-using Models;
-
 internal static class PersonFactory
 {
     public static ResultType<Person> Create(string name)

@@ -1,7 +1,6 @@
 ﻿namespace FluentUtils.Monad.Samples;
 
 using Extensions;
-using Models;
 
 internal class Example
 {

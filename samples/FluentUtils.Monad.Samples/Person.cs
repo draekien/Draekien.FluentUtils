@@ -1,4 +1,4 @@
-﻿namespace FluentUtils.Monad.Samples.Models;
+﻿namespace FluentUtils.Monad.Samples;
 
 internal record Person(string Name)
 {

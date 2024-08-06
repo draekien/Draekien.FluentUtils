@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Runtime.CompilerServices;
+
 /// <summary>
 ///     Extensions for mapping the value of a <see cref="ResultType{T}" /> to a
 ///     different type
@@ -15,6 +17,7 @@ public static class PipeExtensions
     /// </summary>
     /// <param name="result">The <see cref="ResultType{T}" /></param>
     /// <param name="pipe">The pipe operation</param>
+    /// <param name="pipeExpression">The pipe expression</param>
     /// <typeparam name="TIn">The input result value's type</typeparam>
     /// <typeparam name="TOut">The output result value's type</typeparam>
     /// <returns>
@@ -23,7 +26,9 @@ public static class PipeExtensions
     /// </returns>
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
-        Func<TIn, TOut> pipe
+        Func<TIn, TOut> pipe,
+        [CallerArgumentExpression(nameof(pipe))]
+        string pipeExpression = ""
     ) =>
         result.Match(
             value =>
@@ -35,7 +40,9 @@ public static class PipeExtensions
                 }
                 catch (Exception ex)
                 {
-                    return Result.Error<TOut>("Failed to pipe value", ex);
+                    return MonadErrors.FailedToPipeValue(
+                        ex,
+                        pipeExpression);
                 }
             },
             Result.Error<TOut>);
