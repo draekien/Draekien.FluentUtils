@@ -7,4 +7,10 @@
 ///     no value.
 /// </summary>
 [PublicAPI]
-public readonly record struct Empty;
+public readonly record struct Empty
+{
+    /// <summary>
+    ///     The default <see cref="Empty" /> value
+    /// </summary>
+    public static readonly Empty Default;
+}
