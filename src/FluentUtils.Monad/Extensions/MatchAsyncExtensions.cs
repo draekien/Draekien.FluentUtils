@@ -58,7 +58,6 @@ public static class MatchAsyncExtensions
     ///     The operation to perform for an
     ///     <see cref="ErrorResultType{T}" />
     /// </param>
-    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <typeparam name="TOut">The output value's type</typeparam>
     /// <returns>The output value from the invoked handler</returns>
     /// <exception cref="UnsupportedResultTypeException{TIn}">
