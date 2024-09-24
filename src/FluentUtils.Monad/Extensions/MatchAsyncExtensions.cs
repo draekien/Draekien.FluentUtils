@@ -44,6 +44,21 @@ public static class MatchAsyncExtensions
     }
 
     /// <summary>
+    /// </summary>
+    /// <param name="resultTask"></param>
+    /// <param name="okHandler"></param>
+    /// <param name="errorHandler"></param>
+    /// <typeparam name="TIn"></typeparam>
+    /// <typeparam name="TOut"></typeparam>
+    /// <returns></returns>
+    public static async Task<TOut> MatchAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> resultTask,
+        Func<TIn, TOut> okHandler,
+        Func<Error, TOut> errorHandler) => await resultTask.MatchAsync(
+        value => Task.FromResult(okHandler(value)),
+        error => Task.FromResult(errorHandler(error)));
+
+    /// <summary>
     ///     Performs a match on the <see cref="ResultType{T}" />, invoking the
     ///     <see cref="okHandler" /> for an <see cref="OkResultType{T}" />
     ///     and the <see cref="errorHandler" /> for an

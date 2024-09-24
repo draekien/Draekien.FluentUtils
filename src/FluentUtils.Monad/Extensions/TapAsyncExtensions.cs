@@ -9,19 +9,38 @@ public static class TapAsyncExtensions
         Func<TIn, Task> tapAsync,
         [CallerArgumentExpression(nameof(tapAsync))]
         string tapExpression =
-            "") => resultTask.MatchAsync(
+            "") => resultTask.PipeAsync(
         async value =>
         {
             try
             {
                 await tapAsync(value);
-                return await resultTask;
+                return await Result.OkAsync(value);
             }
             catch (Exception ex)
             {
                 return await Result.ErrorAsync<TIn>(
                     MonadErrors.FailedToTapValue(ex, tapExpression));
             }
-        },
-        Result.ErrorAsync<TIn>);
+        });
+
+    public static async Task<ResultType<TIn>> TapAsync<TIn>(
+        this Task<ResultType<TIn>> resultTask,
+        Action<TIn> tap,
+        [CallerArgumentExpression(nameof(tap))]
+        string tapExpression = "") =>
+        await resultTask.PipeAsync(
+            async value =>
+            {
+                try
+                {
+                    tap(value);
+                    return await Result.OkAsync(value);
+                }
+                catch (Exception ex)
+                {
+                    return await Result.ErrorAsync<TIn>(
+                        MonadErrors.FailedToTapValue(ex, tapExpression));
+                }
+            });
 }

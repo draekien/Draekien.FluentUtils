@@ -67,4 +67,13 @@ public static class PipeAsyncExtensions
         [CallerArgumentExpression(nameof(pipeAsync))]
         string pipeExpression =
             "") => result.MatchAsync(pipeAsync, Result.ErrorAsync<TOut>);
+
+    public static async Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
+        this Task<ResultType<TIn>> result,
+        Func<TIn, TOut> pipe,
+        [CallerArgumentExpression(nameof(pipe))]
+        string pipeExpression = "") =>
+        await result.MatchAsync(
+            value => pipe(value),
+            Result.Error<TOut>);
 }

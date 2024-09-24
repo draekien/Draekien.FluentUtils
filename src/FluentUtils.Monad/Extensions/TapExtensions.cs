@@ -22,19 +22,18 @@ public static class TapExtensions
         this ResultType<TIn> result,
         Action<TIn> tap,
         [CallerArgumentExpression(nameof(tap))]
-        string tapExpression = "") => result.Match(
+        string tapExpression = "") => result.Pipe(
         value =>
         {
             try
             {
                 tap(value);
-                return result;
+                return Result.Ok(value);
             }
             catch (Exception ex)
             {
                 return Result.Error<TIn>(
                     MonadErrors.FailedToTapValue(ex, tapExpression));
             }
-        },
-        Result.Error<TIn>);
+        });
 }
