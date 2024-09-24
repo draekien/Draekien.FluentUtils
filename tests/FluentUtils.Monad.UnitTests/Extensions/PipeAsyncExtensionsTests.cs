@@ -19,7 +19,7 @@ public class PipeAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> result =
-            await ok.PipeAsync((_, _) => Task.FromResult(expected));
+            await ok.PipeAsync((_) => Task.FromResult(expected));
 
         // Assert
         result.Should().BeOfType<OkResultType<ITestType>>();
@@ -38,7 +38,7 @@ public class PipeAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> result = await errorResult.PipeAsync(
-            (_, _) => Task.FromResult(Substitute.For<ITestType>())
+            (_) => Task.FromResult(Substitute.For<ITestType>())
         );
 
         // Assert

@@ -9,7 +9,9 @@ internal static class PersonFactory
         {
             // dynamically generated error code
             return Result.Error<Person>(
-                "A name cannot be more than 255 characters long"
+                new Error(
+                    "PF_01",
+                    "A name cannot be more than 255 characters long")
             );
         }
 

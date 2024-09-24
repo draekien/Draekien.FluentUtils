@@ -20,4 +20,8 @@ public sealed record HttpStatusCodeError(
     ErrorMessage Message,
     HttpStatusCode HttpStatusCode = HttpStatusCode.InternalServerError,
     Exception? Exception = default
-) : Error(Code, Message, Exception);
+) : Error(Code, Message, Exception)
+{
+    /// <inheritdoc />
+    public override string ToString() => $"{Code}: {Message}";
+}

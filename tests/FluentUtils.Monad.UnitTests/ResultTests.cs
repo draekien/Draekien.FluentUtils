@@ -51,24 +51,6 @@ public class ResultTests
     }
 
     [Fact]
-    public void
-        WhenInvokingErrorWithMessage_ThenReturnErrorWithAutomaticallyGeneratedCode()
-    {
-        ResultType<Empty> result =
-            Result.Error("Testing automatic error code creation");
-
-        Error error = result.Match(_ => default!, error => error);
-
-        string[] errorCodeParts = error.Code.Value.Split('_');
-        errorCodeParts.Length.Should().Be(2);
-        errorCodeParts[0].Should().Be("WIE");
-
-        bool isNumber = int.TryParse(errorCodeParts[1], out int number);
-        isNumber.Should().BeTrue();
-        number.Should().BeGreaterThan(0);
-    }
-
-    [Fact]
     public void GivenException_WhenInvokingBind_ThenReturnErrorResult()
     {
         ResultType<bool> result = Result.Bind(
@@ -83,15 +65,15 @@ public class ResultTests
 
         result.Should().BeOfType<ErrorResultType<bool>>();
         result.As<ErrorResultType<bool>>()
-           .Error.Message.Value.Should()
-           .Contain("InvalidOperationException");
+              .Error.Message.Value.Should()
+              .Contain("InvalidOperationException");
     }
 
     [Fact]
     public async Task WhenInvokingBindAsync_ThenReturnOkResult()
     {
         ResultType<bool> result =
-            await Result.BindAsync(_ => Task.FromResult(true));
+            await Result.BindAsync(() => Task.FromResult(true));
 
         result.Should().BeOfType<OkResultType<bool>>();
         result.Unwrap().Should().BeTrue();
@@ -102,7 +84,7 @@ public class ResultTests
         GivenException_WhenInvokingBindAsync_ThenReturnErrorResult()
     {
         ResultType<bool> result = await Result.BindAsync(
-            _ =>
+            () =>
             {
                 throw new InvalidOperationException();
 
@@ -113,7 +95,7 @@ public class ResultTests
 
         result.Should().BeOfType<ErrorResultType<bool>>();
         result.As<ErrorResultType<bool>>()
-           .Error.Message.Value.Should()
-           .Contain("InvalidOperationException");
+              .Error.Message.Value.Should()
+              .Contain("InvalidOperationException");
     }
 }

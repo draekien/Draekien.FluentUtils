@@ -31,7 +31,8 @@ public class MatchExtensionsTests
         var okHandler = Substitute.For<Func<ITestType>>();
         var errorHandler = Substitute.For<Func<Error, ITestType>>();
 
-        ResultType<Empty> errorResult = Result.Error("test");
+        ResultType<Empty> errorResult =
+            Result.Error(new Error("code", "message"));
 
         // Act
         ITestType result = errorResult.Match(okHandler, errorHandler);
@@ -68,7 +69,8 @@ public class MatchExtensionsTests
         var okHandler = Substitute.For<Action<ITestType>>();
         var errorHandler = Substitute.For<Action<Error>>();
 
-        ResultType<ITestType> errorResult = Result.Error<ITestType>("test");
+        ResultType<ITestType> errorResult =
+            Result.Error<ITestType>(new Error("code", "message"));
 
         // Act
         errorResult.Match(okHandler, errorHandler);
@@ -104,7 +106,8 @@ public class MatchExtensionsTests
         var okHandler = Substitute.For<Action>();
         var errorHandler = Substitute.For<Action<Error>>();
 
-        ResultType<Empty> errorResult = Result.Error("test");
+        ResultType<Empty> errorResult =
+            Result.Error(new Error("code", "message"));
 
         // Act
         errorResult.Match(okHandler, errorHandler);

@@ -16,9 +16,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<ITestType, CancellationToken, Task<Empty>>>();
+            Substitute.For<Func<ITestType, Task<Empty>>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task<Empty>>>();
+            Func<Error, Task<Empty>>>();
 
         var error = _fixture.Create<Error>();
 
@@ -28,8 +28,7 @@ public class MatchAsyncExtensionsTests
         // Act
         Empty result = await errorResult.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -44,9 +43,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<ITestType, CancellationToken, Task<Empty>>>();
+            Substitute.For<Func<ITestType, Task<Empty>>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task<Empty>>>();
+            Func<Error, Task<Empty>>>();
 
         Task<ResultType<ITestType>> errorResult =
             Task.FromResult<ResultType<ITestType>>(
@@ -55,17 +54,17 @@ public class MatchAsyncExtensionsTests
 
         // Act + Assert
         await errorResult.Invoking(
-                x => x.MatchAsync(
-                    okHandler,
-                    errorHandler,
-                    CancellationToken.None
-                )
-            )
-           .Should()
-           .ThrowAsync<UnsupportedResultTypeException<ITestType>>()
-           .WithMessage(
-                $"The result type '{typeof(CustomResultType<>).Name}' is not supported."
-            );
+                              x => x.MatchAsync(
+                                  okHandler,
+                                  errorHandler
+                              )
+                          )
+                         .Should()
+                         .ThrowAsync<
+                              UnsupportedResultTypeException<ITestType>>()
+                         .WithMessage(
+                              $"The result type '{typeof(CustomResultType<>).Name}' is not supported."
+                          );
     }
 
     [Fact]
@@ -74,18 +73,17 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler = Substitute.For<
-            Func<CancellationToken, Task<ITestType>>>();
+            Func<Task<ITestType>>>();
 
         var errorHandler = Substitute
-           .For<Func<Error, CancellationToken, Task<ITestType>>>();
+           .For<Func<Error, Task<ITestType>>>();
 
         Task<ResultType<Empty>> ok = Result.OkAsync();
 
         // Act
         ITestType result = await ok.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -100,10 +98,10 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler = Substitute.For<
-            Func<CancellationToken, Task<ITestType>>>();
+            Func<Task<ITestType>>>();
 
         var errorHandler = Substitute
-           .For<Func<Error, CancellationToken, Task<ITestType>>>();
+           .For<Func<Error, Task<ITestType>>>();
 
         var error = _fixture.Create<Error>();
 
@@ -112,8 +110,7 @@ public class MatchAsyncExtensionsTests
         // Act
         ITestType result = await ok.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -128,9 +125,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<ITestType, CancellationToken, Task>>();
+            Substitute.For<Func<ITestType, Task>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task>>();
+            Func<Error, Task>>();
 
         Task<ResultType<ITestType>> result =
             Result.OkAsync(Substitute.For<ITestType>());
@@ -138,8 +135,7 @@ public class MatchAsyncExtensionsTests
         // Act
         await result.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -153,9 +149,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<ITestType, CancellationToken, Task>>();
+            Substitute.For<Func<ITestType, Task>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task>>();
+            Func<Error, Task>>();
 
         var error = _fixture.Create<Error>();
 
@@ -165,8 +161,7 @@ public class MatchAsyncExtensionsTests
         // Act
         await result.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -180,9 +175,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<CancellationToken, Task>>();
+            Substitute.For<Func<Task>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task>>();
+            Func<Error, Task>>();
 
         Task<ResultType<Empty>> result =
             Result.OkAsync();
@@ -190,8 +185,7 @@ public class MatchAsyncExtensionsTests
         // Act
         await result.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert
@@ -205,9 +199,9 @@ public class MatchAsyncExtensionsTests
     {
         // Arrange
         var okHandler =
-            Substitute.For<Func<CancellationToken, Task>>();
+            Substitute.For<Func<Task>>();
         var errorHandler = Substitute.For<
-            Func<Error, CancellationToken, Task>>();
+            Func<Error, Task>>();
 
         var error = _fixture.Create<Error>();
 
@@ -217,8 +211,7 @@ public class MatchAsyncExtensionsTests
         // Act
         await result.MatchAsync(
             okHandler,
-            errorHandler,
-            CancellationToken.None
+            errorHandler
         );
 
         // Assert

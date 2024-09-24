@@ -27,25 +27,23 @@ public static class PipeAsyncExtensions
     /// </returns>
     public static Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
-        Func<TIn, CancellationToken, Task<TOut>> pipeAsync,
-        CancellationToken cancellationToken = default,
+        Func<TIn, Task<TOut>> pipeAsync,
         [CallerArgumentExpression(nameof(pipeAsync))]
         string pipeExpression = ""
     )
         => result.MatchAsync(
-            async (value, ct) =>
+            async value =>
             {
                 try
                 {
-                    TOut transformed = await pipeAsync(value, ct);
-                    return await Result.OkAsync(transformed, ct);
+                    TOut transformed = await pipeAsync(value);
+                    return await Result.OkAsync(transformed);
                 }
                 catch (Exception ex)
                 {
                     return MonadErrors.FailedToPipeValue(ex, pipeExpression);
                 }
             },
-            Result.ErrorAsync<TOut>,
-            cancellationToken
+            Result.ErrorAsync<TOut>
         );
 }

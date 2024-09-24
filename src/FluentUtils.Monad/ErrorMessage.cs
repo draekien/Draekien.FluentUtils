@@ -20,4 +20,11 @@ public readonly record struct ErrorMessage(string Value)
     /// <param name="value">The error message string</param>
     /// <returns>The <see cref="ErrorMessage" /> instance</returns>
     public static implicit operator ErrorMessage(string value) => new(value);
+
+    /// <summary>
+    ///     Implicitly converts an <see cref="ErrorMessage" /> to a string.
+    /// </summary>
+    /// <param name="value">The error message.</param>
+    /// <returns>The string.</returns>
+    public static implicit operator string(ErrorMessage value) => value.Value;
 }

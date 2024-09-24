@@ -21,7 +21,6 @@ public static class MatchAsyncExtensions
     ///     The operation to perform for an
     ///     <see cref="ErrorResultType{T}" />
     /// </param>
-    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <typeparam name="TIn">The input result value's type</typeparam>
     /// <typeparam name="TOut">The output value's type</typeparam>
     /// <returns>The output value from the invoked handler</returns>
@@ -32,21 +31,14 @@ public static class MatchAsyncExtensions
     /// </exception>
     public static async Task<TOut> MatchAsync<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
-        Func<TIn, CancellationToken, Task<TOut>> okHandler,
-        Func<Error, CancellationToken, Task<TOut>> errorHandler,
-        CancellationToken cancellationToken = default
+        Func<TIn, Task<TOut>> okHandler,
+        Func<Error, Task<TOut>> errorHandler
     )
     {
         return await resultTask switch
         {
-            OkResultType<TIn> ok => await okHandler(
-                ok.Value,
-                cancellationToken
-            ),
-            ErrorResultType<TIn> err => await errorHandler(
-                err.Error,
-                cancellationToken
-            ),
+            OkResultType<TIn> ok => await okHandler(ok.Value),
+            ErrorResultType<TIn> err => await errorHandler(err.Error),
             var result => throw new UnsupportedResultTypeException<TIn>(result),
         };
     }
@@ -76,13 +68,11 @@ public static class MatchAsyncExtensions
     /// </exception>
     public static async Task<TOut> MatchAsync<TOut>(
         this Task<ResultType<Empty>> resultTask,
-        Func<CancellationToken, Task<TOut>> okHandler,
-        Func<Error, CancellationToken, Task<TOut>> errorHandler,
-        CancellationToken cancellationToken = default
+        Func<Task<TOut>> okHandler,
+        Func<Error, Task<TOut>> errorHandler
     ) => await resultTask.MatchAsync(
-        (_, token) => okHandler(token),
-        errorHandler,
-        cancellationToken
+        _ => okHandler(),
+        errorHandler
     );
 
     /// <summary>
@@ -100,7 +90,6 @@ public static class MatchAsyncExtensions
     ///     The operation to perform for an
     ///     <see cref="ErrorResultType{T}" />
     /// </param>
-    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <typeparam name="TIn">The input result value's type</typeparam>
     /// <returns>The completed task</returns>
     /// <exception cref="UnsupportedResultTypeException{TIn}">
@@ -110,23 +99,21 @@ public static class MatchAsyncExtensions
     /// </exception>
     public static async Task MatchAsync<TIn>(
         this Task<ResultType<TIn>> resultTask,
-        Func<TIn, CancellationToken, Task> okHandler,
-        Func<Error, CancellationToken, Task> errorHandler,
-        CancellationToken cancellationToken = default
+        Func<TIn, Task> okHandler,
+        Func<Error, Task> errorHandler
     )
     {
         await resultTask.MatchAsync<TIn, Empty>(
-            async (value, token) =>
+            async value =>
             {
-                await okHandler(value, token);
+                await okHandler(value);
                 return default;
             },
-            async (error, token) =>
+            async error =>
             {
-                await errorHandler(error, token);
+                await errorHandler(error);
                 return default;
-            },
-            cancellationToken
+            }
         );
     }
 
@@ -145,7 +132,6 @@ public static class MatchAsyncExtensions
     ///     The operation to perform for an
     ///     <see cref="ErrorResultType{T}" />
     /// </param>
-    /// <param name="cancellationToken">The <see cref="CancellationToken" /></param>
     /// <returns>The completed task</returns>
     /// <exception cref="UnsupportedResultTypeException{TIn}">
     ///     The
@@ -154,12 +140,10 @@ public static class MatchAsyncExtensions
     /// </exception>
     public static async Task MatchAsync(
         this Task<ResultType<Empty>> resultTask,
-        Func<CancellationToken, Task> okHandler,
-        Func<Error, CancellationToken, Task> errorHandler,
-        CancellationToken cancellationToken = default
+        Func<Task> okHandler,
+        Func<Error, Task> errorHandler
     ) => await resultTask.MatchAsync(
-        (_, token) => okHandler(token),
-        errorHandler,
-        cancellationToken
+        _ => okHandler(),
+        errorHandler
     );
 }
