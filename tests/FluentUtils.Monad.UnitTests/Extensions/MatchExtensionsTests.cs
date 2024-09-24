@@ -116,4 +116,21 @@ public class MatchExtensionsTests
         okHandler.ReceivedCalls().Should().BeEmpty();
         errorHandler.ReceivedCalls().Should().ContainSingle();
     }
+
+    [Fact]
+    public async Task AsyncMatch()
+    {
+        bool output = await Result.Ok()
+                                  .Match(
+                                       async () =>
+                                           await Result.OkAsync(
+                                               Substitute.For<ITestType>()),
+                                       async error =>
+                                           await Result.ErrorAsync<ITestType>(
+                                               new Error("code", "message")))
+                                  .PipeAsync(x => Task.FromResult(x))
+                                  .MatchAsync(
+                                       x => Task.FromResult(true),
+                                       x => Task.FromResult(false));
+    }
 }

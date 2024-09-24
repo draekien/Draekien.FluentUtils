@@ -36,4 +36,17 @@ public static class MonadErrors
         "FUME_03",
         $"Error piping value via expression '{pipeExpression}'.",
         exception);
+
+    /// <summary>
+    ///     Failed to tap the value of a result
+    /// </summary>
+    /// <param name="exception">The <see cref="Exception" /></param>
+    /// <param name="tapExpression">The tap expression</param>
+    /// <returns>The <see cref="Error" /></returns>
+    public static Error FailedToTapValue(
+        Exception exception,
+        string tapExpression) => new(
+        "FUME_04",
+        $"Error taping value via expression '{tapExpression}'.",
+        exception);
 }
