@@ -49,7 +49,7 @@ public class EnsureAsyncExtensionsTests
               .Error.Should()
               .Be(
                    MonadErrors.FailedPredicate(
-                       "(_, _) => Task.FromResult(false)"));
+                       "_ => Task.FromResult(false)"));
     }
 
     [Fact]
