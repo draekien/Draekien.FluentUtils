@@ -2,7 +2,7 @@ name: Pull Request Build
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -34,3 +34,392 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  calculate-version:
+    name: Calculate version
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: "5.x"
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v1.1.1
+
+  changes:
+    name: Check for valid changes
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    outputs:
+      monad: ${{ steps.filter.outputs.monad }}
+      autoMapper: ${{ steps.filter.outputs.autoMapper }}
+      autoMapperExtensions: ${{ steps.filter.outputs.autoMapperExtensions }}
+      mediatr: ${{ steps.filter.outputs.mediatr }}
+      mediatrAspNetCore: ${{ steps.filter.outputs.mediatrAspNetCore }}
+      valueObject: ${{ steps.filter.outputs.valueObject }}
+      enumExtensions: ${{ steps.filter.outputs.enumExtensions }}
+      fromCompositeAttribute: ${{ steps.filter.outputs.fromCompositeAttribute }}
+      endpointDefinitions: ${{ steps.filter.outputs.endpointDefinitions }}
+      pipelineBehaviours: ${{ steps.filter.outputs.pipelineBehaviours }}
+      domainDrivenEnums: ${{ steps.filters.outputs.domainDrivenEnums }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Execute filter
+        uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            autoMapper:
+              - 'src/FluentUtils.AutoMapper/**'
+            autoMapperExtensions:
+              - 'src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/**'
+            mediatr:
+              - 'src/FluentUtils.MediatR.Pagination/**'
+            mediatrAspNetCore:
+              - 'src/FluentUtils.MediatR.Pagination.AspNetCore/**'
+            valueObject:
+              - 'src/FluentUtils.ValueObject/**'
+            enumExtensions:
+              - 'src/FluentUtils.EnumExtensions/**'
+            fromCompositeAttribute:
+              - 'src/FluentUtils.FromCompositeAttribute/**'
+            endpointDefinitions:
+              - 'src/FluentUtils.MinimalApis.EndpointDefinitions/**'
+            pipelineBehaviours:
+              - 'src/FluentUtils.MediatR.PipelineBehaviours/**'
+            domainDrivenEnums:
+              - 'src/FluentUtils.DomainDrivenEnums/**'
+            monad:
+              - 'src/FluentUtils.Monad/**'
+
+  publish-monad:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish Monad NuGet Package
+    if: ${{ needs.changes.outputs.monad == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.Monad && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.Monad/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.Monad/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-pipeline-behaviours:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish PipelineBehaviours NuGet Package
+    if: ${{ needs.changes.outputs.pipelineBehaviours == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.MediatR.PipelineBehaviours && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.MediatR.PipelineBehaviours/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-endpoint-definitions:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish EndpointDefinitions NuGet Package
+    if: ${{ needs.changes.outputs.endpointDefinitions == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.MinimalApis.EndpointDefinitions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.MinimalApis.EndpointDefinitions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.MinimalApis.EndpointDefinitions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-from-composite-attribute:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish FromCompositeAttribute NuGet Package
+    if: ${{ needs.changes.outputs.fromCompositeAttribute == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.FromCompositeAttribute && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.FromCompositeAttribute/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.FromCompositeAttribute/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-valueObject:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish ValueObject NuGet Package
+    if: ${{ needs.changes.outputs.valueObject == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.ValueObject/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-autoMapper:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish AutoMapper NuGet Package
+    if: ${{ needs.changes.outputs.autoMapper == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.AutoMapper/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-autoMapper-Extensions:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish AutoMapper Extensions NuGet Package
+    if: ${{ needs.changes.outputs.autoMapperExtensions == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-mediatr-pagination:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish MediatR Pagination NuGet Package
+    if: ${{ needs.changes.outputs.mediatr == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.MediatR.Pagination && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.MediatR.Pagination/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.MediatR.Pagination/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-mediatr-pagination-aspnetcore:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish MediatR Pagination AspNetCore NuGet Package
+    if: ${{ needs.changes.outputs.mediatrAspNetCore == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.MediatR.Pagination.AspNetCore && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.MediatR.Pagination.AspNetCore/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.MediatR.Pagination.AspNetCore/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-enum-extensions:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish enum extensions NuGet package
+    if: ${{ needs.changes.outputs.enumExtensions == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.EnumExtensions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.EnumExtensions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.EnumExtensions/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+  publish-domain-driven-enums:
+    runs-on: ubuntu-latest
+    needs:
+      - calculate-version
+      - changes
+    name: Publish domain driven enums NuGet package
+    if: ${{ needs.changes.outputs.domainDrivenEnums == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET Core Latest
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/draekien/index.json
+          dotnet-version: "8.0.x"
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and pack
+        run: cd src/FluentUtils.DomainDrivenEnums && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
+
+      - name: Publish
+        run: |
+          dotnet nuget push ./src/FluentUtils.DomainDrivenEnums/out/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+          dotnet nuget push ./src/FluentUtils.DomainDrivenEnums/out/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      
