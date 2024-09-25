@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -18,6 +19,7 @@ public static class TapExtensions
     ///     The value of the input <see cref="ResultType{T}" />
     /// </typeparam>
     /// <returns>The input <see cref="ResultType{T}" /></returns>
+    [DebuggerStepperBoundary]
     public static ResultType<TIn> Tap<TIn>(
         this ResultType<TIn> result,
         Action<TIn> tap,

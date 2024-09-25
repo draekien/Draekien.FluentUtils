@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -24,6 +25,7 @@ public static class PipeAsyncExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the
     ///     forwarded <see cref="ErrorResultType{T}" />
     /// </returns>
+    [DebuggerStepperBoundary]
     public static Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
         Func<TIn, Task<TOut>> pipeAsync,
@@ -61,6 +63,7 @@ public static class PipeAsyncExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the
     ///     forwarded <see cref="ErrorResultType{T}" />
     /// </returns>
+    [DebuggerStepperBoundary]
     public static Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
         Func<TIn, Task<ResultType<TOut>>> pipeAsync,
@@ -83,6 +86,7 @@ public static class PipeAsyncExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the forwarded
     ///     <see cref="ErrorResultType{T}" />
     /// </returns>
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TOut>> PipeAsync<TIn, TOut>(
         this Task<ResultType<TIn>> result,
         Func<TIn, TOut> pipe,

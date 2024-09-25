@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
+
 /// <summary>
 ///     Extensions for unwrapping the value of an asynchronous
 ///     <see cref="ResultType{T}" />
@@ -25,6 +27,7 @@ public static class UnwrapAsyncExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static async Task<T> UnwrapAsync<T>(this Task<ResultType<T>> result)
         => (await result).Unwrap();
 }

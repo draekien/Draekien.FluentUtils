@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -25,6 +26,7 @@ public static class EnsureAsyncExtensions
     /// <param name="predicateExpression">The predicate expression</param>
     /// <typeparam name="T">The result value type</typeparam>
     /// <returns>The original result on success, otherwise an error result</returns>
+    [DebuggerStepperBoundary]
     public static Task<ResultType<T>> EnsureAsync<T>(
         this Task<ResultType<T>> resultTask,
         Func<T, Task<bool>> predicate,

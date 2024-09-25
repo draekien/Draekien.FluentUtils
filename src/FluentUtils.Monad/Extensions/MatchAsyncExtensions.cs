@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
+
 /// <summary>
 ///     Extensions for matching on an asynchronous <see cref="ResultType{T}" />
 /// </summary>
@@ -29,6 +31,7 @@ public static class MatchAsyncExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static async Task<TOut> MatchAsync<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, Task<TOut>> okHandler,

@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -24,6 +25,7 @@ public static class PipeExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the
     ///     forwarded <see cref="ErrorResultType{T}" />
     /// </returns>
+    [DebuggerStepperBoundary]
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, TOut> pipe,
@@ -62,6 +64,7 @@ public static class PipeExtensions
     ///     A <see cref="ResultType{T}" /> containing the piped value, or the
     ///     forwarded <see cref="ErrorResultType{T}" />
     /// </returns>
+    [DebuggerStepperBoundary]
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, ResultType<TOut>> pipe,

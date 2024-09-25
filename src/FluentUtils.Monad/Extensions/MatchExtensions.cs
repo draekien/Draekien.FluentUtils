@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
+
 /// <summary>
 ///     Extensions for matching on a <see cref="ResultType{T}" />
 /// </summary>
@@ -29,6 +31,7 @@ public static class MatchExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static TOut Match<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, TOut> okHandler,
@@ -65,6 +68,7 @@ public static class MatchExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static TOut Match<TOut>(
         this ResultType<Empty> result,
         Func<TOut> okHandler,
@@ -92,6 +96,7 @@ public static class MatchExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static void Match<TIn>(
         this ResultType<TIn> result,
         Action<TIn> okHandler,
@@ -132,6 +137,7 @@ public static class MatchExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static void Match(
         this ResultType<Empty> result,
         Action okHandler,

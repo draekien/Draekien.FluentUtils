@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -17,6 +18,7 @@ public static class TapAsyncExtensions
     /// <param name="tapExpression">The side effect expression string</param>
     /// <typeparam name="TIn">The input result value's type</typeparam>
     /// <returns>The input result</returns>
+    [DebuggerStepperBoundary]
     public static Task<ResultType<TIn>> TapAsync<TIn>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, Task> tapAsync,
@@ -46,6 +48,7 @@ public static class TapAsyncExtensions
     /// <param name="tapExpression">The side effect expression string</param>
     /// <typeparam name="TIn">The input result's value type</typeparam>
     /// <returns>The input result</returns>
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> TapAsync<TIn>(
         this Task<ResultType<TIn>> resultTask,
         Action<TIn> tap,

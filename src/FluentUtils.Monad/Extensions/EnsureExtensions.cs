@@ -1,5 +1,6 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -25,6 +26,7 @@ public static class EnsureExtensions
     /// <param name="predicateExpression">The predicate expression</param>
     /// <typeparam name="T">The result value type</typeparam>
     /// <returns>The original result on success, otherwise an error result</returns>
+    [DebuggerStepperBoundary]
     public static ResultType<T> Ensure<T>(
         this ResultType<T> result,
         Func<T, bool> predicate,
