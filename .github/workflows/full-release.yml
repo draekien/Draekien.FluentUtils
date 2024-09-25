@@ -38,7 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       semVer: ${{ steps.gitversion.outputs.semVer }}
-      nuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -74,7 +73,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.Monad && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.Monad && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -101,7 +100,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.MediatR.PipelineBehaviours && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.MediatR.PipelineBehaviours && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -128,7 +127,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.MinimalApis.EndpointDefinitions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.MinimalApis.EndpointDefinitions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -155,7 +154,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.FromCompositeAttribute && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.FromCompositeAttribute && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -182,7 +181,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.ValueObject && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -209,7 +208,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.AutoMapper && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -236,7 +235,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.AutoMapper.Extensions.Microsoft.DependencyInjection && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -263,7 +262,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.MediatR.Pagination && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.MediatR.Pagination && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -290,7 +289,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.MediatR.Pagination.AspNetCore && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.MediatR.Pagination.AspNetCore && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -317,7 +316,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.EnumExtensions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.EnumExtensions && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -344,7 +343,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and pack
-        run: cd src/FluentUtils.DomainDrivenEnums && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+        run: cd src/FluentUtils.DomainDrivenEnums && dotnet pack -c Release -o out -p:PackageVersion=${{ needs.calculate-version.outputs.semVer }}
 
       - name: Publish
         run: |
@@ -378,7 +377,7 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: ${{ needs.calculate-version.outputs.nuGetVersionV2 }}
+          custom_tag: ${{ needs.calculate-version.outputs.semVer }}
       - name: Create release
         uses: ncipollo/release-action@v1
         with:
