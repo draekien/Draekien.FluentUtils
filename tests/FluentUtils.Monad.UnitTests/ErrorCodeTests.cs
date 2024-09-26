@@ -17,4 +17,12 @@ public class ErrorCodeTests
         // Assert
         code.Should().Be(new ErrorCode(nameof(test)));
     }
+
+    [Fact]
+    public void WhenImplicitlyConvertingToString_ThenReturnExpectedString()
+    {
+        ErrorCode code = new("test");
+        string result = code;
+        result.Should().Be("test");
+    }
 }

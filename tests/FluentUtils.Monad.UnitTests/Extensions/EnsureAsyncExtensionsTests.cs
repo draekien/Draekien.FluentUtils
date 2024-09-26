@@ -25,7 +25,7 @@ public class EnsureAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> output =
-            await result.EnsureAsync((_, _) => Task.FromResult(true));
+            await result.EnsureAsync(_ => Task.FromResult(true));
 
         // Assert
         output.Should().BeOfType<OkResultType<ITestType>>();
@@ -41,13 +41,15 @@ public class EnsureAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> output =
-            await result.EnsureAsync((_, _) => Task.FromResult(false));
+            await result.EnsureAsync(_ => Task.FromResult(false));
 
         // Assert
         output.Should().BeOfType<ErrorResultType<ITestType>>();
         output.As<ErrorResultType<ITestType>>()
-           .Error.Should()
-           .Be(MonadErrors.FailedPredicate("(_, _) => Task.FromResult(false)"));
+              .Error.Should()
+              .Be(
+                   MonadErrors.FailedPredicate(
+                       "_ => Task.FromResult(false)"));
     }
 
     [Fact]
@@ -61,14 +63,14 @@ public class EnsureAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> output = await result.EnsureAsync(
-            (_, _) => Task.FromResult(false),
+            _ => Task.FromResult(false),
             customError);
 
         // Assert
         output.Should().BeOfType<ErrorResultType<ITestType>>();
         output.As<ErrorResultType<ITestType>>()
-           .Error.Should()
-           .Be(customError);
+              .Error.Should()
+              .Be(customError);
     }
 
     [Fact]
@@ -82,12 +84,12 @@ public class EnsureAsyncExtensionsTests
 
         // Act
         ResultType<ITestType> output =
-            await errorResult.EnsureAsync((_, _) => Task.FromResult(true));
+            await errorResult.EnsureAsync(_ => Task.FromResult(true));
 
         // Assert
         output.Should().BeOfType<ErrorResultType<ITestType>>();
         output.As<ErrorResultType<ITestType>>()
-           .Error.Should()
-           .Be(customError);
+              .Error.Should()
+              .Be(customError);
     }
 }

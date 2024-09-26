@@ -25,11 +25,11 @@ public sealed record ErrorResultType<T> : ResultType<T>
     public Error Error { get; }
 
     /// <summary>
-    ///     Converts a <see cref="ErrorResultType{T}" /> of type <see cref="T" /> to
+    ///     Converts a <see cref="ErrorResultType{TOut}" /> of type T to
     ///     a type of <see cref="TOut" />, preserving the error inside the result
     /// </summary>
     /// <typeparam name="TOut">The output type</typeparam>
-    /// <returns>A <see cref="ErrorResultType{T}" /> where T is the output type</returns>
+    /// <returns>A <see cref="ErrorResultType{TOut}" /> where T is the output type</returns>
     public ResultType<TOut> To<TOut>() =>
         new ErrorResultType<TOut>(Error);
 }

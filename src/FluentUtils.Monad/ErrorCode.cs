@@ -20,4 +20,12 @@ public readonly record struct ErrorCode(string Value)
     /// <param name="value">The error code string</param>
     /// <returns>The <see cref="ErrorCode" /> instance</returns>
     public static implicit operator ErrorCode(string value) => new(value);
+
+    /// <summary>
+    ///     Implicitly converts an <see cref="ErrorCode" /> to a string.
+    /// </summary>
+    /// <param name="errorCode">The error code.</param>
+    /// <returns>The error code string.</returns>
+    public static implicit operator string(ErrorCode errorCode) =>
+        errorCode.ToString();
 }

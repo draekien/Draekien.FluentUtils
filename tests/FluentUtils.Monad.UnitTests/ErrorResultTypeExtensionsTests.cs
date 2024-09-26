@@ -8,7 +8,8 @@ public class ErrorResultTypeExtensionsTests
     public void
         GivenErrorResult_WhenInvokingTo_ThenConvertErrorToDifferentType()
     {
-        ResultType<ITestType> errorResult = Result.Error<ITestType>("Test");
+        ResultType<ITestType> errorResult =
+            Result.Error<ITestType>(new Error("code", "message"));
         ResultType<Empty> result =
             (errorResult as ErrorResultType<ITestType>)!.To<Empty>();
 

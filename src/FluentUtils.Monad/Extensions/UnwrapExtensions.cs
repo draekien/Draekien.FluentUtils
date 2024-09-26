@@ -1,5 +1,7 @@
 ﻿namespace FluentUtils.Monad.Extensions;
 
+using System.Diagnostics;
+
 /// <summary>
 ///     Extensions for unwrapping the value of a <see cref="ResultType{T}" />
 /// </summary>
@@ -23,6 +25,7 @@ public static class UnwrapExtensions
     ///     <see cref="ResultType{T}" /> is not one of <see cref="OkResultType{T}" />
     ///     or <see cref="ErrorResultType{T}" />
     /// </exception>
+    [DebuggerStepperBoundary]
     public static T Unwrap<T>(this ResultType<T> result) =>
         result switch
         {
