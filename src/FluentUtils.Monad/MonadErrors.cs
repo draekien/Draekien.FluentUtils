@@ -9,9 +9,12 @@ public static class MonadErrors
     /// <summary>
     ///     The value of a result does not match a predicate
     /// </summary>
-    public static Error FailedPredicate(string predicate) => new(
+    public static Error FailedPredicate(
+        string predicate,
+        Exception? exception = null) => new(
         "FUME_01",
-        $"Result value does not match predicate '{predicate}'.");
+        $"Result value does not match predicate '{predicate}'.",
+        exception);
 
     /// <summary>
     ///     Failed to bind the result of a factory method to a result

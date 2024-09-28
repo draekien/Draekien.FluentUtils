@@ -1,11 +1,13 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 
 [PublicAPI]
 public static class PipeOperator
 {
+    [DebuggerStepperBoundary]
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, TOut> pipe,
@@ -46,6 +48,7 @@ public static class PipeOperator
             Result.Error<TOut>);
     }
 
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, Task<TOut>> pipe,

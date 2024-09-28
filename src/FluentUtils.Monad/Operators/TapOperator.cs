@@ -1,11 +1,13 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
 
 [PublicAPI]
 public static class TapOperator
 {
+    [DebuggerStepperBoundary]
     public static ResultType<TIn> Tap<TIn>(
         this ResultType<TIn> result,
         Action<TIn> tap,
@@ -39,6 +41,7 @@ public static class TapOperator
             Result.Error<TIn>);
     }
 
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Tap<TIn>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, Task> tap,
