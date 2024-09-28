@@ -1,5 +1,8 @@
 ﻿namespace FluentUtils.Monad;
 
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+
 /// <summary>
 ///     The result monad
 /// </summary>
@@ -7,6 +10,9 @@
 [PublicAPI]
 public abstract record ResultType<T>
 {
+    internal readonly Type ValueType = typeof(T);
+    internal ILogger Logger { get; set; } = NullLogger.Instance;
+
     /// <summary>
     ///     Implicitly creates an instance of <see cref="OkResultType{T}" /> from some
     ///     value type T

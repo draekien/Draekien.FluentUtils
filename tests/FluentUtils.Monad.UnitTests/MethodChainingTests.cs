@@ -68,4 +68,17 @@ public sealed class MethodChainingTests
 
         result.Should().Be("hello");
     }
+
+    [Fact]
+    public async Task CanChainPipeAsyncWithExpressionsThatReturnResults()
+    {
+        ResultType<string> result = await Result
+                                         .BindAsync(
+                                              () => Task.FromResult("hello"))
+                                         .PipeAsync(
+                                              hello =>
+                                                  Result.Ok(hello + "World"))
+                                         .PipeAsync(
+                                              helloWorld => $"{helloWorld}");
+    }
 }

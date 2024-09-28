@@ -17,6 +17,7 @@
         <PackageReference Include="JetBrains.Annotations">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
     </ItemGroup>
 
 </Project>
