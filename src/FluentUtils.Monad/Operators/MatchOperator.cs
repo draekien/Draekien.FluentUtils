@@ -58,6 +58,18 @@ public static class MatchOperator
         return await result.Match(onSuccess, onError);
     }
 
+
+    [DebuggerStepperBoundary]
+    public static async Task Match<TIn>(
+        this Task<ResultType<TIn>> resultTask,
+        Func<TIn, Task> onSuccess,
+        Func<Error, Task> onError)
+    {
+        ResultType<TIn> result = await resultTask;
+
+        await result.Match(onSuccess, onError);
+    }
+
     [DebuggerStepperBoundary]
     public static void Match<TIn>(
         this ResultType<TIn> result,
@@ -75,16 +87,5 @@ public static class MatchOperator
                 onError.Invoke(error);
                 return Empty.Default;
             });
-    }
-
-    [DebuggerStepperBoundary]
-    public static async Task Match<TIn>(
-        this Task<ResultType<TIn>> resultTask,
-        Func<TIn, Task> onSuccess,
-        Func<Error, Task> onError)
-    {
-        ResultType<TIn> result = await resultTask;
-
-        await result.Match(onSuccess, onError);
     }
 }

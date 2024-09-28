@@ -34,4 +34,16 @@
         <ProjectReference Include="..\..\src\FluentUtils.Monad\FluentUtils.Monad.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Content Include="**/*.feature"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <UpToDateCheckInput Remove="Features\MatchOperator.feature"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <UpToDateCheckBuild Remove="Features\MatchOperator.feature.cs"/>
+    </ItemGroup>
+
 </Project>

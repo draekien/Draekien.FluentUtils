@@ -1,11 +1,11 @@
-﻿namespace FluentUtils.Monad.UnitTests.Extensions;
+﻿namespace FluentUtils.Monad.UnitTests.Operators;
 
 using AutoFixture;
 using FluentAssertions;
-using Monad.Extensions;
+using Monad.Operators;
 using NSubstitute;
 
-public class PipeExtensionsTests
+public class PipeOperatorTests
 {
     private readonly Fixture _fixture = new();
 
@@ -44,8 +44,8 @@ public class PipeExtensionsTests
         // Assert
         result.Should().BeOfType<ErrorResultType<ITestType>>();
         result.As<ErrorResultType<ITestType>>()
-           .Should()
-           .Be(expected);
+              .Should()
+              .Be(expected);
     }
 
     [Fact]
@@ -69,7 +69,46 @@ public class PipeExtensionsTests
         // Assert
         result.Should().BeOfType<ErrorResultType<bool>>();
         result.As<ErrorResultType<bool>>()
-           .Error.Message.Value.Should()
-           .Contain("throw new InvalidOperationException()");
+              .Error.Message.Value.Should()
+              .Contain("throw new InvalidOperationException()");
+    }
+
+    [Fact]
+    public async Task
+        GivenAsyncOkResult_WhenInvokingPipe_ThenMapValueToNewType()
+    {
+        // Arrange
+        Task<ResultType<Empty>> ok = Result.OkAsync();
+        var expected = Substitute.For<ITestType>();
+
+        // Act
+        ResultType<ITestType> result =
+            await ok.Pipe(_ => Task.FromResult(expected));
+
+        // Assert
+        result.Should().BeOfType<OkResultType<ITestType>>();
+        result.Unwrap().Should().Be(expected);
+    }
+
+    [Fact]
+    public async Task
+        GivenAsyncErrorResult_WhenInvokingPipe_ThenMapErrorToNewType()
+    {
+        // Arrange
+        var error = _fixture.Create<Error>();
+        Task<ResultType<Empty>> errorResult = Result.ErrorAsync(error);
+        ResultType<ITestType> expected =
+            await Result.ErrorAsync<ITestType>(error);
+
+        // Act
+        ResultType<ITestType> result = await errorResult.Pipe(
+            _ => Task.FromResult(Substitute.For<ITestType>())
+        );
+
+        // Assert
+        result.Should().BeOfType<ErrorResultType<ITestType>>();
+        result.As<ErrorResultType<ITestType>>()
+              .Should()
+              .Be(expected);
     }
 }
