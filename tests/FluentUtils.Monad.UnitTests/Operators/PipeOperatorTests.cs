@@ -83,7 +83,7 @@ public class PipeOperatorTests
 
         // Act
         ResultType<ITestType> result =
-            await ok.Pipe(_ => Task.FromResult(expected));
+            await ok.Pipe(async _ => await Task.FromResult(expected));
 
         // Assert
         result.Should().BeOfType<OkResultType<ITestType>>();

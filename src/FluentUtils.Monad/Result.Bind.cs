@@ -1,7 +1,5 @@
 ﻿namespace FluentUtils.Monad;
 
-using System.Runtime.CompilerServices;
-
 public static partial class Result
 {
     /// <summary>
@@ -51,7 +49,7 @@ public static partial class Result
     ///     the factory method does not
     ///     throw an exception, otherwise an <see cref="ErrorResultType{T}" />.
     /// </returns>
-    public static async Task<ResultType<T>> BindAsync<T>(
+    public static async Task<ResultType<T>> Bind<T>(
         Func<Task<T>> asyncFactory,
         [CallerArgumentExpression(nameof(asyncFactory))]
         string factoryExpression = "")

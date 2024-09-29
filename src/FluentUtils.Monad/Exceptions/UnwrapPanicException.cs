@@ -11,4 +11,11 @@
 /// </param>
 [PublicAPI]
 public sealed class UnwrapPanicException(Error error)
-    : InvalidOperationException(error.ToString(), error.Exception);
+    : InvalidOperationException(error.ToString(), error.Exception)
+{
+    /// <summary>
+    ///     The <see cref="Error" /> which caused the
+    ///     <see cref="UnwrapPanicException" />
+    /// </summary>
+    public Error Error { get; } = error;
+}

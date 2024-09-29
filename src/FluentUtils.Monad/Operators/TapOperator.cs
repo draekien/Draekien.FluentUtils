@@ -1,9 +1,5 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
-
 [PublicAPI]
 public static class TapOperator
 {
@@ -73,6 +69,41 @@ public static class TapOperator
                         "An exception occured while invoking the side effect");
                     return MonadErrors.FailedToTapValue(ex, tapExpression);
                 }
+            },
+            Result.ErrorAsync<TIn>);
+    }
+
+    public static async Task<ResultType<TIn>> Tap<TIn>(
+        this Task<ResultType<TIn>> resultTask,
+        Action<TIn> tap) =>
+        (await resultTask).Tap(tap);
+
+    public static async Task<ResultType<TIn>> Tap<TIn>(
+        this Task<ResultType<Task<TIn>>> resultTask,
+        Action<TIn> tap)
+    {
+        ResultType<Task<TIn>> result = await resultTask;
+        return await result.Match(
+            async valueTask =>
+            {
+                TIn value = await valueTask;
+                tap(value);
+                return await Result.OkAsync(value);
+            },
+            Result.ErrorAsync<TIn>);
+    }
+
+    public static async Task<ResultType<TIn>> Tap<TIn>(
+        this Task<ResultType<Task<TIn>>> resultTask,
+        Func<TIn, Task> tap)
+    {
+        ResultType<Task<TIn>> result = await resultTask;
+        return await result.Match(
+            async valueTask =>
+            {
+                TIn value = await valueTask;
+                await tap(value);
+                return await Result.OkAsync(value);
             },
             Result.ErrorAsync<TIn>);
     }

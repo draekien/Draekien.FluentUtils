@@ -1,8 +1,5 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
-using System.Diagnostics;
-using Microsoft.Extensions.Logging;
-
 [PublicAPI]
 public static class UnwrapOperator
 {

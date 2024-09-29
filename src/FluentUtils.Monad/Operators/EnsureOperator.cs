@@ -1,9 +1,5 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Logging;
-
 [PublicAPI]
 public static class EnsureOperator
 {
