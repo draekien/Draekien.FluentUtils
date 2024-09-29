@@ -1,8 +1,24 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+/// <summary>
+///     Access the value of a result
+/// </summary>
 [PublicAPI]
 public static class TapOperator
 {
+    /// <summary>
+    ///     Tap into the value of a <see cref="ResultType{T}" /> to perform a
+    ///     side effect
+    /// </summary>
+    /// <remarks>
+    ///     The tap operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="tap">The side effect</param>
+    /// <param name="tapExpression">The side effect expression</param>
+    /// <typeparam name="TIn">The result value's type</typeparam>
+    /// <returns>The original result</returns>
     [DebuggerStepperBoundary]
     public static ResultType<TIn> Tap<TIn>(
         this ResultType<TIn> result,
@@ -24,7 +40,7 @@ public static class TapOperator
                     result.Logger.LogDebug(
                         "Invoking side effect completed successfully");
 
-                    return Result.Ok(value);
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -37,6 +53,19 @@ public static class TapOperator
             Result.Error<TIn>);
     }
 
+    /// <summary>
+    ///     Tap into the value of a <see cref="ResultType{T}" /> to perform a
+    ///     side effect
+    /// </summary>
+    /// <remarks>
+    ///     The tap operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="tap">The side effect</param>
+    /// <param name="tapExpression">The side effect expression</param>
+    /// <typeparam name="TIn">The result value's type</typeparam>
+    /// <returns>The original result</returns>
     [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Tap<TIn>(
         this Task<ResultType<TIn>> resultTask,
@@ -60,7 +89,7 @@ public static class TapOperator
                     result.Logger.LogDebug(
                         "Invoking side effect completed successfully");
 
-                    return value;
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -73,11 +102,37 @@ public static class TapOperator
             Result.ErrorAsync<TIn>);
     }
 
+    /// <summary>
+    ///     Tap into the value of a <see cref="ResultType{T}" /> to perform a
+    ///     side effect
+    /// </summary>
+    /// <remarks>
+    ///     The tap operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="tap">The side effect</param>
+    /// <typeparam name="TIn">The result value's type</typeparam>
+    /// <returns>The original result</returns>
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Tap<TIn>(
         this Task<ResultType<TIn>> resultTask,
         Action<TIn> tap) =>
         (await resultTask).Tap(tap);
 
+    /// <summary>
+    ///     Tap into the value of a <see cref="ResultType{T}" /> to perform a
+    ///     side effect
+    /// </summary>
+    /// <remarks>
+    ///     The tap operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="tap">The side effect</param>
+    /// <typeparam name="TIn">The result value's type</typeparam>
+    /// <returns>The original result</returns>
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Tap<TIn>(
         this Task<ResultType<Task<TIn>>> resultTask,
         Action<TIn> tap)
@@ -93,6 +148,19 @@ public static class TapOperator
             Result.ErrorAsync<TIn>);
     }
 
+    /// <summary>
+    ///     Tap into the value of a <see cref="ResultType{T}" /> to perform a
+    ///     side effect
+    /// </summary>
+    /// <remarks>
+    ///     The tap operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="tap">The side effect</param>
+    /// <typeparam name="TIn">The result value's type</typeparam>
+    /// <returns>The original result</returns>
+    [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Tap<TIn>(
         this Task<ResultType<Task<TIn>>> resultTask,
         Func<TIn, Task> tap)

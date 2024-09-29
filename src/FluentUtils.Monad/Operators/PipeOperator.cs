@@ -1,8 +1,24 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+/// <summary>
+///     Transform the value of a result
+/// </summary>
 [PublicAPI]
 public static class PipeOperator
 {
+    /// <summary>
+    ///     Pipe the value of a <see cref="ResultType{T}" /> into a different type
+    /// </summary>
+    /// <remarks>
+    ///     The pipe operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="pipe">A method that transforms the value to another type</param>
+    /// <param name="pipeExpression">The pipe expression string</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output result value's type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /> with the transformed value</returns>
     public static ResultType<TOut> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, TOut> pipe,
@@ -53,6 +69,19 @@ public static class PipeOperator
             Result.Error<TOut>);
     }
 
+    /// <summary>
+    ///     Pipe the value of a <see cref="ResultType{T}" /> into a different type
+    /// </summary>
+    /// <remarks>
+    ///     The pipe operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="pipe">A method that transforms the value to another type</param>
+    /// <param name="pipeExpression">The pipe expression string</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output result value's type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /> with the transformed value</returns>
     public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
         this ResultType<TIn> result,
         Func<TIn, Task<TOut>> pipe,
@@ -93,6 +122,18 @@ public static class PipeOperator
             Result.ErrorAsync<TOut>);
     }
 
+    /// <summary>
+    ///     Pipe the value of a <see cref="ResultType{T}" /> into a different type
+    /// </summary>
+    /// <remarks>
+    ///     The pipe operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="pipe">A method that transforms the value to another type</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output result value's type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /> with the transformed value</returns>
     public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, Task<TOut>> pipe)
@@ -102,6 +143,18 @@ public static class PipeOperator
         return await result.Pipe(pipe);
     }
 
+    /// <summary>
+    ///     Pipe the value of a <see cref="ResultType{T}" /> into a different type
+    /// </summary>
+    /// <remarks>
+    ///     The pipe operator will only be executed if the input
+    ///     <see cref="ResultType{T}" /> is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="pipe">A method that transforms the value to another type</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output result value's type</typeparam>
+    /// <returns>A <see cref="ResultType{T}" /> with the transformed value</returns>
     public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
         Func<TIn, TOut> pipe)
@@ -110,120 +163,4 @@ public static class PipeOperator
 
         return result.Pipe(pipe);
     }
-
-    // [DebuggerStepperBoundary]
-    // public static ResultType<TOut> Pipe<TIn, TOut>(
-    //     this ResultType<TIn> result,
-    //     Func<TIn, TOut> pipe,
-    //     [CallerArgumentExpression(nameof(pipe))]
-    //     string pipeExpression = "")
-    // {
-    //     return result.Match(
-    //         value =>
-    //         {
-    //             string outputType = typeof(TOut).Name;
-    //             try
-    //             {
-    //                 result.Logger.LogDebug(
-    //                     "Piping result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 TOut output = pipe(value);
-    //
-    //                 result.Logger.LogDebug(
-    //                     "Successfully piped result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 return output;
-    //             }
-    //             catch (Exception ex)
-    //             {
-    //                 result.Logger.LogWarning(
-    //                     ex,
-    //                     "Failed to pipe result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 return MonadErrors.FailedToPipeValue(ex, pipeExpression);
-    //             }
-    //         },
-    //         Result.Error<TOut>);
-    // }
-    //
-    // [DebuggerStepperBoundary]
-    // public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
-    //     this Task<ResultType<TIn>> resultTask,
-    //     Func<TIn, Task<TOut>> pipe,
-    //     [CallerArgumentExpression(nameof(pipe))]
-    //     string pipeExpression = "")
-    // {
-    //     ResultType<TIn> result = await resultTask;
-    //
-    //     return await result.Match(
-    //         async value =>
-    //         {
-    //             string outputType = typeof(TOut).Name;
-    //             try
-    //             {
-    //                 result.Logger.LogDebug(
-    //                     "Piping result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 TOut output = await pipe(value);
-    //
-    //                 result.Logger.LogDebug(
-    //                     "Successfully piped result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 return output;
-    //             }
-    //             catch (Exception ex)
-    //             {
-    //                 result.Logger.LogWarning(
-    //                     ex,
-    //                     "Failed to pipe result from {ValueType} to {OutputType}",
-    //                     result.ValueType.Name,
-    //                     outputType);
-    //
-    //                 return MonadErrors.FailedToPipeValue(ex, pipeExpression);
-    //             }
-    //         },
-    //         Result.ErrorAsync<TOut>);
-    // }
-    //
-    // public static ResultType<TOut> Pipe<TIn, TOut>(
-    //     this ResultType<TIn> result,
-    //     Func<TIn, ResultType<TOut>> pipe)
-    // {
-    //     return result.Pipe(value => pipe.Invoke(value).Unwrap());
-    // }
-    //
-    // public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
-    //     this Task<ResultType<Task<TIn>>> resultTask,
-    //     Func<TIn, TOut> pipe)
-    // {
-    //     ResultType<Task<TIn>> result = await resultTask;
-    //     return await result.Match(
-    //         async valueTask =>
-    //         {
-    //             TIn value = await valueTask;
-    //             TOut output = pipe(value);
-    //             return await Result.OkAsync(output);
-    //         },
-    //         Result.ErrorAsync<TOut>);
-    // }
-    //
-    // public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
-    //     this Task<ResultType<TIn>> resultTask,
-    //     Func<TIn, TOut> pipe) =>
-    //     (await resultTask).Pipe(pipe);
-    //
-    // public static async Task<ResultType<TOut>> Pipe<TIn, TOut>(
-    //     this Task<ResultType<TIn>> resultTask,
-    //     Func<TIn, ResultType<TOut>> pipe) =>
-    //     (await resultTask).Pipe(pipe);
 }

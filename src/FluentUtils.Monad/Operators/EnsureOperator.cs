@@ -1,8 +1,27 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+/// <summary>
+///     Ensures the value of a result satisfies a predicate
+/// </summary>
 [PublicAPI]
 public static class EnsureOperator
 {
+    /// <summary>
+    ///     Ensures the value of a <see cref="ResultType{T}" /> satisfies a predicate
+    /// </summary>
+    /// <remarks>
+    ///     The predicate will only be executed if the input
+    ///     <see cref="ResultType{T}" />
+    ///     is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="predicate">The condition the value must satisfy</param>
+    /// <param name="predicateExpression">The predicate expression string</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <returns>
+    ///     An <see cref="OkResultType{T}" /> if the predicate is satisfied,
+    ///     otherwise an <see cref="ErrorResultType{T}" />
+    /// </returns>
     [DebuggerStepperBoundary]
     public static ResultType<TIn> Ensure<TIn>(
         this ResultType<TIn> result,
@@ -30,7 +49,7 @@ public static class EnsureOperator
                         "Value of type {ValueType} satisfies predicate",
                         result.ValueType.Name);
 
-                    return value;
+                    return result;
                 }
                 catch (Exception ex)
                 {
@@ -45,6 +64,22 @@ public static class EnsureOperator
             Result.Error<TIn>);
     }
 
+    /// <summary>
+    ///     Ensures the value of a <see cref="ResultType{T}" /> satisfies a predicate
+    /// </summary>
+    /// <remarks>
+    ///     The predicate will only be executed if the input
+    ///     <see cref="ResultType{T}" />
+    ///     is an <see cref="OkResultType{T}" />
+    /// </remarks>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="predicate">The condition the value must satisfy</param>
+    /// <param name="predicateExpression">The predicate expression string</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <returns>
+    ///     An <see cref="OkResultType{T}" /> if the predicate is satisfied,
+    ///     otherwise an <see cref="ErrorResultType{T}" />
+    /// </returns>
     [DebuggerStepperBoundary]
     public static async Task<ResultType<TIn>> Ensure<TIn>(
         this Task<ResultType<TIn>> resultTask,
@@ -74,7 +109,7 @@ public static class EnsureOperator
                         "Value of type {ValueType} satisfies predicate",
                         result.ValueType.Name);
 
-                    return value;
+                    return result;
                 }
                 catch (Exception ex)
                 {

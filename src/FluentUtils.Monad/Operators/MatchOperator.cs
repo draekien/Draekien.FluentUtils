@@ -1,8 +1,26 @@
 ﻿namespace FluentUtils.Monad.Operators;
 
+/// <summary>
+///     Execute different callbacks based on the result state
+/// </summary>
 [PublicAPI]
 public static class MatchOperator
 {
+    /// <summary>
+    ///     Performs a match on a <see cref="ResultType{T}" />, executing the success
+    ///     handler when it is an <see cref="OkResultType{T}" />, otherwise executing
+    ///     the error handler
+    /// </summary>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="onSuccess">The success handler</param>
+    /// <param name="onError">The error handler</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output type</typeparam>
+    /// <returns>The output of the executed handler</returns>
+    /// <exception cref="UnsupportedResultTypeException{TIn}">
+    ///     The input result is not
+    ///     one of the results provided by the library
+    /// </exception>
     [DebuggerStepperBoundary]
     public static TOut Match<TIn, TOut>(
         this ResultType<TIn> result,
@@ -43,6 +61,21 @@ public static class MatchOperator
         }
     }
 
+    /// <summary>
+    ///     Performs a match on a <see cref="ResultType{T}" />, executing the success
+    ///     handler when it is an <see cref="OkResultType{T}" />, otherwise executing
+    ///     the error handler
+    /// </summary>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="onSuccess">The success handler</param>
+    /// <param name="onError">The error handler</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output type</typeparam>
+    /// <returns>The output of the executed handler</returns>
+    /// <exception cref="UnsupportedResultTypeException{TIn}">
+    ///     The input result is not
+    ///     one of the results provided by the library
+    /// </exception>
     [DebuggerStepperBoundary]
     public static async Task<TOut> Match<TIn, TOut>(
         this ResultType<TIn> result,
@@ -83,6 +116,17 @@ public static class MatchOperator
         }
     }
 
+    /// <summary>
+    ///     Performs a match on a <see cref="ResultType{T}" />, executing the success
+    ///     handler when it is an <see cref="OkResultType{T}" />, otherwise executing
+    ///     the error handler
+    /// </summary>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="onSuccess">The success handler</param>
+    /// <param name="onError">The error handler</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output type</typeparam>
+    /// <returns>The output of the executed handler</returns>
     [DebuggerStepperBoundary]
     public static async Task<TOut> Match<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
@@ -93,6 +137,17 @@ public static class MatchOperator
         return result.Match(onSuccess, onError);
     }
 
+    /// <summary>
+    ///     Performs a match on a <see cref="ResultType{T}" />, executing the success
+    ///     handler when it is an <see cref="OkResultType{T}" />, otherwise executing
+    ///     the error handler
+    /// </summary>
+    /// <param name="resultTask">The <see cref="ResultType{T}" /></param>
+    /// <param name="onSuccess">The success handler</param>
+    /// <param name="onError">The error handler</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
+    /// <typeparam name="TOut">The output type</typeparam>
+    /// <returns>The output of the executed handler</returns>
     [DebuggerStepperBoundary]
     public static async Task<TOut> Match<TIn, TOut>(
         this Task<ResultType<TIn>> resultTask,
@@ -103,6 +158,15 @@ public static class MatchOperator
         return await result.Match(onSuccess, onError);
     }
 
+    /// <summary>
+    ///     Performs a match on a <see cref="ResultType{T}" />, executing the success
+    ///     handler when it is an <see cref="OkResultType{T}" />, otherwise executing
+    ///     the error handler
+    /// </summary>
+    /// <param name="result">The <see cref="ResultType{T}" /></param>
+    /// <param name="onSuccess">The success handler</param>
+    /// <param name="onError">The error handler</param>
+    /// <typeparam name="TIn">The input result value's type</typeparam>
     [DebuggerStepperBoundary]
     public static void Match<TIn>(
         this ResultType<TIn> result,
