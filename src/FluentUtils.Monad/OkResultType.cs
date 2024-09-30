@@ -11,11 +11,7 @@
 /// <typeparam name="T">The value type</typeparam>
 public sealed record OkResultType<T> : ResultType<T>
 {
-    /// <summary>
-    ///     Do not use directly
-    /// </summary>
-    /// <param name="value">The value of the result</param>
-    internal OkResultType(T value)
+    internal OkResultType(T value, ILogger? logger = null)
     {
         Value = value;
     }

@@ -43,7 +43,7 @@ public static class PipeOperator
                         result.ValueType.Name,
                         outputType);
 
-                    return output;
+                    return Result.Ok(output, result.Logger);
                 }
                 catch (UnwrapPanicException ex)
                 {
@@ -53,7 +53,7 @@ public static class PipeOperator
                         result.ValueType.Name,
                         outputType);
 
-                    return ex.Error;
+                    return Result.Error<TOut>(ex.Error, result.Logger);
                 }
                 catch (Exception ex)
                 {
@@ -63,10 +63,12 @@ public static class PipeOperator
                         result.ValueType.Name,
                         outputType);
 
-                    return MonadErrors.FailedToPipeValue(ex, pipeExpression);
+                    return Result.Error<TOut>(
+                        MonadErrors.FailedToPipeValue(ex, pipeExpression),
+                        result.Logger);
                 }
             },
-            Result.Error<TOut>);
+            error => Result.Error<TOut>(error, result.Logger));
     }
 
     /// <summary>
@@ -106,7 +108,7 @@ public static class PipeOperator
                         result.ValueType.Name,
                         outputType);
 
-                    return output;
+                    return await Result.OkAsync(output, result.Logger);
                 }
                 catch (Exception ex)
                 {
@@ -116,10 +118,12 @@ public static class PipeOperator
                         result.ValueType.Name,
                         outputType);
 
-                    return MonadErrors.FailedToPipeValue(ex, pipeExpression);
+                    return await Result.ErrorAsync<TOut>(
+                        MonadErrors.FailedToPipeValue(ex, pipeExpression),
+                        result.Logger);
                 }
             },
-            Result.ErrorAsync<TOut>);
+            error => Result.ErrorAsync<TOut>(error, result.Logger));
     }
 
     /// <summary>

@@ -7,6 +7,7 @@ public static partial class Result
     ///     <see cref="ResultType{T}" />.
     /// </summary>
     /// <param name="factory">The factory method to invoke.</param>
+    /// <param name="logger">An optional <see cref="ILogger" /> instance</param>
     /// <param name="factoryExpression">
     ///     The string representation of the factory
     ///     method.
@@ -18,19 +19,20 @@ public static partial class Result
     /// </returns>
     public static ResultType<T> Bind<T>(
         Func<T> factory,
+        ILogger? logger = default,
         [CallerArgumentExpression(nameof(factory))]
         string factoryExpression = "")
     {
         try
         {
             T output = factory();
-            return Ok(output);
+            return Ok(output, logger);
         }
         catch (Exception ex)
         {
             Error error =
                 MonadErrors.FailedToBindFactory(ex, factoryExpression);
-            return Error<T>(error);
+            return Error<T>(error, logger);
         }
     }
 
@@ -39,6 +41,7 @@ public static partial class Result
     ///     <see cref="ResultType{T}" />.
     /// </summary>
     /// <param name="asyncFactory">The asynchronous factory method to invoke.</param>
+    /// <param name="logger">An optional <see cref="ILogger" /> instance</param>
     /// <param name="factoryExpression">
     ///     The string representation of the factory
     ///     method.
@@ -51,19 +54,20 @@ public static partial class Result
     /// </returns>
     public static async Task<ResultType<T>> Bind<T>(
         Func<Task<T>> asyncFactory,
+        ILogger? logger = default,
         [CallerArgumentExpression(nameof(asyncFactory))]
         string factoryExpression = "")
     {
         try
         {
             T output = await asyncFactory();
-            return await OkAsync(output);
+            return await OkAsync(output, logger);
         }
         catch (Exception ex)
         {
             Error error =
                 MonadErrors.FailedToBindFactory(ex, factoryExpression);
-            return await ErrorAsync<T>(error);
+            return await ErrorAsync<T>(error, logger);
         }
     }
 }

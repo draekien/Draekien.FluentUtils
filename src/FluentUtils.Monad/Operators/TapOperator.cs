@@ -47,10 +47,12 @@ public static class TapOperator
                     result.Logger.LogWarning(
                         ex,
                         "An exception occured while invoking the side effect");
-                    return MonadErrors.FailedToTapValue(ex, tapExpression);
+                    return Result.Error<TIn>(
+                        MonadErrors.FailedToTapValue(ex, tapExpression),
+                        result.Logger);
                 }
             },
-            Result.Error<TIn>);
+            error => Result.Error<TIn>(error, result.Logger));
     }
 
     /// <summary>
@@ -96,10 +98,12 @@ public static class TapOperator
                     result.Logger.LogWarning(
                         ex,
                         "An exception occured while invoking the side effect");
-                    return MonadErrors.FailedToTapValue(ex, tapExpression);
+                    return await Result.ErrorAsync<TIn>(
+                        MonadErrors.FailedToTapValue(ex, tapExpression),
+                        result.Logger);
                 }
             },
-            Result.ErrorAsync<TIn>);
+            error => Result.ErrorAsync<TIn>(error, result.Logger));
     }
 
     /// <summary>
@@ -143,9 +147,9 @@ public static class TapOperator
             {
                 TIn value = await valueTask;
                 tap(value);
-                return await Result.OkAsync(value);
+                return await Result.OkAsync(value, result.Logger);
             },
-            Result.ErrorAsync<TIn>);
+            error => Result.ErrorAsync<TIn>(error, result.Logger));
     }
 
     /// <summary>
@@ -171,8 +175,8 @@ public static class TapOperator
             {
                 TIn value = await valueTask;
                 await tap(value);
-                return await Result.OkAsync(value);
+                return await Result.OkAsync(value, result.Logger);
             },
-            Result.ErrorAsync<TIn>);
+            error => Result.ErrorAsync<TIn>(error, result.Logger));
     }
 }

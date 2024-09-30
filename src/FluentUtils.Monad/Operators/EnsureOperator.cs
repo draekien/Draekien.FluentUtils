@@ -58,10 +58,12 @@ public static class EnsureOperator
                         "Value of type {ValueType} does not satisfy predicate",
                         result.ValueType.Name);
 
-                    return MonadErrors.FailedPredicate(predicateExpression, ex);
+                    return Result.Error<TIn>(
+                        MonadErrors.FailedPredicate(predicateExpression, ex),
+                        result.Logger);
                 }
             },
-            Result.Error<TIn>);
+            error => Result.Error<TIn>(error, result.Logger));
     }
 
     /// <summary>
@@ -118,9 +120,11 @@ public static class EnsureOperator
                         "Value of type {ValueType} does not satisfy predicate",
                         result.ValueType.Name);
 
-                    return MonadErrors.FailedPredicate(predicateExpression, ex);
+                    return await Result.ErrorAsync<TIn>(
+                        MonadErrors.FailedPredicate(predicateExpression, ex),
+                        result.Logger);
                 }
             },
-            Result.ErrorAsync<TIn>);
+            error => Result.ErrorAsync<TIn>(error, result.Logger));
     }
 }
