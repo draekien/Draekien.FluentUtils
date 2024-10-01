@@ -1,16 +1,16 @@
-﻿namespace FluentUtils.Monad.UnitTests.Extensions;
+﻿namespace FluentUtils.Monad.UnitTests.Operators;
 
 using AutoFixture;
 using AutoFixture.AutoNSubstitute;
 using Exceptions;
 using FluentAssertions;
-using Monad.Extensions;
+using Monad.Operators;
 
-public class UnwrapAsyncTests
+public class UnwrapOperatorTests
 {
     private readonly Fixture _fixture;
 
-    public UnwrapAsyncTests()
+    public UnwrapOperatorTests()
     {
         _fixture = new Fixture();
         _fixture.Customize(new AutoNSubstituteCustomization());
@@ -25,7 +25,7 @@ public class UnwrapAsyncTests
         Task<ResultType<ITestType>> okResult = Result.OkAsync(value);
 
         // Act
-        ITestType result = await okResult.UnwrapAsync();
+        ITestType result = await okResult.Unwrap();
 
         // Assert
         result.Should().Be(value);
@@ -33,7 +33,7 @@ public class UnwrapAsyncTests
 
     [Fact]
     public async Task
-        GivenErroResult_WhenInvokingUnwrapAsync_ThenThrowUnwrapPanicException()
+        GivenErrorResult_WhenInvokingUnwrapAsync_ThenThrowUnwrapPanicException()
     {
         // Arrange
         var error = _fixture.Freeze<Error>();
@@ -42,9 +42,9 @@ public class UnwrapAsyncTests
             Result.ErrorAsync<ITestType>(error);
 
         // Act + Assert
-        await okResult.Invoking(x => x.UnwrapAsync())
-           .Should()
-           .ThrowAsync<UnwrapPanicException>()
-           .WithMessage(error.ToString());
+        await okResult.Invoking(x => x.Unwrap())
+                      .Should()
+                      .ThrowAsync<UnwrapPanicException>()
+                      .WithMessage(error.ToString());
     }
 }

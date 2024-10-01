@@ -1,6 +1,6 @@
 ﻿namespace FluentUtils.Monad.Samples;
 
-using Extensions;
+using Operators;
 
 internal class Example
 {

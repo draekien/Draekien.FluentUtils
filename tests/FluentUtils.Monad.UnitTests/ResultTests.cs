@@ -2,7 +2,7 @@ namespace FluentUtils.Monad.UnitTests;
 
 using AutoFixture;
 using FluentAssertions;
-using Monad.Extensions;
+using Monad.Operators;
 using NSubstitute;
 
 public class ResultTests
@@ -73,7 +73,7 @@ public class ResultTests
     public async Task WhenInvokingBindAsync_ThenReturnOkResult()
     {
         ResultType<bool> result =
-            await Result.BindAsync(() => Task.FromResult(true));
+            await Result.Bind(() => Task.FromResult(true));
 
         result.Should().BeOfType<OkResultType<bool>>();
         result.Unwrap().Should().BeTrue();
@@ -83,7 +83,7 @@ public class ResultTests
     public async Task
         GivenException_WhenInvokingBindAsync_ThenReturnErrorResult()
     {
-        ResultType<bool> result = await Result.BindAsync(
+        ResultType<bool> result = await Result.Bind(
             () =>
             {
                 throw new InvalidOperationException();

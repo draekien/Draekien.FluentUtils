@@ -1,3 +1,1 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("FluentUtils.Monad.UnitTests")]
+﻿[assembly: InternalsVisibleTo("FluentUtils.Monad.UnitTests")]

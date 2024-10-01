@@ -14,22 +14,14 @@
 /// </typeparam>
 public sealed record ErrorResultType<T> : ResultType<T>
 {
-    internal ErrorResultType(Error error)
+    internal ErrorResultType(Error error, ILogger? logger = null)
     {
         Error = error;
+        if (logger is not null) Logger = logger;
     }
 
     /// <summary>
     ///     The <see cref="Error" />
     /// </summary>
     public Error Error { get; }
-
-    /// <summary>
-    ///     Converts a <see cref="ErrorResultType{TOut}" /> of type T to
-    ///     a type of <see cref="TOut" />, preserving the error inside the result
-    /// </summary>
-    /// <typeparam name="TOut">The output type</typeparam>
-    /// <returns>A <see cref="ErrorResultType{TOut}" /> where T is the output type</returns>
-    public ResultType<TOut> To<TOut>() =>
-        new ErrorResultType<TOut>(Error);
 }
