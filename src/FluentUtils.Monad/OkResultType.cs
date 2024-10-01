@@ -14,6 +14,7 @@ public sealed record OkResultType<T> : ResultType<T>
     internal OkResultType(T value, ILogger? logger = null)
     {
         Value = value;
+        if (logger is not null) Logger = logger;
     }
 
     internal T Value { get; }
