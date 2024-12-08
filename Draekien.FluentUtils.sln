@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad.Samples",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monad.UnitTests", "tests\FluentUtils.Monad.UnitTests\FluentUtils.Monad.UnitTests.csproj", "{1C96330F-BAFB-4839-BB66-3702B63FD8CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentUtils.Monads", "src\FluentUtils.Monads\FluentUtils.Monads.csproj", "{248F214F-2577-4E1D-9B0D-3453689E9B9F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +176,10 @@ Global
 		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C96330F-BAFB-4839-BB66-3702B63FD8CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{248F214F-2577-4E1D-9B0D-3453689E9B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{248F214F-2577-4E1D-9B0D-3453689E9B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{248F214F-2577-4E1D-9B0D-3453689E9B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{248F214F-2577-4E1D-9B0D-3453689E9B9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,5 +214,6 @@ Global
 		{E05C05D5-56F3-462B-8862-2659CD370B8B} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 		{13EC36FE-D6A0-4CBC-B8CE-5D317C95BA6B} = {1C830121-6036-4217-A15B-56D24D828F5F}
 		{1C96330F-BAFB-4839-BB66-3702B63FD8CA} = {7FAB5149-A4E2-4437-801B-45FBC1122EC6}
+		{248F214F-2577-4E1D-9B0D-3453689E9B9F} = {9949BF8F-D969-45E2-956F-C7DC5D8D3544}
 	EndGlobalSection
 EndGlobal
