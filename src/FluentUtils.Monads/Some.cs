@@ -3,12 +3,10 @@
     using System;
     using JetBrains.Annotations;
 
-    /// <summary>
-    ///     Some value of type <typeparamref name="T" />
-    /// </summary>
+    /// <summary>Some value of type <typeparamref name="T" /></summary>
     /// <typeparam name="T">
-    ///     The type belonging to the value inside the
-    ///     <see cref="Some{T}" />
+    /// The type belonging to the value inside the
+    /// <see cref="Some{T}" />
     /// </typeparam>
     public sealed class Some<T> : IOption<T>
     {
@@ -44,6 +42,12 @@
         public TOut Match<TOut>(
             Func<T, TOut> onSome,
             Func<TOut> onNone) => onSome(Value);
+
+        /// <inheritdoc />
+        public void Match(Action<T> onSome, Action onNone)
+        {
+            onSome(Value);
+        }
 
         /// <inheritdoc />
         public T Expect(string message) =>

@@ -3,9 +3,7 @@
     using System;
     using Exceptions;
 
-    /// <summary>
-    ///     No value of type <typeparamref name="T" />.
-    /// </summary>
+    /// <summary>No value of type <typeparamref name="T" />.</summary>
     /// <typeparam name="T">The option value's type.</typeparam>
     public sealed class None<T> : IOption<T>
     {
@@ -29,11 +27,18 @@
             Func<TOut> onNone) => onNone();
 
         /// <inheritdoc />
+        public void Match(Action<T> onSome, Action onNone)
+        {
+            onNone();
+        }
+
+        /// <inheritdoc />
         public T Expect(string message) =>
             throw new UnmetExpectationException(message);
 
         /// <inheritdoc />
-        public T Unwrap() => throw UnwrapException.For(this);
+        public T Unwrap() =>
+            throw new UnwrapException("Unwrap called for a `None` value.");
 
         /// <inheritdoc />
         public T UnwrapOr(T value) =>

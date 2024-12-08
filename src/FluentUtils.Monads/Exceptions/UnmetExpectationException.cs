@@ -11,5 +11,10 @@
             string message,
             Exception innerException) : base(message, innerException)
         { }
+
+        internal static UnmetExpectationException For<TValue>(
+            string message,
+            TValue value) =>
+            new UnmetExpectationException($"{message}: {value}");
     }
 }
