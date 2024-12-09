@@ -3,9 +3,19 @@
     /// <summary>Static methods for <see cref="IResult{TOk,TErr}" /></summary>
     public static class Result<TOk, TErr>
     {
+        /// <summary>
+        /// Creates an <see cref="Ok{TOk,TErr}" /> result containing the provided
+        /// value.
+        /// </summary>
+        /// <param name="value">The value of the result type.</param>
         public static IResult<TOk, TErr> Ok(TOk value) =>
             new Ok<TOk, TErr>(value);
 
+        /// <summary>
+        /// Creates an <see cref="Err{TOk,TErr}" /> result containing the provided
+        /// value.
+        /// </summary>
+        /// <param name="value">The value of the result type.</param>
         public static IResult<TOk, TErr> Err(TErr value) =>
             new Err<TOk, TErr>(value);
     }
