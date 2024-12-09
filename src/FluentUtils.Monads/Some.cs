@@ -1,24 +1,14 @@
-﻿#if NET
-#nullable enable
-#endif
-namespace FluentUtils.Monads;
+﻿namespace FluentUtils.Monads;
 
 using System;
-#if NETSTANDARD
-    using JetBrains.Annotations;
-#endif
 
 /// <summary>Some value of type <typeparamref name="T" /></summary>
 /// <typeparam name="T">
 /// The type belonging to the value inside the
 /// <see cref="Some{T}" />
 /// </typeparam>
-#if NET
 public sealed class Some<T> : IOption<T>
     where T : notnull
-#else
-    public sealed class Some<T> : IOption<T>
-#endif
 {
     internal Some(T value)
     {
@@ -31,9 +21,6 @@ public sealed class Some<T> : IOption<T>
         Value = value;
     }
 
-#if NETSTANDARD
-        [NotNull]
-#endif
     private T Value { get; }
 
     /// <inheritdoc />

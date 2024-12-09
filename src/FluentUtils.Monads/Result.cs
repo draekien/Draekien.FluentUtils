@@ -1,7 +1,4 @@
-﻿#if NET
-#nullable enable
-#endif
-namespace FluentUtils.Monads;
+﻿namespace FluentUtils.Monads;
 
 /// <summary>Static methods for <see cref="IResult{TOk,TErr}" /></summary>
 public static class Result<TOk, TErr>

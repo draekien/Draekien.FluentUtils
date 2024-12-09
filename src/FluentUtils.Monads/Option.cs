@@ -1,7 +1,4 @@
-﻿#if NET
-#nullable enable
-#endif
-namespace FluentUtils.Monads;
+﻿namespace FluentUtils.Monads;
 
 /// <summary>Static functions for <see cref="IOption{T}" /></summary>
 public static class Option

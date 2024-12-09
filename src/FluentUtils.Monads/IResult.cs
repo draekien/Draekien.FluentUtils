@@ -1,7 +1,4 @@
-﻿#if NET
-#nullable enable
-#endif
-namespace FluentUtils.Monads;
+﻿namespace FluentUtils.Monads;
 
 using System;
 using Exceptions;
