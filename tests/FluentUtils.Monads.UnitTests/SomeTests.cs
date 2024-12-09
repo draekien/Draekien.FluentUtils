@@ -169,4 +169,21 @@ public sealed class SomeTests
         IOption<int> result = some.Filter(x => x == 2);
         result.Should().Be(Option.None<int>());
     }
+
+    [Fact]
+    public void GivenSome_AndSome_WhenZip_ThenReturnSome()
+    {
+        IOption<int> some1 = Option.Some(1);
+        IOption<int> some2 = Option.Some(2);
+        IOption<(int, int)> result = some1.Zip(some2);
+        result.Should().Be(Option.Some((1, 2)));
+    }
+
+    [Fact]
+    public void GivenSome_AndNone_WhenZip_ThenReturnNone()
+    {
+        IOption<int> some = Option.Some(1);
+        IOption<(int, int)> result = some.Zip(Option.None<int>());
+        result.Should().Be(Option.None<(int, int)>());
+    }
 }
