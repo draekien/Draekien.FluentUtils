@@ -27,7 +27,6 @@
                 inner => inner,
                 Result<TOk, TErr>.Err);
 
-
         /// <summary>
         /// Transposes a <c>result</c> of an <c>option</c> into an <c>option</c>
         /// of a <c>result</c>

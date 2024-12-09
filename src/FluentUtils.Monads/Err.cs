@@ -3,6 +3,9 @@
     using System;
     using Exceptions;
 
+    /// <summary>An error result</summary>
+    /// <typeparam name="TOk">The ok result value's type</typeparam>
+    /// <typeparam name="TErr">The error result value's type</typeparam>
     public sealed class Err<TOk, TErr> : IResult<TOk, TErr>
     {
         internal Err(TErr value)
