@@ -5,7 +5,7 @@ using Exceptions;
 
 /// <summary>No value of type <typeparamref name="T" />.</summary>
 /// <typeparam name="T">The option value's type.</typeparam>
-public sealed class None<T> : IOption<T>
+public sealed record None<T> : IOption<T>
     where T : notnull
 {
     /// <inheritdoc />

@@ -7,7 +7,7 @@ using System;
 /// The type belonging to the value inside the
 /// <see cref="Some{T}" />
 /// </typeparam>
-public sealed class Some<T> : IOption<T>
+public sealed record Some<T> : IOption<T>
     where T : notnull
 {
     internal Some(T value)

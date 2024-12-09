@@ -6,7 +6,7 @@ using Exceptions;
 /// <summary>An ok result type</summary>
 /// <typeparam name="TOk">The ok result value's type</typeparam>
 /// <typeparam name="TErr">The error result value's type</typeparam>
-public sealed class Ok<TOk, TErr> : IResult<TOk, TErr>
+public sealed record Ok<TOk, TErr> : IResult<TOk, TErr>
     where TOk : notnull where TErr : notnull
 {
     internal Ok(TOk value)
