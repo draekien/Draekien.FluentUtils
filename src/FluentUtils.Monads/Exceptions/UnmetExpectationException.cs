@@ -1,20 +1,19 @@
-﻿namespace FluentUtils.Monads.Exceptions
+﻿namespace FluentUtils.Monads.Exceptions;
+
+using System;
+
+/// <summary>
+/// An exception that is thrown with a <see cref="None{T}" /> or
+/// <see cref="Err{TOk,TErr}" /> is encountered when invoking an <c>Expect</c>
+/// function.
+/// </summary>
+public sealed class UnmetExpectationException : SystemException
 {
-    using System;
+    internal UnmetExpectationException(string message) : base(message)
+    { }
 
-    public sealed class UnmetExpectationException : SystemException
-    {
-        public UnmetExpectationException(string message) : base(message)
-        { }
-
-        public UnmetExpectationException(
-            string message,
-            Exception innerException) : base(message, innerException)
-        { }
-
-        internal static UnmetExpectationException For<TValue>(
-            string message,
-            TValue value) =>
-            new UnmetExpectationException($"{message}: {value}");
-    }
+    internal static UnmetExpectationException For<TValue>(
+        string message,
+        TValue value) =>
+        new($"{message}: {value}");
 }
